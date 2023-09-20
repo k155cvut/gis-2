@@ -43,7 +43,7 @@
    ```
 2. Otevřít naklonovanou složku ve VSCode
    ```
-   cd dprz
+   cd gis-2
    code .
    ```
 3. Otevřít terminál ve VSCode (CTRL + SHIT + ;)
