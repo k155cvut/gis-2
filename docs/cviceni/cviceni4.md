@@ -30,4 +30,4 @@ Riziko vzniku lavin nastává na otevřených plochách bez většího vegetačn
 - DMR5G
 - CORINE Land Cover 2018
 
-## Zadání domácího úkolu k semestrální práci
+## Postup
