@@ -1,4 +1,4 @@
-# QGIS 1
+# ArcPy
 
 ## Cíl cvičení
 

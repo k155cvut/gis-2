@@ -1,4 +1,4 @@
-# ModelBuilder (opakování všech předchozích cvičení, ale trochu víc automatizovaně), Batch Processing
+# Vzdálenostní analýzy
 
 ## Cíl cvičení
 

@@ -1,4 +1,4 @@
-# QGIS 2
+# Skriptování v ArcGIS Pro
 
 ## Cíl cvičení
 

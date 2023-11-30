@@ -1,4 +1,4 @@
-# Ukázky webové prezentace map, Experience Builder, Instant Apps, Dashboards
+# Síťové analýzy 2
 
 ## Cíl cvičení
 
