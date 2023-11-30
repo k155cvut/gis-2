@@ -4,10 +4,6 @@
 
 ArcČR 500 je digitální vektorová geografická databáze České republiky, zpracována na úrovni podrobnosti 1 : 500 000. Navazuje na podobné databáze, zpracované firmou Esri. Obsahem databáze jsou přehledné geografické informace o ČR. Data umožňují široké spektrum prostorových analýz a vizualizace a poskytují možnost propojení na statistická data.
 
-## [Císařské otisky stabilního katastru](<https://geoportal.cuzk.cz/(S(1v4m40zfva0uax45kgek0z45))/default.aspx?mode=TextMeta&side=dSady_archiv&metadataID=CZ-CUZK-COC-R&menu=2901> "Odkaz na stažení")
-
-Jedná se o mapy z let 1826-1843, původně určené k archivaci v Centrálním archivu pozemkového katastru ve Vídni, odkud byly po vzniku Československé republiky v rámci archivní rozluky předány do Prahy. Na rozdíl od tzv. originálních map stabilního katastru zachycují původní stav krajiny bez dodatečného zákresu pozdějších změn. Dodnes patří ze strany badatelů k nejžádanějším a nejvyužívanějším archiváliím ÚAZK. Pro území Čech je archivováno cca 8400 katastrálních map na cca 31 tisících mapových listech. V katastrálních územích, pro která se tyto mapy nedochovaly, jsou postupně nahrazovány originálními mapami stabilního katastru.
-
 ## [Státní mapa 1 : 5 000 – odvozená](https://geoportal.cuzk.cz/(S(be3r4r2uzrecpufzskg2ngre))/Default.aspx?mode=TextMeta&side=dSady_archiv&metadataID=CZ-CUZK-SMO5-R&head_tab=sekce-02-gp&menu=2905> "Odkaz na stažení")
 
 Státní mapa 1 : 5 000 – odvozená, vydávaná postupně od roku 1950, byla zamýšlena jako provizorium. Pro první vydání byl polohopis odvozen z katastrálních map a výškopis z nejvhodnějších existujících podkladů, například z topografických map v systému S-1952, v případě nezbytnosti i z topografických sekcí 3. vojenského mapování. Polohopis zobrazoval sídla, dopravní síť, vodstvo, lesy, správní hranice a značkami místopisné podrobnosti, jako jsou mosty, kříže, sochy, komíny, věže apod., vše v šedé barvě. Výškopis byl znázorněn vrstevnicemi v závislosti na použitých výškopisných podkladech, výškovými kótami a podle potřeby technickým nebo topografickým šrafováním včetně popisu v barvě hnědé. Grafické provedení mapového rámu se v průběhu vydávání map lišilo, u prvního vydání jsou na jednoduchém přímkovém rámu vyznačeny rysky rovinné souřadnicové sítě Křovákova zobrazení v půlkilometrovém intervalu. Až do roku 1990 tyto mapy nebyly určeny veřejnosti, ale směly se používat pouze pro vnitřní potřebu státních orgánů a socialistických organizací. Do produktu jsou zařazovány kromě skenů postupných vydání Státní mapy 1 : 5 000 – odvozené i skeny mladších map neodvozených (zdroj: ČÚZK).
@@ -20,57 +16,8 @@ Digitální model reliéfu České republiky 5. generace (DMR 5G) představuje z
 
 Registr územní identifikace, adres a nemovitostí (RÚIAN) je jedním ze základních registrů veřejné správy. Je veřejným seznamem, nevede žádné osobní údaje a je jedinečným zdrojem adres nejen pro veřejnou správu. Obsahuje také údaje o územních prvcích, územně evidenčních jednotkách a jejich vzájemných vazbách.
 
-## Kód, skripty
+## [CLC](https://land.copernicus.eu/en/products/corine-land-cover> "Odkaz na stažení")
 
-### Codeblocks
+Na počátku 80. let 20. století Evropská komise uznala potřebu komplexního, podrobného a harmonizovaného souboru údajů o půdním pokryvu a využití půdy na evropském kontinentu. V té době byly národní mapy půdního pokryvu často nekonzistentní a neporovnatelné napříč hranicemi, což téměř znemožňovalo sledování evropského životního prostředí v kontinentálním měřítku. V reakci na to Evropská komise zahájila program CORINE (Coordination of Information on the Environment), jehož cílem bylo vyvinout standardizovanou metodiku pro tvorbu map zemského pokryvu, biotopů a kvality ovzduší v kontinentálním měřítku. V roce 1990 byla vytvořena první datová sada CORINE Land Cover. Od té doby se stala stěžejní součástí služby Evropské agentury pro životní prostředí Copernicus Land Monitoring Service, kde již více než tři desetiletí poskytuje základní informace o evropském půdním pokryvu/využití půdy.
 
-Some `code` goes here.
-
-### Plain codeblock
-
-A plain codeblock:
-
-```
-Some code here
-def myfunction()
-// some comment
-```
-
-#### Code for a specific language
-
-Some more code with the `py` at the start:
-
-```py
-import tensorflow as tf
-def whatever()
-```
-
-#### With a title
-
-```py title="bubble_sort.py"
-def bubble_sort(items):
-    for i in range(len(items)):
-        for j in range(len(items) - 1 - i):
-            if items[j] > items[j + 1]:
-                items[j], items[j + 1] = items[j + 1], items[j]
-```
-
-#### With line numbers
-
-```py linenums="1"
-def bubble_sort(items):
-    for i in range(len(items)):
-        for j in range(len(items) - 1 - i):
-            if items[j] > items[j + 1]:
-                items[j], items[j + 1] = items[j + 1], items[j]
-```
-
-#### Highlighting lines
-
-```py hl_lines="2 3"
-def bubble_sort(items):
-    for i in range(len(items)):
-        for j in range(len(items) - 1 - i):
-            if items[j] > items[j + 1]:
-                items[j], items[j + 1] = items[j + 1], items[j]
-```
+Ve své současné podobě nabízí produkt CORINE Land Cover (CLC) celoevropskou evidenci půdního pokryvu a využití půdy se 44 tematickými třídami, od rozsáhlých lesních ploch až po jednotlivé vinice. Produkt je každých šest let aktualizován o nové vrstvy stavu a změn - poslední aktualizace byla provedena v roce 2018. CLC slouží mnoha uživatelům a má téměř neomezené potenciální i skutečné využití, včetně monitorování životního prostředí, územního plánování, hodnocení změny klimatu a krizového řízení.
