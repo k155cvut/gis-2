@@ -19,7 +19,6 @@ nav:
   - Semestrální práce: semestralka.md
   - Výuková videa: videa.md
   - Kvíz: quiz.md
-
 plugins:
   - search
   - glightbox:
@@ -37,6 +36,7 @@ plugins:
       caption_position: bottom
 theme:
   name: material
+  favicon: assets/favicon.png
   features:
     - navigation.tabs
     # - navigation.tabs.sticky
@@ -71,6 +71,8 @@ extra:
     - icon: fontawesome/brands/instagram
       link: https://www.instagram.com/geomatics.ctu
 copyright: <a href="https://geomatics.fsv.cvut.cz" target="_blank">Katedra geomatiky</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;2023
+extra_css:
+  - stylesheets/extra.css
 markdown_extensions:
   - attr_list
   - md_in_html
