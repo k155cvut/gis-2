@@ -1,3 +1,7 @@
+---
+icon: material/numeric-10-box
+---
+
 # ArcPy
 
 ## Cíl cvičení

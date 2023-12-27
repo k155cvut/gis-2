@@ -1,3 +1,7 @@
+---
+icon: material/numeric-1-box
+---
+
 <style>
   .md-typeset__scrollwrap {text-align: center;}                                                      /* Zarovnani tabulek na stred */
   /* tbody {width: 100%;display: table;}                                                             /* Roztazeni tabulek na celou sirku */

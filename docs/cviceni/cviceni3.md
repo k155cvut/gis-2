@@ -1,3 +1,7 @@
+---
+icon: material/numeric-3-box
+---
+
 # Tvorba digitálního modelu terénu
 
 ## Cíl cvičení

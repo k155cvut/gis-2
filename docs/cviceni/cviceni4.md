@@ -1,3 +1,7 @@
+---
+icon: material/numeric-4-box
+---
+
 # Topografická analýza povrchu, reklasifikace rastrových dat
 
 ## Cíl cvičení

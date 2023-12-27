@@ -1,3 +1,7 @@
+---
+icon: custom/vc-numeric-12-box
+---
+
 # rezerva
 
 ## Cíl cvičení

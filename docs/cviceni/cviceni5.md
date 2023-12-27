@@ -1,3 +1,7 @@
+---
+icon: material/numeric-5-box
+---
+
 # Interpolace rastrových dat
 
 ## Cíl cvičení

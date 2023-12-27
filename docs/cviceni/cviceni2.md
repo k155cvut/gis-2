@@ -1,3 +1,7 @@
+---
+icon: material/numeric-2-box
+---
+
 # Suitability modelling + zadání semestrální práce
 
 ## Cíl cvičení

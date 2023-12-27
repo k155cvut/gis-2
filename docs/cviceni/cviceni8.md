@@ -1,3 +1,7 @@
+---
+icon: material/numeric-8-box
+---
+
 # Síťové analýzy 1
 
 ## Cíl cvičení

@@ -2,18 +2,18 @@ site_name: 155GIS2
 nav:
   - Charakterisika předmětu: index.md
   - Cvičení:
-      - Cvičení 1: cviceni/cviceni1.md
-      - Cvičení 2: cviceni/cviceni2.md
-      - Cvičení 3: cviceni/cviceni3.md
-      - Cvičení 4: cviceni/cviceni4.md
-      - Cvičení 5: cviceni/cviceni5.md
-      - Cvičení 6: cviceni/cviceni6.md
-      - Cvičení 7: cviceni/cviceni7.md
-      - Cvičení 8: cviceni/cviceni8.md
-      - Cvičení 9: cviceni/cviceni9.md
-      - Cvičení 10: cviceni/cviceni10.md
-      - Cvičení 11: cviceni/cviceni11.md
-      - Cvičení 12: cviceni/cviceni12.md
+      - ModelBuilder, Batch processing: cviceni/cviceni1.md
+      - Suitability modelling: cviceni/cviceni2.md
+      - Tvorba digitálního modelu terénu: cviceni/cviceni3.md
+      - Topografická analýza povrchu, reklasifikace rastrových dat: cviceni/cviceni4.md
+      - Interpolace rastrových dat: cviceni/cviceni5.md
+      - Mapová algebra: cviceni/cviceni6.md
+      - Vzdálenostní analýzy: cviceni/cviceni7.md
+      - Síťové analýzy 1: cviceni/cviceni8.md
+      - Výpočetní nástroje QGIS: cviceni/cviceni9.md
+      - ArcPy: cviceni/cviceni10.md
+      - Skriptování v ArcGIS Pro: cviceni/cviceni11.md
+      - rezerva: cviceni/cviceni12.md
   - Data: data.md
   - Hodnocení: hodnoceni.md
   - Semestrální práce: semestralka.md
@@ -36,6 +36,7 @@ plugins:
       caption_position: bottom
 theme:
   name: material
+  custom_dir: overrides
   favicon: assets/favicon.png
   features:
     - navigation.tabs
@@ -90,5 +91,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.mark
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
