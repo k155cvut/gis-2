@@ -25,7 +25,7 @@ rovin polohově překrývajících trojúhelníků. Používá se pro interpolac
      Aporoximace musí procházet zadanými body.
 
 ## Použité datové podklady
-- ArcČR v3.3
+- VyskoveKoty ([ArcČR 500](../../data/#arccr-500))
 
 ## Náplň cvičení
 Pomocí interpolačních algoritmů nad zadanými daty vytvořte digitální model terénu. Jednotlivé algority vzájemně porovnejte a následně posuďte výhody a nevýhody každého z nich. Výstupy algoritmů je možné oříznout např. polygonem ČR funkcí *Extract by Mask*
