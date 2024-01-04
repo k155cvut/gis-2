@@ -10,7 +10,7 @@ Ve cvičení se naučíte
 
 <style>
     .smaller_padding li {padding:.4rem .8rem !important;}
-    .primary_color {color:var(--md-primary-fg-color); }
+    .primary_color {color:var(--md-primary-fg-color);}
 </style>
 
 <div class="grid cards smaller_padding" markdown>
