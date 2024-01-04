@@ -1,5 +1,6 @@
 ---
 icon: material/numeric-3-box
+title: Cvičení 3
 ---
 
 # Tvorba digitálního modelu terénu

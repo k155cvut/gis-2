@@ -1,5 +1,6 @@
 ---
 icon: material/numeric-2-box
+title: Cvičení 2
 ---
 
 # Suitability modelling + zadání semestrální práce

@@ -1,4 +1,4 @@
-site_name: 155GIS2
+site_name: GIS 2 (1552GIS)
 nav:
   - Charakterisika předmětu: index.md
   - Cvičení:
@@ -38,6 +38,9 @@ theme:
   name: material
   custom_dir: overrides
   favicon: assets/favicon.png
+  logo: assets/favicon.svg
+  icon:
+    annotation: material/plus-circle
   features:
     - navigation.tabs
     # - navigation.tabs.sticky
@@ -49,20 +52,21 @@ theme:
     - content.tabs.link
     - content.code.annotation
     - content.code.copy
+    - content.tooltips
   language: cs
   palette:
     - scheme: default
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
-      primary: red
-      accent: purple
+      primary: custom
+      accent: custom
     - scheme: slate
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
-      primary: red
-      accent: yellow
+      primary: custom
+      accent: custom
 extra:
   social:
     - icon: fontawesome/brands/twitter
@@ -71,9 +75,10 @@ extra:
       link: https://www.facebook.com/geomatics.ctu
     - icon: fontawesome/brands/instagram
       link: https://www.instagram.com/geomatics.ctu
-copyright: <a href="https://geomatics.fsv.cvut.cz" target="_blank">Katedra geomatiky</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;2023
+copyright: <a href="https://geomatics.fsv.cvut.cz" target="_blank">Katedra geomatiky</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;2024
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/css-v1.0.4.css
 markdown_extensions:
   - attr_list
   - md_in_html
@@ -96,3 +101,6 @@ markdown_extensions:
       options:
         custom_icons:
           - overrides/.icons
+  # https://www.neoteroi.dev/mkdocs-plugins/
+  - neoteroi.cards
+  - abbr
