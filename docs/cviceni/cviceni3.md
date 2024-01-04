@@ -2,7 +2,7 @@
 icon: material/numeric-3-box
 ---
 
-# Tvorba digitálního modelu terénu
+# Zpracování LAS
 
 ## Cíl cvičení
 
@@ -11,5 +11,3 @@ icon: material/numeric-3-box
 ## Použité datové podklady
 
 ## Náplň cvičení
-
-## Zadání domácího úkolu k semestrální práci
