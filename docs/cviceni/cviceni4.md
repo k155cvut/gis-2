@@ -1,5 +1,6 @@
 ---
 icon: material/numeric-4-box
+title: Cvičení 4
 ---
 
 # Topografická analýza povrchu, reklasifikace rastrových dat
