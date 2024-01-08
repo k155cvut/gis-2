@@ -51,9 +51,9 @@
    ```
    pip install mkdocs-material --user
    ```
-5. Instalace MkDocs Glightbox pluginu
+5. Instalace MkDocs Glightbox pluginu a dalších závislostí
    ```
-   pip install mkdocs-glightbox
+   pip install mkdocs-glightbox pillow cairosvg neoteroi-mkdocs
    ```
 7. Spuštění lokálního webového serveru (sleduje změny v kódu a znovu generuje stránku)
    ```
