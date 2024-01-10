@@ -3,8 +3,8 @@ nav:
   - Charakterisika předmětu: index.md
   - Cvičení:
       - ModelBuilder, Batch processing: cviceni/cviceni1.md
-      - Suitability modelling: cviceni/cviceni2.md
-      - Tvorba digitálního modelu terénu: cviceni/cviceni3.md
+      - Tvorba digitálního modelu terénu: cviceni/cviceni2.md
+      - Zpracování LAS: cviceni/cviceni3.md
       - Topografická analýza povrchu, reklasifikace rastrových dat: cviceni/cviceni4.md
       - Interpolace rastrových dat: cviceni/cviceni5.md
       - Mapová algebra: cviceni/cviceni6.md
