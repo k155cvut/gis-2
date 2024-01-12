@@ -9,14 +9,13 @@ nav:
       - Interpolace rastrových dat: cviceni/cviceni5.md
       - Mapová algebra: cviceni/cviceni6.md
       - Vzdálenostní analýzy: cviceni/cviceni7.md
-      - Síťové analýzy 1: cviceni/cviceni8.md
+      - Síťové analýzy: cviceni/cviceni8.md
       - Výpočetní nástroje QGIS: cviceni/cviceni9.md
       - ArcPy: cviceni/cviceni10.md
       - Skriptování v ArcGIS Pro: cviceni/cviceni11.md
       - rezerva: cviceni/cviceni12.md
   - Data: data.md
   - Hodnocení: hodnoceni.md
-  - Semestrální práce: semestralka.md
   - Výuková videa: videa.md
   - Kvíz: quiz.md
 plugins:
