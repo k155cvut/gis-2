@@ -24,13 +24,7 @@ Ve cvičení se naučíte
 -   :material-map-marker-distance:{ .xxxl .middle }
     {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
     
-    vytvářet a pracovat s __network datasety__{: .primary_colorx}
-    {.middle style="display:table-cell;line-height:normal;"}
-
--   :material-nature-people-outline:{ .xxxl .middle }
-    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
-
-    vytvářet a pracovat s __network datasety__{: .primary_colorx}
+    najít __nejrychlejší__ a __optimální__{: .primary_colorx} trasu
     {.middle style="display:table-cell;line-height:normal;"}
 
 </div>
@@ -95,7 +89,7 @@ Některé z hlavních otázek, které lze pomocí síťové analýzy v GIS řeš
 
 <hr class="level-1">
 
-### Network dataset
+### **Network dataset**
 Network datasety se skládají ze síťových prvků (*network elements*). Síťové prvky se vytvářejí ze zdrojových prvků použitých k vytvoření network datasetu, např. třídy prvků obsahující údaje o silnicích. Geometrie zdrojových prvků pomáhá vytvořit propojení v datové sadě sítě, aby ji bylo možné použít pro analýzu.
 
 Existují tři hlavní typy síťových prvků:
@@ -135,10 +129,3 @@ Síťové prvky mají atributy, které řídí navigaci v síti. Pro analýzu js
   ![Network elements attributes](../assets/cviceni8/AttributesDescribeElements.png)
   <figcaption>Atributy síťových prvků.</figcaption>
 </figure>
-
-
-## Použité datové podklady
-
-## Náplň cvičení
-
-## Zadání domácího úkolu k semestrální práci
