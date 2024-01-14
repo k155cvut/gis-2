@@ -5,7 +5,7 @@ title: Cvičení 8
 
 # Síťové analýzy
 
-Ve cvičení se naučíte TBA TBA
+Ve cvičení se naučíte
 {: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
 
 <style>
@@ -15,34 +15,37 @@ Ve cvičení se naučíte TBA TBA
 
 <div class="grid cards smaller_padding" markdown>
 
--   :material-map-marker-distance:{ .xxxl .middle }
-    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
-    
-    že "__jak daleko od sebe__{: .primary_colorx}" znamená mnohem více než počet kilometrů mezi místy na mapě
-    {.middle style="display:table-cell;line-height:normal;"}
-
 -   :material-graph-outline:{ .xxxl .middle }
     {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
 
-    jak lze analýzou vzdáleností vytvořit sofistikovanější __modely blízkých a vzdálených míst__{: .primary_colorx}
+    vytvářet a pracovat s __network datasety__{: .primary_colorx}
+    {.middle style="display:table-cell;line-height:normal;"}
+
+-   :material-map-marker-distance:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+    
+    vytvářet a pracovat s __network datasety__{: .primary_colorx}
     {.middle style="display:table-cell;line-height:normal;"}
 
 -   :material-nature-people-outline:{ .xxxl .middle }
     {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
 
-    jak aplikovat koncepty analýzy vzdáleností k zodpovězení __reálných otázek__ týkajících se pohybu v krajině
+    vytvářet a pracovat s __network datasety__{: .primary_colorx}
     {.middle style="display:table-cell;line-height:normal;"}
 
 </div>
 
-## Cíl cvičení
+<hr class="level-1">
 
 ## Základní pojmy
 
-## Použité datové podklady
+Síťová analýza v geografických informačních systémech umožňuje řešit různé otázky spojené s propojením bodů v prostoru pomocí sítě. Narozdíl od vzdálenostních analýz nepracují síťové analýzy s rastrovými, ale __vektorovými daty__{: .primary_color} (resp. používáme tzv. __network dataset__{: .primary_color})
 
-## Náplň cvičení
-Síťová analýza v geografických informačních systémech umožňuje řešit různé otázky spojené s propojením bodů v prostoru pomocí sítě. Narozdíl od vzdálenostních analýz pracujeme s vektorovými daty (resp. používáme tzv. __Network dataset__{: .primary_color})
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+      *Network datasety* se používají k modelování reálných dopravních sítí. Obsahují nejen umístění a atributy ulic a dálnic, ale také informace o jejich vzájemném vztahu. Silnice mohou být propojené, mohou mít povolené nebo zakázané odbočky a mohou poskytovat další podrobnosti, které ovlivňují, jaké cestovní trasy jsou možné a jak dlouho může cesta trvat.
+
+      [What is a network dataset?](https://pro.arcgis.com/en/pro-app/latest/help/analysis/networks/what-is-network-dataset-.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+      {: .button_array}
 
 Některé z hlavních otázek, které lze pomocí síťové analýzy v GIS řešit, zahrnují:
 
@@ -74,6 +77,15 @@ Některé z hlavních otázek, které lze pomocí síťové analýzy v GIS řeš
    nejbližší hasičské stanice, které zasahují při požáru
   image: ../assets/cviceni8/Fire.png
 
+- title: OD matice
+  content: Analýza matice nákladů mezi výchozími a cílovými místy (*Origin-destination cost matrix*) vypočítá __nejméně nákladné__ síťové cesty z __výchozích__ míst do __cílových míst__. Jejím výstupem jsou liniové prvky, které spojují výchozí místa s místy určení. Každý liniový prvek ukládá celkové síťové náklady na cestu jako hodnotu atributu.
+  image: ../assets/cviceni8/OD_cost_matrix.png
+
+- title: Lokační a alokační analýza
+  content: Tzv. *Location-allocation* analýza __pomáhá vybrat__, která __zařízení__ ze sady vstupních mají být provozována __na základě__ jejich potenciální __interakce s místy poptávky__.<br><br><em class="primary_color no_dec"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8Z"></path></svg></span> například</em>
+   kde otevřít novou pobočku podniku pro maximalizovaci podílu na trhu
+  image: ../assets/cviceni8/location-allocation1.png
+
 ::/cards::
 
 <style>
@@ -83,5 +95,50 @@ Některé z hlavních otázek, které lze pomocí síťové analýzy v GIS řeš
 
 <hr class="level-1">
 
+### Network dataset
+Network datasety se skládají ze síťových prvků (*network elements*). Síťové prvky se vytvářejí ze zdrojových prvků použitých k vytvoření network datasetu, např. třídy prvků obsahující údaje o silnicích. Geometrie zdrojových prvků pomáhá vytvořit propojení v datové sadě sítě, aby ji bylo možné použít pro analýzu.
+
+Existují tři hlavní typy síťových prvků:
+
+1. __Hrany__ (*edges*) se připojují k ostatním prvkům pomocí křižovatek a jsou spojnicemi, po kterých cestují agenti. Lineární třídy zdrojových prvků se v souboru síťových dat stávají prvky hran. Hrany jsou také směrové, takže může existovat jak hrana Od-do, tak hrana Do-od.
+
+2. __Křižovatky__ (*junctions*) spojují hrany a usnadňují navigaci z jedné hrany na druhou. Křižovatky pocházejí z vrcholů nebo bodových prvků, které představují křižovatky ulic v silniční síti.
+
+3. __Odbočky__ (*turns*) uchovávají informace, které mohou ovlivnit pohyb mezi dvěma nebo více hranami.
+
+<figure markdown>
+  ![Network elements](../assets/cviceni8/network-elements.png)
+  <figcaption>Základní prvky netowrk dataetů</figcaption>
+</figure>
+
+Hrany a spoje (křižovatky) tvoří základní strukturu každé sítě. Odbočky jsou nepovinné prvky, které uchovávají informace o pohybu v síti určitým směrem. Například odbočení doprava může být omezeno z jedné konkrétní hrany na jinou.
+
+Síťové prvky mají atributy, které řídí navigaci v síti. Pro analýzu jsou atributy nezbytné a slouží k uchovávání podrobností a vlastností o souboru síťových dat. Existují čtyři druhy atributů:
+
+1. __Náklady__ (*cost*) fungují jako překážky (impedance), které penalizují průchod přes prvek v síti. Síťové datové sady musí mít alespoň jeden nákladový atribut. Pokud existuje ve třídě prvků číselné pole reprezentující délku nebo čas, lze pole použít k vytvoření atributu nákladů.
+    
+    <em class="primary_color no_dec"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8Z"></path></svg></span> například</em> doba jízdy, délka úseku, povrch silnice (štěrkové cesty versus zpevněné)
+
+2. __Deskriptory__ (*descriptor*) obsahují obecné informace, na které se často odkazuje jeden z ostatních tří typů atributů, a slouží k výpočtu jejich hodnot.
+    
+    <em class="primary_color no_dec"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8Z"></path></svg></span> například</em> počet jízdních pruhů, rychlostní limit
+
+3. __Omezení__ (*restriction*) zakazují projíždět určitými okraji (cestami) v určitých směrech. Atribut omezení je buď zapnutý, nebo vypnutý, tj. omezený, nebo průjezdný.
+    
+    <em class="primary_color no_dec"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8Z"></path></svg></span> například</em> jednosměrná ulice, výstavba silnice, uzavírky, omezení jízdy
+
+4. __Hierarchie__ (*hieararchy*) rozlišuje mezi typy silnic, což usnadňuje analýzu sítě, a umožňuje přiřadit souboru síťových dat prioritu.
+    
+    <em class="primary_color no_dec"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8Z"></path></svg></span> například</em> prioritní použití širších či rychlejších silnic, dálnice, magistrály, hlavní trasy, vedlejší trasy, vedlejší ulice
+
+<figure markdown>
+  ![Network elements attributes](../assets/cviceni8/AttributesDescribeElements.png)
+  <figcaption>Atributy síťových prvků.</figcaption>
+</figure>
+
+
+## Použité datové podklady
+
+## Náplň cvičení
 
 ## Zadání domácího úkolu k semestrální práci
