@@ -1,7 +1,7 @@
 
 # GIS 2 {: .page_title}
 
-Předmět navazující na [předchozí kurz](https://k155cvut.github.io/gis-1/) představuje hlubší ponoření do světa geografických informačních systémů. Zaměřuje se na pokročilejší dovednosti v manipulaci s __rastrovými daty__, __interpolaci__, __rastrovou algebru__ nebo __tvorbu digitálních modelů terénu__. Pokračuje úvodem do __vzdálenostních__ a __síťových analýz__, které pomáhají nacházet nejkratší a nejlevnější cesty mezi lokacemi s využitím tzv. rastru nákladů. Opět je využíván především program __:simple-arcgis: ArcGIS Pro__, nicméně pestrosti přidá i zmínka o podobných procesech ve free programu __:simple-qgis: QGIS__.
+Předmět navazující na [předchozí kurz](https://k155cvut.github.io/gis-1/ "GIS 1 (1551GIS)") představuje hlubší ponoření do světa geografických informačních systémů. Zaměřuje se na pokročilejší dovednosti v manipulaci s __rastrovými daty__, __interpolaci__, __rastrovou algebru__ nebo __tvorbu digitálních modelů terénu__. Pokračuje úvodem do __vzdálenostních__ a __síťových analýz__, které pomáhají nacházet nejkratší a nejlevnější cesty mezi lokacemi s využitím tzv. rastru nákladů. Opět je využíván především program __:simple-arcgis: ArcGIS Pro__, nicméně pestrosti přidá i zmínka o podobných procesech ve free programu __:simple-qgis: QGIS__.
 
 Kurz vrcholí seznámením s __ArcPy__, knihovnou Pythonu systému ArcGIS, která posouvá __automatizaci GIS úloh__ na ještě vyšší úroveň. Vytvářením vlastních skriptů se student stává __expertem pro efektivní manipulaci a analýzu prostorových dat__.
 
@@ -107,3 +107,4 @@ odkaz pro připojení kalendáře: [:material-calendar-month:](https://outlook.o
 
 
 <br><br><br>
+

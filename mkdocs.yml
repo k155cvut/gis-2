@@ -103,3 +103,5 @@ markdown_extensions:
   # https://www.neoteroi.dev/mkdocs-plugins/
   - neoteroi.cards
   - abbr
+  - pymdownx.tabbed:
+      alternate_style: true
