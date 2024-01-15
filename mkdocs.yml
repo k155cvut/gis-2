@@ -1,6 +1,6 @@
 site_name: GIS 2 (1552GIS)
 nav:
-  - Charakterisika předmětu: index.md
+  - Charakteristika předmětu: index.md
   - Cvičení:
       - ModelBuilder, Batch processing: cviceni/cviceni1.md
       - Tvorba digitálního modelu terénu: cviceni/cviceni2.md
