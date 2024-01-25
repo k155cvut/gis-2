@@ -20,9 +20,9 @@ rovin polohově překrývajících trojúhelníků. Používá se pro interpolac
 - [**Kriging**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/kriging.htm)
 
 ???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     Interpolace nemusí procházet zadanými body.
+     **Interpolace** nemusí procházet zadanými body.
 
-     Aporoximace musí procházet zadanými body.
+     **Aporoximace** musí procházet zadanými body.
 
 ## Použité datové podklady
 - VyskoveKoty ([ArcČR 500](../../data/#arccr-500))
