@@ -369,3 +369,51 @@ cesty musí mít vysoký náklad, protože mě na nich někdo může vidět - vy
 
 
 doplňková informace - Corridor analysis, jen pro zajímavost, obrázky, co to je atd. je to v traning 4 část 3 -->
+
+## Úlohy k procvičení
+
+!!! task-fg-color "Úlohy"
+
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    ``K155\Public\data\GIS\ArcCR500 3.3``.
+
+    1. Ve které obci Ústeckého kraje je největší plocha území v okolí
+       komunikací 1.tříd, kde hrozí možnost sesuvů (poměr
+       sklon_v_procentech / vzdálenost_od_komunikace je větší než 0.3
+       jednotek) okolního terénu do anebo od komunikace. Jaká je výměra
+       tohoto území?
+
+    2. Najděte optimální trasu pro přesun dřeva lesem z místa těžby
+       (výšková kóta OBJECTID 765 - Hradišťany) na odvozová místa u cest
+       (obec Lukov a Želkovice v Ústeckém kraji). Jaké jsou časové
+       vzdálenosti pro nejkratší nalezené cesty? 
+
+           Podmínky:
+
+           - trasa nesmí vést po svahu o sklonu větším jak 15 stupňů
+           - přesun po území se sklonem 0-5 stupňů zabere 1 časovou jednotku
+           - přesun po území se sklonem 5-10 stupňů zabere 4 časové jednotky
+           - přesun po území se sklonem 10-15 stupňů zabere 16 časových jednotek
+
+
+    3. Jaká je délka nalazených tras po terénu v metrech mezi místem těžby
+       a dvěma odvozovými místy vypočítaných v předchozím příkladě?
+
+    4. Kolik procent území v okolí do vzdálenosti 10km od chemického
+       závodu Lovochemie (GPS: 50.5098247N, 14.0741761E) by bylo zasaženo
+       znečištěním větším než 30 jednotek za předpokladu, že se toto
+       znečištění šíří podle vzorce <math>1000/\sqrt{d}</math> (d je
+       vzdálenost v metrech od zdroje, prostorové rozlišení 10m). Zasahuje
+       takto znečištěné území vodní plochy?
+
+    5. Jaká je nejkratší časová vzdálenost mezi výškovou kótou 'Varhošť'
+       (ID 725) a 'Sklářský vrch' (ID 476)? Na území, kde je sklon svahu
+       do 0,5° je rychlost pohybu 6 km/h, kde je sklon 0,5-1° je rychlost
+       4 km/h, kde je sklon 1-5° je rychlost 1 km/h, kde je sklon nad 5°
+       není možné se pohybovat. Vertikální parametry neuvažujte. Výsledek
+       uveďte v minutách?
+
+    6. Jaká je průměrná hodnota hluku (na 3 des. místa) od silnic pro
+       území Moravskoslezského kraje? Hluk se šíří od všech silnic podle
+       vzorce (100/d), kde d je přímá vzdálenost od nejbližší silnice?

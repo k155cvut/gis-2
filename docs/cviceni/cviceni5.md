@@ -148,4 +148,47 @@ Do mapového okna načteme zadaná data a prohlédneme si jejich strukturu v at
   <figcaption>Výstup funkce Kriging</figcaption>
 </figure>
 
+## Úlohy k procvičení
 
+!!! task-fg-color "Úlohy"
+
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Data meteorologických stanic byla převzata
+    z <http://www.in-pocasi.cz>. Na základě ukázkového
+    XML souboru byl vytvořen soubor ve formátu MS Excel, který je ke stažení 
+    jako [zip archiv](https://geo.fsv.cvut.cz/vyuka/155gis2/geodata/gis2-cviceni05.zip).
+
+    1. Na základě naměřené teploty odvoďte rastr metodou IDW (výchozí
+       hodnoty). Jaká je průměrná teplota na území ČR?
+
+    2. Jaká je průměrná teplota v nadmořské výšce větší než 700 m při
+       použití rastru vypočteného metodou Kriging (výchozí hodnoty)?
+
+    3. Jaká je průměrná teplota v nadmořské výšce větší než 700 m při
+       použití rastru vypočteného metodou Spline (výchozí hodnoty)?
+
+    4. Jaká je plocha území v ha, kde je teplota nižší než 3°C (využijte
+       interpolační metodu Natural Neighbor, prostorové rozlišení 100m) a
+       je současně orientováno na jih. Kolik procent tohoto uzemí leží v
+       nadmořské výšce větší než 1000m?
+
+    5. Jaká je interpolovaná hodnota teploty v reprezentačním bodě obce
+       Peruc? (Použijte maximální hodnotu z interpolací Spline, IWD a
+       Kriging, prostorové rozlišení 1000m, na 2 des. místa)?
+
+    6. Vypočítejte pro reprezentační body obcí jejich teplotu. Rastr, ze
+       kterého budete teplotu určovat vypočítejte jako průměr z metod IDW,
+       Kriging a Spline (prostorové rozlišení 1km). Dále určete z takto
+       vypočítaných hodnot průměrné teploty pro kraje. Který z krajů má
+       nejnižší průměrnou teplotu a kolik to je?
+
+    7. Vytvořte dva rastry teplot, které budou obsahovat pro každý pixel
+       minimální, resp. maximální hodnotu z interpolací IDW, Kriging,
+       Spline (výchozí nastavení, prostorové rozlišení 1km). Jaký je
+       rozdíl takto odvozených teplot pro reprezentační bod obce Peruc?
+
+    8. Vytvořte rastr teplot, který vznikne z interpolace IDW (výchozí
+       nastavení, prostorové rozlišní 1km) a následně fokální funkcí jako
+       průměrná hodnota (Focal Mean) z oblasti 5x5 pixelů. Jakou teplotu
+       má oblast odpovídající reprezentačnímu bodu obce Peruc?

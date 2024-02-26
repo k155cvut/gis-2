@@ -192,3 +192,26 @@ Relative Elevation Models [online]. MONTANA STATE LIBRARY [cit. 2024-01-25]. Dos
 
 Relative Elevation Model in ArcGIS Pro [online]. esri video [cit. 2024-01-25]. Dostupné z: [https://mediaspace.esri.com/media/t/1_pn5ltf54](https://mediaspace.esri.com/media/t/1_pn5ltf54)
 
+## Úlohy k procvičení
+
+!!! task-fg-color "Úlohy"
+
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    ``K155\Public\data\GIS\ArcCR500 3.3``.
+    
+    1. Jaká je plocha území v ha s nadmořskou výškou mezi 500 a 700m?
+
+    2. Jaká je výměra území v ha pro kterou platí, že leží v nadmořské
+       výšce nad 700m a má sklon svahu větší než 25 gonů?
+
+    3. Jaký průměrný sklon mají svahy, které jsou vzdáleny do 10km od
+       státní hranice. Jak velký rozdíl to je oproti průměrné hodnotě
+       počítané pro celé území státu?
+
+    4. Jaká je plocha území v ha, kde se sklon limitně blíží k nule?
+
+    5. Vytvořte pomocí Raster Calculatoru rastr, který obsahuje hodnotu 1
+       pro území, kde je nadmořská výška nad 700m a sklon menší než 5°;
+       hodnotu 2, kde je platí, že je nadmořská výška nad 700m a sklon je
+       větší než 5°. Jaká je výměra takto určeného území v ha?

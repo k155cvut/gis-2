@@ -129,3 +129,48 @@ Síťové prvky mají atributy, které řídí navigaci v síti. Pro analýzu js
   ![Network elements attributes](../assets/cviceni8/AttributesDescribeElements.png)
   <figcaption>Atributy síťových prvků.</figcaption>
 </figure>
+
+## Úlohy k procvičení
+
+!!! task-fg-color "Úlohy"
+
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    ``K155\Public\data\GIS\ArcCR500 3.3``.
+
+    Postup:
+    
+    - Vytvoříme feature dataset 'komunikace'
+    - Do tohoto datasetu naimportuje třídu prvků (feature class) 'Silnice' z ArcČR500
+    - Do atributové tabulky nově vytvořené třídy prvků 'Silnice' přidáme sloupec 'rychlost' a na základě délky segmentů ('Shape_Length') vypočítáme čas v minutách nutný pro průjezd segmentu: ``!SHAPE_Length! / ((!rychlost! * 1000) / 60)``
+    - Vytvoříme network dataset
+    
+    Budeme uvažovat následující průměrné rychlosti pro silnice (viz
+    [Wikipedia](http://cs.wikipedia.org/wiki/Omezen%C3%AD_rychlosti_na_pozemn%C3%ADch_komunikac%C3%ADch_v_%C4%8Cesku)):
+    
+    | Typ                 | Průměrná rychlost (km/h) |
+    |---------------------|--------------------------|
+    | Dálnice             |	130                      |
+    | Rychlostní silnice  | 130                      |
+    | Silnice 1.třídy	  | 90                       |
+    | Silnice 2.třídy	  | 80                       |
+    | Silnice 3.třídy	  | 70                       |
+    | Neevidovaná silnice |	60                       |
+    
+    1. Určete na základě datové sady komunikací nejrychlejší cestu z
+       nejvýchodněji položené obce v ČR (Hrčava) do nejzápadněji položené
+       obce (Krásná). Kolik času tato cesta zabere?
+
+    2. Jak je rozdíl v kilometrech nejkratší a nejrychlejší cesty mezi
+       obcemi Hrčava a Krásná z předchozího příkladu. O kolik minut bude
+       trvat déle nejkratší cesta?
+
+    3. O kolik minut se prodlouží nejrychlejší cesta z obce Hrčava do obce
+       Krásná v případě, že se vyhneme dálnicím a území Hlavního města
+       Prahy?
+
+    4. Jaká je výměra území v km^2^, kde je dojezdovost z nejbližšího
+       letiště 3, 5 a 10min (uvažujte pouze komunikace 1.třídy a vyšší,
+       letiště vzdálenější než 5km od nejbližší komunikace do výpočtu
+       nezahrnujte)?
+

@@ -161,3 +161,28 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
 Český úřad zeměměřický a katastrální [online]. [cit. 2024-01-05]. Dostupné z: [https://www.cuzk.cz/](https://www.cuzk.cz/)
 
 Delaunayho triangulace [online]. ZÁPADOČESKÁ UNIVERZITA V PLZNI. [cit. 2024-01-05]. Dostupné z: [http://old.gis.zcu.cz/studium/ugi/cviceni/ch08s01.html](http://old.gis.zcu.cz/studium/ugi/cviceni/ch08s01.html)
+
+## Úlohy k procvičení
+
+!!! task-fg-color "Úlohy"
+
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
+    popisem dat ve formátu PDF.
+
+    1. Vytvořte digitální model reliéfu/povrchu z bodových Lidarových dat.
+
+    2. Vytvořte digitální model terénu ve vektorové (TIN) a rastrové
+       (GRID, prostorové rozlišení 90m) reprezentaci na základě vrstevnic
+       pro okres Litoměřice. Jaká je průměrná nadmořská výška takto
+       vytvořeného DMT?
+
+    3. Vypočítejte DMT s využitím výškových kót, vrstevnic, vodních toků,
+       vodních ploch a státní hranice ČR. Dále vypočítejte DMT pouze s
+       využitím výškových kót, vrstevnic a státní hranice ČR. Oba rastry
+       vytvořte s prostorovým rozlišením 1km. Minimální Z hodnotu nastavte
+       na 0. Jaké jsou průměrné nadmořské výšky takto vytvořených DMT?
+
+    4. Pro území Ústeckého kraje vytvořte rastr s prostorovým rozlišením
+       100m, jehož buňky mají hodnoty s normálním rozdělením.
