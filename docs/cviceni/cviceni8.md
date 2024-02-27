@@ -130,6 +130,28 @@ Síťové prvky mají atributy, které řídí navigaci v síti. Pro analýzu js
   <figcaption>Atributy síťových prvků.</figcaption>
 </figure>
 
+## Cvičení
+1. Stáhněte si volně dostupná data z https://links.esri.com/NetworkAnalyst/TutorialData/Pro
+
+2. Extrahujte stažený soubor, založte nový projekt v ArcGIS Pro a připojte v katalogu extrahovanou složku s daty (pomocí *Folder Connection*). V katalogu pak přidejte třídy prvků *Streets* a *Walking-Paths* z cesty *Tutorial > CreateNetworkDataset > SanDiego.gdb > Transportation*.
+
+3. Prohlédněte si atributové tabulky obou vrstev. Pro budování network datasetu jsou významné zejména následující:
+ - __FT_Minutes, TF_Minutes, KPH, Meters__ udávají náklady na průchod každou hranou; tato pole jsou obvykle typu double nebo float.
+ - __F_ZLEV, T_ZLEV__ určují různé (výškové) úrovně ulic, resp. pomáhají správně vyhodnotit nadjezdy a podjezdy, kde nelze kvůli výškovému rozdílu přímo odbočit z jedné ulice do druhé.
+ - __FUNC_CLASS__ reprezentuje kategorii každé silnice.
+ - __PAVED, AR_PEDEST, AR_BUS, AR_AUTO, DIR_TRAVEL, TF_HeightLimit_Meters, FT_HeightLimit_Meters__ slouží obecně k nastavení omezení, která v určitých situacích brání jízdě po určitých silnicích; často mají hodnoty Y/N nebo např. obsahují údaje o jednosměrnosti (FT/TF) či výškovém limitu vozidla.
+
+ Pozn.: písmena __F__ a __T__ vyskytující se v názvech některých atributů zastupují anglické předložky __FROM__ a __TO__. V některých případech totiž může být nutné rozlišovat pohyb ve směru from-to a to-from po liniovém segmentu.
+
+4. V katalogu pravým klikem nad feature datasetem *Transportation* (cesta: *Tutorial > CreateNetworkDataset > SanDiego.gdb > Transportation*) vybereme *New > Network Dataset*, čímž otevřeme dialogové okno nástroje geoprocessingu *Create Network Dataset*.
+
+<figure markdown>
+  ![Create ND](../assets/cviceni8/CreateND.png)
+  <figcaption>Nástroj na vytvoření Network datasetu.</figcaption>
+</figure>
+
+
+
 ## Úlohy k procvičení
 
 !!! task-fg-color "Úlohy"
