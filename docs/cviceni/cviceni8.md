@@ -170,9 +170,30 @@ Pozn.: písmena __F__ a __T__ vyskytující se v názvech některých atributů 
   <figcaption>Nastavení vertikálního propojení.</figcaption>
 </figure>
 
+**8.** V této části budete do network datasetu přidávat atributy nákladů. Nákladový atribut se používá k modelování impedance (náklady jsou poměrně rozděleny podél celé délky hrany). Na listu *Travel Attributes* v záložce *Costs* je prozatím obsažen jeden automaticky vytvořený náklad: *Length* (logicky vycházející z geometrie). Je nutné změnit editovat sekci *Evaluators* následujícím způsobem:
 
+<figure markdown>
+  ![length](../assets/cviceni8/length.png)
+  <figcaption>Nastavení nákladů pole *Length*.</figcaption>
+</figure>
 
+Dále vytvoříme nový náklad (časový), který pojmenujte *Minutes*, zvolte tytéž jednotky a sekci *Evaluators* vyplňte tímto způsobem:
 
+<figure markdown>
+  ![time](../assets/cviceni8/time.png)
+  <figcaption>Nastavení nákladů pole *Time*.</figcaption>
+</figure>
+
+Ve spodním řádku *Turns* změníme hodnoty *Type* na *Turn Category* a po rozkliknutí výrazu v kolonce *Type* změníme hodnoty *Left Turn* a *Reverse* na 5 vteřin.
+
+<figure markdown>
+  ![turn](../assets/cviceni8/turn.png)
+  <figcaption>Nastavení nákladů pole *Time*.</figcaption>
+</figure>
+
+Veškeré změny potvrďte a zavřete dialogové okno.
+
+TBA
 
 ## Úlohy k procvičení
 
