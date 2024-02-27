@@ -131,24 +131,46 @@ Síťové prvky mají atributy, které řídí navigaci v síti. Pro analýzu js
 </figure>
 
 ## Cvičení
-1. Stáhněte si volně dostupná data z https://links.esri.com/NetworkAnalyst/TutorialData/Pro
+**1.** Stáhněte si volně dostupná data z https://links.esri.com/NetworkAnalyst/TutorialData/Pro
 
-2. Extrahujte stažený soubor, založte nový projekt v ArcGIS Pro a připojte v katalogu extrahovanou složku s daty (pomocí *Folder Connection*). V katalogu pak přidejte třídy prvků *Streets* a *Walking-Paths* z cesty *Tutorial > CreateNetworkDataset > SanDiego.gdb > Transportation*.
+**2.** Extrahujte stažený soubor, založte nový projekt v ArcGIS Pro a připojte v katalogu extrahovanou složku s daty (pomocí *Folder Connection*). V katalogu pak přidejte třídy prvků *Streets* a *Walking-Paths* z cesty *Tutorial > CreateNetworkDataset > SanDiego.gdb > Transportation*.
 
-3. Prohlédněte si atributové tabulky obou vrstev. Pro budování network datasetu jsou významné zejména následující:
- - __FT_Minutes, TF_Minutes, KPH, Meters__ udávají náklady na průchod každou hranou; tato pole jsou obvykle typu double nebo float.
- - __F_ZLEV, T_ZLEV__ určují různé (výškové) úrovně ulic, resp. pomáhají správně vyhodnotit nadjezdy a podjezdy, kde nelze kvůli výškovému rozdílu přímo odbočit z jedné ulice do druhé.
- - __FUNC_CLASS__ reprezentuje kategorii každé silnice.
- - __PAVED, AR_PEDEST, AR_BUS, AR_AUTO, DIR_TRAVEL, TF_HeightLimit_Meters, FT_HeightLimit_Meters__ slouží obecně k nastavení omezení, která v určitých situacích brání jízdě po určitých silnicích; často mají hodnoty Y/N nebo např. obsahují údaje o jednosměrnosti (FT/TF) či výškovém limitu vozidla.
+**3.** Prohlédněte si atributové tabulky obou vrstev. Pro budování network datasetu jsou významné zejména následující:
 
- Pozn.: písmena __F__ a __T__ vyskytující se v názvech některých atributů zastupují anglické předložky __FROM__ a __TO__. V některých případech totiž může být nutné rozlišovat pohyb ve směru from-to a to-from po liniovém segmentu.
+__FT_Minutes, TF_Minutes, KPH, Meters__{.outlined .no_dec} udávají náklady na průchod každou hranou; tato pole jsou obvykle typu double nebo float.
 
-4. V katalogu pravým klikem nad feature datasetem *Transportation* (cesta: *Tutorial > CreateNetworkDataset > SanDiego.gdb > Transportation*) vybereme *New > Network Dataset*, čímž otevřeme dialogové okno nástroje geoprocessingu *Create Network Dataset*.
+__F_ZLEV, T_ZLEV__{.outlined .no_dec} určují různé (výškové) úrovně ulic, resp. pomáhají správně vyhodnotit nadjezdy a podjezdy, kde nelze kvůli výškovému rozdílu přímo odbočit z jedné ulice do druhé.
+
+__FUNC_CLASS__{.outlined .no_dec} reprezentuje kategorii každé silnice.
+
+__PAVED, AR_PEDEST, AR_BUS, AR_AUTO, DIR_TRAVEL, TF_HeightLimit_Meters, FT_HeightLimit_Meters__{.outlined .no_dec} slouží obecně k nastavení omezení, která v určitých situacích brání jízdě po určitých silnicích; často mají hodnoty Y/N nebo např. obsahují údaje o jednosměrnosti (FT/TF) či výškovém limitu vozidla.
+
+Pozn.: písmena __F__ a __T__ vyskytující se v názvech některých atributů zastupují anglické předložky __FROM__ a __TO__. V některých případech totiž může být nutné rozlišovat pohyb ve směru from-to a to-from po liniovém segmentu.
+
+**4.** V katalogu pravým klikem nad feature datasetem *Transportation* (cesta: *Tutorial > CreateNetworkDataset > SanDiego.gdb > Transportation*) vybereme *New > Network Dataset*, čímž otevřeme dialogové okno nástroje geoprocessingu *Create Network Dataset*. Z mapového okna následně odstraňte nově vytvořený network dataset, jinak není možné editovat jeho nastavení.
 
 <figure markdown>
   ![Create ND](../assets/cviceni8/CreateND.png)
   <figcaption>Nástroj na vytvoření Network datasetu.</figcaption>
 </figure>
+
+**5.** Network dataset byl jeprve vytvořen pouze z třídy prvků *Streets*. Nyní do datové sady sítě přidáte *Walking_Pathways* a nastavíte příslušné zásady skupinové a vertikální konektivity pro obě vstupní třídy prvků. Veškeré úpravy budou prováděny přes vlastnosti network datasetu (v katalogu po pravém kliknutí na network dataset vyberte *Properties*).
+
+**6.** V první záložce *Sources* na listu *Source settings* se aktuálně nachází jeden zdroj hran (*edges*) a jeden křižovatek (*junctions*). Zdrojem křižovatek je defaultní třída prvků vytvořená a spravovaná přímo network datasetem. Pomocí *Add/Remove sources/ přidejte *Walking_Pathways*.
+
+<figure markdown>
+  ![Srcs](../assets/cviceni8/sources.png)
+  <figcaption>Nastavení zdrojů.</figcaption>
+</figure>
+
+**7.** Na záložce *Vertical Connectivity** proběhne ošetření různé úrovně ulic. Pro *Streets* a *Walking_Pathways* zvolte atribut F_ZLEV (pro případy *From Node*), resp. T_ZLEV (*To Node*).
+
+<figure markdown>
+  ![Vertical](../assets/cviceni8/vertical.png)
+  <figcaption>Nastavení vertikálního propojení.</figcaption>
+</figure>
+
+
 
 
 
