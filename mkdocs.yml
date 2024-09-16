@@ -15,8 +15,8 @@ nav:
       - Skriptování v ArcGIS Pro: cviceni/cviceni11.md
       - rezerva: cviceni/cviceni12.md
   - Data: data.md
-  - Hodnocení: hodnoceni.md
-  - Výuková videa: videa.md
+#  - Hodnocení: hodnoceni.md
+#  - Výuková videa: videa.md
   - Kvíz: quiz.md
 plugins:
   - search
