@@ -1,0 +1,5 @@
+mkdocs
+mkdocs-material
+cairosvg
+mkdocs-glightbox
+neoteroi-mkdocs
