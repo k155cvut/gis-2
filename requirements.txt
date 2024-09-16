@@ -1,5 +1,6 @@
 mkdocs
 mkdocs-material
+pillow
 cairosvg
 mkdocs-glightbox
 neoteroi-mkdocs
