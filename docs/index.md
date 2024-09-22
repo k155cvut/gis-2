@@ -97,14 +97,8 @@ __prof. Ing. Lena Halounová, CSc.__
 
 ## Harmonogram {: style="margin-bottom:0;"}
 
-odkaz pro připojení kalendáře: [:material-calendar-month:](https://outlook.office365.com/owa/calendar/4aa3e6ac783f4ae6bbcf3a50e0e59f01@fsv.cvut.cz/496c9f7d60b0483a8fb5d920d636374b16197507547842865833/calendar.ics){: .md-button .md-button--primary .button_smaller }
-{: style="color:#aaa;margin-top:0;"}
-
-<iframe src="https://outlook.office365.com/owa/calendar/4aa3e6ac783f4ae6bbcf3a50e0e59f01@fsv.cvut.cz/496c9f7d60b0483a8fb5d920d636374b16197507547842865833/calendar.html" style="border: 0" width="100%" height="600" frameborder="0" scrolling=“no”></iframe>
-
-
-<!-- <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showTitle=1&showTz=0&showCalendars=0&showTabs=0&showPrint=0&showDate=1&showNav=1&title=155GIS1%3A%20GIS%201&src=dHFhajdoNWRiaHFhdjNvbXE2bTRib3I0YTg5dWVkMGRAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23D50000" style="border-width:0" width="100%" height="600" frameborder="0" scrolling="no"></iframe> -->
-
+[![](./assets/index/schedule_light.svg#only-light){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1552GIS/semester/B241){target="_blank"}
+[![](./assets/index/schedule_dark.svg#only-dark){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1552GIS/semester/B241){target="_blank"}
 
 <br><br><br>
 
