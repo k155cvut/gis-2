@@ -91,7 +91,7 @@ for row in rows:
 rows = arcpy.SearchCursor("ObcePolygony")
 for row in rows:
    if row.POCET_OBYV is not None and row.POCET_OBYV > pocet:
-       print("{} - {}".format(row.NAZ_OBEC, row.POCET_OBYV))
+       print("{} - {}".format(row.NAZ_OBEC, int(row.POCET_OBYV)))
 ```
 
 ### Vytvořte soubory ve formátu Esri Shapefile pro jednotlivé kraje
