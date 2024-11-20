@@ -11,8 +11,8 @@ Seznámení s Python balíčkem ArcPy.
 
 ## Základní pojmy
 
-- **Python Window** (View -> Python Window)
-- **Jupyter Notebook** (Insert -> New Notebook)
+- **Python Window** (`View > Python Window`)
+- **Jupyter Notebook** (`Insert > New Notebook`)
 
 Užitečné odkazy:
 
@@ -127,6 +127,8 @@ for row in rows:
             print("{} {}".format(bod.X, bod.Y))
 ```
 
-## Zadání domácího úkolu k semestrální práci
+## Další úlohy k procvičení
 
 1. Pro jednotlivé kraje vytvořte třídy prvků ve formátu FileGDB
+1. Zjistěte, jaká obec v ČR má nejdelší hranici.
+1. Vytvořte funkci, která vrátí počet obcí s menším počet obyvatel než zadaná obec (jako parametr funkce).
