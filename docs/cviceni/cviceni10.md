@@ -54,6 +54,14 @@ Dokumentace:
     <figcaption>Python Window</figcaption>
 </figure>
 
+### Vypište typ geoprvků
+
+```py hl_lines="3"
+inputFC = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
+shapeType = arcpy.Describe(inputFC).shapeType
+print("Shape Type: {}".format(shapeType))
+```
+
 ### Vypište názvy atributů
 
 Následující úlohy již můžeme řešit v prostředí Jupyter Notebooku.
@@ -69,14 +77,6 @@ arcpy.env.workspace = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniC
 data = arcpy.Describe("ObcePolygony")   
 for field in data.fields:
     print(field.name)
-```
-
-### Vypište typ geoprvků
-
-```py hl_lines="3"
-inputFC = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
-shapeType = arcpy.Describe(inputFC).shapeType
-print("Shape Type: {}".format(shapeType))
 ```
 
 ### Vypiště obce, které mají počet obyvatel vyšší než Liberec
