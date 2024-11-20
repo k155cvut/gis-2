@@ -108,7 +108,7 @@ rows = arcpy.SearchCursor(kraje)   #vytvori cursor
 for row in rows:
     nazev = row.KOD_CZNUTS3
     print("{}...".format(nazev))
-    kraje_Select_shp = r"{}\{}".formar(arcpy.env.workspace, nazev)
+    kraje_Select_shp = r"{}\{}".format(arcpy.env.workspace, nazev)
     arcpy.analysis.Select(kraje, kraje_Select_shp, "KOD_CZNUTS3 = '{}'".format(nazev))
 ```
 
@@ -116,14 +116,14 @@ for row in rows:
 
 ```py hl_lines="10"
 arcpy.env.workspace = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb"
- 
+
 obce = "ObcePolygony"
 
 rows = arcpy.SearchCursor(obce, "NAZ_OBEC = 'Lhota'")
 for row in rows:
     print("Prvek {}: ".format(row.NAZ_OBEC))
-    for cast in prvek.SHAPE:
-        for bod in cast:
+    for geom in row.SHAPE:
+        for bod in geom:
             print("{} {}".format(bod.X, bod.Y))
 ```
 
