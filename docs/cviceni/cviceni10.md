@@ -54,6 +54,13 @@ Dokumentace:
     <figcaption>Python Window</figcaption>
 </figure>
 
+Následující úlohy již můžeme řešit v prostředí Jupyter Notebooku.
+
+<figure markdown>
+![CO](../assets/cviceni10/jupyter_notebook.png "Jupyter Notebook"){ width="500" }
+    <figcaption>Jupyter Notebook</figcaption>
+</figure>
+
 ### Vypište typ geoprvků
 
 ```py hl_lines="3"
@@ -63,13 +70,6 @@ print("Shape Type: {}".format(shapeType))
 ```
 
 ### Vypište názvy atributů
-
-Následující úlohy již můžeme řešit v prostředí Jupyter Notebooku.
-
-<figure markdown>
-![CO](../assets/cviceni10/jupyter_notebook.png "Jupyter Notebook"){ width="500" }
-    <figcaption>Jupyter Notebook</figcaption>
-</figure>
 
 ```py hl_lines="5"
 arcpy.env.workspace = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb"
