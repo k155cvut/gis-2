@@ -24,6 +24,7 @@ Přehled dat, které budeme používat:
 
 - [Velkoplošná zvláště chráněná území](https://data.nature.cz/ds/3)  plošné vymezení chráněných oblastí. Data lze načítat přímo ze "ZIP", ale pro další zpracování se doporučuje data rozbalit do pracovního adresáře.
 - rastrová data DMT 100x100m generalizovaná za účelem ukázky
+- výsek z [DMR5G](https://ags.cuzk.cz/geoprohlizec/?atom=dmr5g) pro území obce Zdiby. Data byla stažena přímo od poskytovatele a oříznuta pro rychlejší zpracování území.
 
 ## Náplň cvičení
 
@@ -85,6 +86,36 @@ V tomto prostředí je možné sestavit řetězec algoritmů, které zpracováva
 11. Upravíme nápovědu modelu
 12. Model exportujeme do skriptu
 13. Vyzkoušíme spustít model z panelu nástrojů zpracování
+
+## Simulace výběru pozemků pro výstavbu dle sklonitosti
+
+Zjednodušeně si vyzkoušíme malou část takovéhoto postupu.
+Prvním krokem je stažení a práce s daty DMR5G. Druhá je pak interakce výběr parcel podle požadované sklonitosti.
+
+### DMR5G
+
+Podklady:
+
+- [Práce s 3D daty](https://gismentors.github.io/qgis-pokrocily/3d/index.html)
+- [Terénní analýzy](https://gismentors.github.io/qgis-zacatecnik/rastrova_data/rastr_terenni_analyzy.html)
+
+Prvním krokem je výpočet výškového rastru z dat DMR5G. V nástrojích zpracování vyhledáme nástroj "TIN interpolace". Jedinou vstupní vrstvou jsou body z DMR5G, u kterých používáme jejich Z souřadnici. 
+Požadovaným výstupem bude rastr s velikostí pixelu 2x2m v rozsahu totožném jako je vstupní vrstva. 
+
+Následuje pak výpočet sklonitosti, který najdeme v menu "Rastr"->"Analýza"->"Sklon...". Vstupní vrstva je výstupní výškový rastr z předešlého korku. Další dodatečné nastavení v tomto případě nejsou zapotřebí.
+
+Pro další práci nás zajímají pouze plochy s sklonem menším než 3°. Použijeme nástroj "Reklasifikovat podle tabulky". V pravidlech nastavím reklasifikační hodnotu pro interval 0-3° ->1 a hodnoty mimo rozsah  budou zařazena jako NO_DATA. Výstupné vrstvě změníme symbologii na "Paleta/jedinečné hodnoty" pro mořnost vizuální kontroly výstupu.
+
+V dalším kroku je výhodné převéz vybrané plochy na polygonovou vrstvu. Použijeme nástroj "Převézt na polygony (rastr na vektor)".
+
+Plochy, které jsou menší než 40 000 m2 nejsou pro vybraný účel výstavby vhodné, proto potřebujeme vybrat pouze parcely s plovhou větší než uvedená mezní hodnota. Toto nám umožní atributový dotaz s podmínkou "$area  >=  40000". Vybrané parcely uložíme do samostatné vrstvy.
+
+Pro výběr parcel je vhodné použít data z RÚIANu - stažení dat dle cvičení [GIS1](https://k155cvut.github.io/gis-1/cviceni/cviceni9/).
+
+Následně potřebujeme ořezat parcely plochami s vhodnou svažitostí. Pro tento krok použijeme funkci "CLIP".
+
+
+
 
 ## Zadání domácího úkolu k semestrální práci
 
