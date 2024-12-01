@@ -40,8 +40,11 @@ V panelu "Prohlížeč" si najdeme pracovní adresář se staženými daty. Data
 ![](../assets/cviceni9/nacteni_dat.png "Načtení dat")
 
 Vrstvě nastavíme kategorizovanou symbologii podle atributu "KAT".
+![](../assets/cviceni9/kategorizovana_symbologie.png "Kategorizovaná symbologie")
 
 Základní nástroje jako například obalová zóna jsou k dipozici v horním textovém menu v položce "Vektor", konkrétně obalová zóna je zařazena "Vektor"->"Nástroje geoprocessingu"->"Obalová zóna...". Pracovně si  vygenerujeme obalovou zónu o velikosti 1000m sloučenou pro všechny prvky - "rozpuštěnou".
+![](../assets/cviceni9/buffer1.png "Zadání obalové zóny")
+![](../assets/cviceni9/buffer2.png "Výsledek obalové zóny")
 
 ### Nástoje zpracování
 
@@ -52,10 +55,13 @@ Podklady:
 Menu "Nástroje zpracování" obsahuje širokou nabídku jak základních nástrojů, tak i mnoho dalších možností. Například možnost generování obalové zóny v mnohých variantách. Nástroj "Obalová zóna vektorové vrstvy" ze skupiny GDAL nám umožní rozpustit obalové zóny podle atributu.
 
 Vygenerujeme obalovou zónu vrstvy VZCHU o velikosti 1000 m a parametr pro rozpuštění dle atributu nastavíme na atribut "KAT".
+![](../assets/cviceni9/buffer3.png "Zadání obalové zóny s parametrem")
 
 V symbologii nastavíme částečně průhlednou barvu. Díky překryvu původní kategorizované sybologie a pokročilé obalové zóny si umíme jednoduše zkontrolovat správnost funkcionality.
+![](../assets/cviceni9/buffer4.png "Vizuální kontola zpracování")
 
 Načteme vrstvu DMT, ořežeme podle velkoplošných chráněných území - nástroj "Rastr"->"Extrakce"->"Oříznout rastr podle vrstvy masky". Zároveň použijeme nástroj pro iteraci, který nám vytvoří samostatný výstup pro každý prvek chráněného území.
+![](../assets/cviceni9/dmt_orez.png "Ořezání rstru s iterací")
 
 "Otázka"
 Jaký postup by bylo nutné zvolit, aby správce každého území dostal ořezaný rastr svého území spolu s ochranným pásmem?
@@ -65,6 +71,8 @@ Přidáme další 2 řádky, které vyplníme pouze s rozdílem velikosti obalov
 V posledním sloupečku se nastavuje způsob výstupu. Přes talčítko lze zvolit výstupní soubor, kam zadáme název výstupního GPKG. Náseldně se dialog zeptá na automatickou výplň, kde zvolíme "Vyplnit hodnotami parametru" a vybereme "Vzdálenost obalové zóny". Doporučujeme manuálně upravit na hodnotu bez desetinného místa. 
 Nevýhodou je, že nelze jednoduše uložit do jednoho GPKG jako vícero vrstev.
 Zaškrtneme "Načíst vrstvy po dokončení".
+
+![](../assets/cviceni9/batch_processing.png "Dávkové zpracování")
 
 Veškeré nastavení je v processingovém menu možné upravit. Rovněž je k dispozici historie procesů, odkud lze jednotlivý proces opakovaně spustit se všemi parametry.
 
@@ -81,7 +89,7 @@ V tomto prostředí je možné sestavit řetězec algoritmů, které zpracováva
 3. Přidáme vstupní parametr typu číslo s popisem "počet bodů", vstup bude celočíselný.
 4. Přidáme vstupní parametr typu Rozsah. Díky překladu jsou tam 2 stejné hodnoty, použijeme druhý parametr s popisem "rozsah". Jedná se o parametr typu "Extent".
 5. Přidáme algoritmy (náhodné body v rozsahu). Počet bodů a rozsah provážeme se vstupními parametry z bodu 3. a 4. Nastavíme výstup pro kontrolu.
-7. Model spusttíme a zkontrolujeme zda se výstup generuje dle zadání.
+7. Model spustíme a zkontrolujeme zda se výstup generuje dle zadání.
 8. Model upravíme - přídáme vstupní parametr typu číslo pro zadání velikosti obalové zóny. Popis nastavíme jako "velikost obalové zóny" a nastavíme číslo jako desetinné. Výchozí hodnotu nastavíme jako 1000 (metrů).
 9. Model upravíme - přídáme algoritmus pro obalovou zónu, která vygeneruje obalovou zónu dle zadané velikosti z vygenerovaných bodů.
 10. Model spustíme
