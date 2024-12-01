@@ -37,6 +37,8 @@ začátečníky](https://gismentors.github.io/qgis-zacatecnik) a [QGIS pro pokro
  
 V panelu "Prohlížeč" si najdeme pracovní adresář se staženými daty. Dataset lze načít například "přetažením" datasetu  do mapového okna nebo do panelu vrstev. Načtená data je dobré zkontrolovat, zda se používá sprváný [souřadnicový systém](https://gismentors.github.io/qgis-zacatecnik/intro/import_export.html#vyber-souradnicoveho-systemu).
 
+![](../assets/cviceni9/nacteni_dat.png "Načtení dat")
+
 Vrstvě nastavíme kategorizovanou symbologii podle atributu "KAT".
 
 Základní nástroje jako například obalová zóna jsou k dipozici v horním textovém menu v položce "Vektor", konkrétně obalová zóna je zařazena "Vektor"->"Nástroje geoprocessingu"->"Obalová zóna...". Pracovně si  vygenerujeme obalovou zónu o velikosti 1000m sloučenou pro všechny prvky - "rozpuštěnou".
