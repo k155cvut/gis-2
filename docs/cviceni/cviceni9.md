@@ -7,7 +7,7 @@ title: Cvičení 9
 
 ## Cíl cvičení
 
-Probloubení znalostí platformy QGIS a jeho výpočetních nástrojů.
+Prohloubení znalostí platformy QGIS a jeho výpočetních nástrojů.
 
 ## Základní pojmy
 
@@ -17,8 +17,7 @@ Probloubení znalostí platformy QGIS a jeho výpočetních nástrojů.
 
 ## Použité datové podklady
 
-Cílem je používat data přímo od jejich poskytovatelů. Pro okrajové případy a případ technických problémů je ale připraven balíček již připravených dat.
-- [data](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/8/data.zip)
+Cílem je používat data přímo od jejich poskytovatelů. Pro okrajové případy a případ technických problémů je ale připraven balíček již připravených dat ([data.zip](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/9/data.zip)).
 
 Přehled dat, které budeme používat:
 
@@ -35,7 +34,7 @@ začátečníky](https://gismentors.github.io/qgis-zacatecnik) a [QGIS pro pokro
 ### Opakování základního ovládání a práce v QGIS
 
  
-V panelu "Prohlížeč" si najdeme pracovní adresář se staženými daty. Dataset lze načít například "přetažením" datasetu  do mapového okna nebo do panelu vrstev. Načtená data je dobré zkontrolovat, zda se používá sprváný [souřadnicový systém](https://gismentors.github.io/qgis-zacatecnik/intro/import_export.html#vyber-souradnicoveho-systemu).
+V panelu "Prohlížeč" si najdeme pracovní adresář se staženými daty. Dataset lze načít například "přetažením" datasetu  do mapového okna nebo do panelu vrstev. Načtená data je dobré zkontrolovat, zda se používá správný [souřadnicový systém](https://gismentors.github.io/qgis-zacatecnik/intro/import_export.html#vyber-souradnicoveho-systemu).
 
 ![](../assets/cviceni9/nacteni_dat.png "Načtení dat")
 
@@ -46,7 +45,7 @@ Základní nástroje jako například obalová zóna jsou k dipozici v horním t
 ![](../assets/cviceni9/buffer1.png "Zadání obalové zóny")
 ![](../assets/cviceni9/buffer2.png "Výsledek obalové zóny")
 
-### Nástoje zpracování
+### Nástroje zpracování
 
 Podklady:
 
@@ -57,18 +56,19 @@ Menu "Nástroje zpracování" obsahuje širokou nabídku jak základních nástr
 Vygenerujeme obalovou zónu vrstvy VZCHU o velikosti 1000 m a parametr pro rozpuštění dle atributu nastavíme na atribut "KAT".
 ![](../assets/cviceni9/buffer3.png "Zadání obalové zóny s parametrem")
 
-V symbologii nastavíme částečně průhlednou barvu. Díky překryvu původní kategorizované sybologie a pokročilé obalové zóny si umíme jednoduše zkontrolovat správnost funkcionality.
-![](../assets/cviceni9/buffer4.png "Vizuální kontola zpracování")
+V symbologii nastavíme částečně průhlednou barvu. Díky překryvu původní kategorizované symbologie a pokročilé obalové zóny si umíme jednoduše zkontrolovat správnost funkcionality.
+![](../assets/cviceni9/buffer4.png "Vizuální kontrola zpracování")
 
 Načteme vrstvu DMT, ořežeme podle velkoplošných chráněných území - nástroj "Rastr"->"Extrakce"->"Oříznout rastr podle vrstvy masky". Zároveň použijeme nástroj pro iteraci, který nám vytvoří samostatný výstup pro každý prvek chráněného území.
-![](../assets/cviceni9/dmt_orez.png "Ořezání rstru s iterací")
+![](../assets/cviceni9/dmt_orez.png "Ořezání rastru s iterací")
 
-"Otázka"
-Jaký postup by bylo nutné zvolit, aby správce každého území dostal ořezaný rastr svého území spolu s ochranným pásmem?
+!!! task-fg-color "Otázka"
 
-Další možností je používat nástroje v módu "Dávkové zpracování". Otevřeme nástroj "Obalová zóna vektorové vrstvy" ze skupiny GDAL a pomocí tlačítka "Spustit jako dávkový proces..." se otevře nastavení pro nastavení v řádkovém zápisu. Nastavíme veliksot bufferu na 3km, a rozpuštění podle atributu "KAT". 
+    Jaký postup by bylo nutné zvolit, aby správce každého území dostal ořezaný rastr svého území spolu s ochranným pásmem?
+
+Další možností je používat nástroje v módu "Dávkové zpracování". Otevřeme nástroj "Obalová zóna vektorové vrstvy" ze skupiny GDAL a pomocí tlačítka "Spustit jako dávkový proces..." se otevře nastavení pro nastavení v řádkovém zápisu. Nastavíme velikost bufferu na 3km a rozpuštění podle atributu "KAT". 
 Přidáme další 2 řádky, které vyplníme pouze s rozdílem velikosti obalové zóny na 6km a 10km.
-V posledním sloupečku se nastavuje způsob výstupu. Přes talčítko lze zvolit výstupní soubor, kam zadáme název výstupního GPKG. Náseldně se dialog zeptá na automatickou výplň, kde zvolíme "Vyplnit hodnotami parametru" a vybereme "Vzdálenost obalové zóny". Doporučujeme manuálně upravit na hodnotu bez desetinného místa. 
+V posledním sloupečku se nastavuje způsob výstupu. Přes tlačítko lze zvolit výstupní soubor, kam zadáme název výstupního GPKG. Následně se dialog zeptá na automatickou výplň, kde zvolíme "Vyplnit hodnotami parametru" a vybereme "Vzdálenost obalové zóny". Doporučujeme manuálně upravit na hodnotu bez desetinného místa. 
 Nevýhodou je, že nelze jednoduše uložit do jednoho GPKG jako vícero vrstev.
 Zaškrtneme "Načíst vrstvy po dokončení".
 
@@ -87,40 +87,40 @@ V tomto prostředí je možné sestavit řetězec algoritmů, které zpracováva
 1. Vytvoříme nový model
 2. Nastavíme vlastnosti modelu (název, skupina), model uložíme do souboru.
 
-![](../assets/cviceni9/model_zalozeni.png "Základní nastavení modelu")
+    ![](../assets/cviceni9/model_zalozeni.png "Základní nastavení modelu")
 
 3. Přidáme vstupní parametr typu číslo s popisem "počet bodů", vstup bude celočíselný.
 
-![](../assets/cviceni9/vstup_pocet_bodu.png "Vstupní parametr počet bodů")
+    ![](../assets/cviceni9/vstup_pocet_bodu.png "Vstupní parametr počet bodů")
 
 4. Přidáme vstupní parametr typu Rozsah. Díky překladu jsou tam 2 stejné hodnoty, použijeme druhý parametr s popisem "rozsah". Jedná se o parametr typu "Extent".
 
-![](../assets/cviceni9/vstup_rozsah.png "Vstupní parametr rozsah")
+    ![](../assets/cviceni9/vstup_rozsah.png "Vstupní parametr rozsah")
 
 5. Přidáme algoritmy (náhodné body v rozsahu). Počet bodů a rozsah provážeme se vstupními parametry z bodu 3. a 4. Nastavíme výstup pro kontrolu.
 
-![](../assets/cviceni9/nahodne_body.png "Generování náhodných bodů")
+    ![](../assets/cviceni9/nahodne_body.png "Generování náhodných bodů")
 
 6. Model spustíme a zkontrolujeme zda se výstup generuje dle zadání.
 
-![](../assets/cviceni9/model1.png "Stav modelu před prvním spuštěním")
-![](../assets/cviceni9/model1_vystup.png "Výseldek běhu modelu")
+    ![](../assets/cviceni9/model1.png "Stav modelu před prvním spuštěním")
+    ![](../assets/cviceni9/model1_vystup.png "Výsledek běhu modelu")
 
-7. Model upravíme - přídáme vstupní parametr typu číslo pro zadání velikosti obalové zóny. Popis nastavíme jako "velikost obalové zóny" a nastavíme číslo jako desetinné. Výchozí hodnotu nastavíme jako 1000 (metrů).
+7. Model upravíme - přidáme vstupní parametr typu číslo pro zadání velikosti obalové zóny. Popis nastavíme jako "velikost obalové zóny" a nastavíme číslo jako desetinné. Výchozí hodnotu nastavíme jako 1000 (metrů).
 
-![](../assets/cviceni9/vstup_velikost_buffer.png "Vstupní parametr velikost obalové zóny")
+    ![](../assets/cviceni9/vstup_velikost_buffer.png "Vstupní parametr velikost obalové zóny")
 
-8. Model upravíme - přídáme algoritmus pro obalovou zónu, která vygeneruje obalovou zónu dle zadané velikosti z vygenerovaných bodů.
+8. Model upravíme - přidáme algoritmus pro obalovou zónu, která vygeneruje obalovou zónu dle zadané velikosti z vygenerovaných bodů.
 
-![](../assets/cviceni9/vypocet_buffer.png "Generování obalové zóny")
+    ![](../assets/cviceni9/vypocet_buffer.png "Generování obalové zóny")
 
 9. Model spustíme
-   
-![](../assets/cviceni9/model2.png "Stav modelu po úpravě")
+
+    ![](../assets/cviceni9/model2.png "Stav modelu po úpravě")
 
 10. Upravíme nápovědu modelu
 11. Model exportujeme do skriptu
-12. Vyzkoušíme spustít model z panelu nástrojů zpracování
+12. Vyzkoušíme spustit model z panelu nástrojů zpracování
 
 ## Simulace výběru pozemků pro výstavbu dle sklonitosti
 
@@ -143,15 +143,15 @@ Následuje pak výpočet sklonitosti, který najdeme v menu "Rastr"->"Analýza"-
 
 ![](../assets/cviceni9/sklon.png "Výpočet sklonu")
 
-Pro další práci nás zajímají pouze plochy s sklonem menším než 2°. Použijeme nástroj "Reklasifikovat podle tabulky". V pravidlech nastavím reklasifikační hodnotu pro interval 0-2° ->1 a hodnoty mimo rozsah  budou zařazena jako NO_DATA. Výstupné vrstvě změníme symbologii na "Paleta/jedinečné hodnoty" pro mořnost vizuální kontroly výstupu.
+Pro další práci nás zajímají pouze plochy s sklonem menším než 2°. Použijeme nástroj "Reklasifikovat podle tabulky". V pravidlech nastavím reklasifikační hodnotu pro interval 0-2° ->1 a hodnoty mimo rozsah  budou zařazena jako NO_DATA. Výstupné vrstvě změníme symbologii na "Paleta/jedinečné hodnoty" pro možnost vizuální kontroly výstupu.
 
 ![](../assets/cviceni9/reklasifikace.png "Reklasifikace")
 
-V dalším kroku je výhodné převéz vybrané plochy na polygonovou vrstvu. Použijeme nástroj "Převézt na polygony (rastr na vektor)".
+V dalším kroku je výhodné převézt vybrané plochy na polygonovou vrstvu. Použijeme nástroj "Převézt na polygony (rastr na vektor)".
 
 ![](../assets/cviceni9/raster_to_polygon.png "Převod rastru na polygony")
 
-Plochy, které jsou menší než 40 000 m2 nejsou pro vybraný účel výstavby vhodné, proto potřebujeme vybrat pouze parcely s plovhou větší než uvedená mezní hodnota. Toto nám umožní atributový dotaz s podmínkou "$area  >=  40000". Vybrané parcely uložíme do samostatné vrstvy.
+Plochy, které jsou menší než 40 000 m2 nejsou pro vybraný účel výstavby vhodné, proto potřebujeme vybrat pouze parcely s plochou větší než uvedená mezní hodnota. Toto nám umožní atributový dotaz s podmínkou "$area  >=  40000". Vybrané parcely uložíme do samostatné vrstvy.
 
 ![](../assets/cviceni9/vyber_dle_plochy.png "Výběr ploch dle parametru")
 
@@ -162,9 +162,6 @@ Následně potřebujeme ořezat parcely plochami s vhodnou svažitostí. Pro ten
 ![](../assets/cviceni9/clip_parcel.png "Ořez parcel vybranými polygony")
 ![](../assets/cviceni9/orezane_parcely.png "Výsledné parcely splňující parametry sklonitosti")
 
-
-
-
-## Zadání domácího úkolu k semestrální práci
+## Další úlohy k procvičení
 
 Vytvořte model pro poslední část cvičení (Výběr parcel dle sklonitosti).
