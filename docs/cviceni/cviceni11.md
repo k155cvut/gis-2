@@ -7,7 +7,7 @@ title: Cvičení 11
 
 ## Cíl cvičení
 
-Probloubení znalostí vytváření skriptů v jazyku Python pro platformu ArcGIS Pro.
+Probloubení znalosti vytváření skriptů v jazyku Python pro platformu ArcGIS Pro.
 
 ## Základní pojmy
 
@@ -18,14 +18,14 @@ Probloubení znalostí vytváření skriptů v jazyku Python pro platformu ArcGI
     <figcaption>Registrace skriptu v prostředí ArcGIS Pro</figcaption>
 </figure>
 
-- **PyCharm**
+- **IDE**
 
 <figure markdown>
 ![CO](../assets/cviceni11/pycharm_skript.png "Spuštění skriptu v prostředí Pycharm"){ width="500" }
     <figcaption>Spuštění skriptu v prostředí Pycharm</figcaption>
 </figure>
 
-Zvolte cestu k Python interpretu odkazující na ArcGIS: ``C:\Program
+Ve vašem IDE zvolte cestu k Python interpretu odkazující na ArcGIS: ``C:\Program
 Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe``
 
 ## Použité datové podklady
@@ -33,38 +33,6 @@ Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe``
 - [ArcČR 500](../../data/#arccr-500)
 
 ## Náplň cvičení
-
-### Ukázka vytvoření skriptu
-
-Navážeme na znalosti ArcPy:
-
-```py
-arcpy.env.workspace = r"C:\users\martin\Documents\GIS2"
-
-# vyber a export dalnic
-silnice = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\ArcCR500_v33.gdb\Silnice_2015"
-dalnice = "dalnice.shp"
-arcpy.analysis.Select(silnice, dalnice, "TRIDA = 1")
-
-# buffer kolem dalnic
-buffer_dal = "dalnice_buf.shp"
-vzdalenost = "5000 meters"
-arcpy.analysis.Buffer(dalnice, buffer_dal, vzdalenost, dissolve_option="ALL")
-
-# odstraneni nepotrebnych vrstev
-arcpy.management.Delete(dalnice)
-```
-
-Dokumentace:
-
-* [Select](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm)
-* [Buffer](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/buffer.htm)
-* [Delete](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/delete.htm)
-
-Úkoly:
-
-- Zprovozněte výpočet v Jupyter Notebooku
-- Přepište do formy skriptu a registrujte jej v prostředí ArcGISu (New -> Script)
 
 ### Práce s rastrovými daty pomocí Numpy
 
@@ -104,7 +72,11 @@ array[(array>200)] = 1
 numpy.unique(array, return_counts=True)
 
 # zapis numpy pole do rastru
-vystup = arcpy.NumPyArrayToRaster(array, value_to_nodata=-1)
+arcpy.env.outputCoordinateSystem = dmt
+lowerLeft = arcpy.Point(data.extent.XMin, data.extent.YMin)
+vystup = arcpy.NumPyArrayToRaster(array, lowerLeft,
+                                  x_cell_size=data.meanCellWidth, y_cell_size=data.meanCellHeight,
+                                  value_to_nodata=-1)
 vystup.save(r"C:\users\martin\Documents\dmt200.tif")
 ```
 
@@ -112,6 +84,44 @@ Dokumentace:
 
 - [NumPy](https://numpy.org/)
 * [Working with NumPy in ArcGIS](https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/working-with-numpy-in-arcgis.htm)
+
+### Ukázka vytvoření skriptu
+
+Navážeme na znalosti ArcPy:
+
+```py
+import os
+arcpy.env.workspace = os.environ["HOMEPATH"]
+
+# vyber a export dalnic
+silnice = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\ArcCR500_v33.gdb\Silnice_2015"
+dalnice = "dalnice.shp"
+arcpy.analysis.Select(silnice, dalnice, "TRIDA = 1")
+
+# buffer kolem dalnic
+buffer_dal = "dalnice_buf.shp"
+vzdalenost = "5000 meters"
+arcpy.analysis.Buffer(dalnice, buffer_dal, vzdalenost, dissolve_option="ALL")
+
+# odstraneni nepotrebnych vrstev
+arcpy.management.Delete(dalnice)
+```
+
+Dokumentace:
+
+* [Select](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/select.htm)
+* [Buffer](https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/buffer.htm)
+* [Delete](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/delete.htm)
+
+Úkoly:
+
+1. Zprovozněte výpočet v Jupyter Notebooku
+1. Přepište do formy skriptu a registrujte jej v prostředí ArcGISu
+   (New -> Script) včetně nastavení vstupních parametrů (vstupní třída
+   prvků silnice, cesta k výslednému souboru ve formátu Esri
+   Shapefile).
+   ![CO](../assets/cviceni11/skript_param.png "Nastavení parametrů skriptu"){ width="500" }
+1. Nastavte IDE (PyCharm nebo VS Code) tak, aby šel skript spustit i z něj.
 
 ### Modul ArcGIS
 
@@ -121,7 +131,12 @@ Dokumentace:
 - [ArcGIS GIS module](https://developers.arcgis.com/python/api-reference/arcgis.gis.toc.html)
 - [Documentation and samples for ArcGIS API for Python](https://github.com/Esri/arcgis-python-api)
 
-#### Inicializujeme mapového okna
+<!--
+!!! task-fg-color "Úkol"
+
+    Vyzkoušejte balíček `arcgis` na JupyterHubu: <http://gislab.fsv.cvut.cz:8000>.
+-->
+#### Inicializujeme mapového okno
 
 ```py
 import arcgis
@@ -138,7 +153,7 @@ map2 = gis.map(location='Prague, Czech Republic', zoomlevel = 12)
 map2
 ```
 
-#### Vyhledáme online vrstev podle klíčového slova
+#### Vyhledáme online vrstvy podle klíčového slova
 
 ```py
 from IPython.display import display
@@ -166,6 +181,6 @@ okresy.spatial.plot(map_widget=map1)
 map1
 ```
 
-## Zadání domácího úkolu k semestrální práci
+## Další úlohy k procvičení
 
 Další ukázky skriptů [zde](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/10/arcpy-ulohy/).
