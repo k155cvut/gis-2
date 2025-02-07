@@ -46,11 +46,28 @@ title: Cvičení 1
 
 # ModelBuilder, Batch processing
 
-<hr class="l1">
+Ve cvičení se naučíte
+{: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
 
-## Cíl cvičení
+<style>
+    .smaller_padding li {padding:.4rem .8rem !important;}
+    .primary_color {color:var(--md-primary-fg-color);}
+</style>
 
-Studenti se seznámí s nástrojem ModelBuilder pro automatizaci prostorové analýzy v ArcGIS Pro. Cvičení je koncipováno tak, aby byl pomocí ModelBuilderu řešen stejný postup z vybraných cvičení z předmetu GIS1. Studenti se také seznámí s možností spouštět geoprocessingové funkce dávkově.
+<div class="grid cards smaller_padding" markdown>
+
+-   :octicons-ai-model-16:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+
+    pracovat s nástrojem __ModelBuilder__ pro __automatizaci__ prostorové analýzy v ArcGIS Pro
+    {.middle style="display:table-cell;line-height:normal;"}
+
+-   :material-cog:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+    
+    __dávkové__ spouštění geoprocessingových funkcí
+    {.middle style="display:table-cell;line-height:normal;"}
+</div>
 
 <hr class="l1">
 
@@ -67,8 +84,10 @@ ModelBuilder slouží jako vizuální programovací jazyk pro vytváření geopr
 
 ArcGIS Pro poskytuje efektivní možnost automatizace opakujících se úkolů pomocí dávkového režimu nástrojů pro geoprocessing. Tato funkce umožňuje uživatelům spouštět nástroje s různými vstupními datovými sadami nebo parametry bez nutnosti opakovaně interagovat s aplikací.
 
-![](../assets/cviceni1/BatchProcessing.png){ .no-filter .off-glb }
-{: align=center}
+<figure markdown>
+  ![](../assets/cviceni1/BatchProcessing.png){ width="400" }
+  <figcaption>Dávkový výpočet</figcaption>
+</figure>
 
 Pro ilustraci můžeme použít nástroj "Clip" pro oříznutí několika datových sad do zájmové oblasti. Postupujte následovně:
 
@@ -100,14 +119,14 @@ Shodný postup budeme aplikovat přímo v ModelBuilderu.
 Možnost vytvoření nového modelu nalezneme na záložce Analysis.
 
 <figure markdown>
-![CO](../assets/cviceni1/MB_Analysis.png "Založení modelu"){ width="500" }
+![CO](../assets/cviceni1/MB_Analysis.png){ width="400" }
     <figcaption>Založení modelu</figcaption>
 </figure>
 
 Nový model se nám tak přidá do toolboxu našeho projektu a otevře se v novém okně.
 
 <figure markdown>
-![CO](../assets/cviceni1/MB_Catalog.png "Nový model"){ width="700" }
+![CO](../assets/cviceni1/MB_Catalog.png ){ width="900" }
     <figcaption>Nový model</figcaption>
 </figure>
 
@@ -116,7 +135,7 @@ Nový model se nám tak přidá do toolboxu našeho projektu a otevře se v nov�
 Data přidáme jako položku do ModelBuideru přetažením vrstvy z panelu obsahu do plátna modelu.
 
 <figure markdown>
-![CO](../assets/cviceni1/MB_DragADrop.png "Přidání dat do modelu"){ width="500" }
+![CO](../assets/cviceni1/MB_DragADrop.png){ width="500" }
     <figcaption>Přidání dat do modelu</figcaption>
 </figure>
 
@@ -125,7 +144,7 @@ Data přidáme jako položku do ModelBuideru přetažením vrstvy z panelu obsah
 V sekci vložení na záožce ModelBuilderu můžeme z výběru nástrojů vyhledat požadovaný nástroj a buď pomocí dvojkliku nebo přetažením do modelu se nám v modelu graficky zobrazí. Jelikož však nástroj není napojený na stávající model, zobrazuje se šedou barvou.
 
 <figure markdown>
-![CO](../assets/cviceni1/MB_SBA.png "Výběr prvků atributovým výrazem"){ width="500" }
+![CO](../assets/cviceni1/MB_SBA.png){ width="500" }
     <figcaption>Výběr prvků atributovým výrazem</figcaption>
 </figure>
 
@@ -140,7 +159,7 @@ Pro propojení vstupnách dat s funkcí musíme kliknout na položku dat, na kte
 Po dvojkliku na nástroj (označený žlutou barvou) se zobrazí jeho konfigurace, tak jak ji známe. Můžeme zde tedy vyplnit podmínky.
 
 <figure markdown>
-![CO](../assets/cviceni1/MB_SBAconfig.png "Konfigurační panel nástroje"){ width="400" }
+![CO](../assets/cviceni1/MB_SBAconfig.png){ width="400" }
     <figcaption>Konfigurační panel nástroje</figcaption>
 </figure>
 
@@ -155,7 +174,7 @@ Klikneme-li na výsledek operace (zelený) pravým tlačátkem myši, můžeme z
 Postupně přidáme další geoprocessingové funkce odpovídající cvičení 3 z předmětu GIS1
 
 <figure markdown>
-![CO](../assets/cviceni1/MB_full.png "Celý model"){ width="700" }
+![CO](../assets/cviceni1/MB_full.png){ width="900" }
     <figcaption>Celý model</figcaption>
 </figure>
 
@@ -166,3 +185,17 @@ Nakonec můžeme ze vstupních proměnných vytvořit parametry, které bude už
 {: .process_container}
 
 <figcaption>Zvolení parametrů</figcaption>
+
+## Úlohy k procvičení
+
+!!! task-fg-color "Úlohy"
+
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Pro výpočet úloh využijte Model Builder.
+
+    1. Nalezněte všechny chráněné krajinné oblasti, které se nacházejí do 20 km od dálnice.
+
+    2. Vyberte všechny polygony obcí s počtem obyvatel vyšším než 5000, které patří do Pardubického kraje. Dále zjistěte celkovou rozlohu lesa (v hektarech) na území vybraných obcí.
+
+    3. Vyfiltrujte jednokolejné elektrifikované železnice. Zjistěte, jestli některá ze stanic na jejich trase patří do obce s počtem obyvatel větším než 10 000 obyvatel.

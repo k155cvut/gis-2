@@ -26,9 +26,9 @@ Ve cvičení se naučíte
     
     zpracovat __LiDARová data__{: .primary_colorx} a následně je vizualizovat nebo použít v analýzách
     {.middle style="display:table-cell;line-height:normal;"}
-
-
 </div>
+
+<hr class="level-1">
 
 ## Základní pojmy
 - **digitální model terénu (DMT)** – digitální reprezentace prostorových objektů (obecný pojem obsahující různé způsoby vyjádření terénního reiéfu nebo povrchu)

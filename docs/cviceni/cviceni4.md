@@ -6,8 +6,31 @@ title: Cvičení 4
 
 # Interpolace rastrových dat
 
-## Cíl cvičení
-Představení typů interpolace rastrových dat.
+Ve cvičení se naučíte
+{: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
+
+<style>
+    .smaller_padding li {padding:.4rem .8rem !important;}
+    .primary_color {color:var(--md-primary-fg-color);}
+</style>
+
+<div class="grid cards smaller_padding" markdown>
+
+-   :material-chart-bell-curve-cumulative:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+
+    __interpolovat rastrová data__ různými metodami
+    {.middle style="display:table-cell;line-height:normal;"}
+
+-   :material-grid:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+    
+    úpravu __symbologie__ rastrové interpolace
+    {.middle style="display:table-cell;line-height:normal;"}
+
+</div>
+
+<hr class="level-1">
 
 ## Základní pojmy
 - **Interpolace** – Nalezení neznámé hodnoty určitého jevu na základě známých okolních hodnot.
@@ -17,6 +40,7 @@ rovin polohově překrývajících trojúhelníků. Používá se pro interpolac
 - [**IDW**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/idw.htm)
 - [**Spline**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/spline.htm)
 - [**Natural Neighbor**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/natural-neighbor.htm)
+- [**Nearest Neighbor**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/average-nearest-neighbor.htm)
 - [**Trend**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/trend.htm)
 - [**Kriging**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/kriging.htm)
 
@@ -114,6 +138,13 @@ Do mapového okna načteme zadaná data a prohlédneme si jejich strukturu v at
   <figcaption>Výstup funkce Natural Neighbor</figcaption>
 </figure>
 
+### Nearest Neighbor
+???+ note "&nbsp;<span style="color:#448aff">Nearest Neighbor</span>"
+    Metoda Average Nearest Neighbor (průměrného nejbližšího souseda) měří vzdálenost mezi centroidem každého prvku a centroidem jeho nejbližšího souseda. Tyto vzdálenosti následně zprůměruje.
+
+     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/h-how-average-nearest-neighbor-distance-spatial-st.htm). 
+
+
 
 ### Trend
 ???+ note "&nbsp;<span style="color:#448aff">Trend</span>"
@@ -154,7 +185,7 @@ Do mapového okna načteme zadaná data a prohlédneme si jejich strukturu v at
 !!! task-fg-color "Úlohy"
 
     K řešení následujích úloh použijte datovou sadu [ArcČR
-    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složce
     ``K155\Public\data\GIS\ArcCR500 3.3``. Data meteorologických stanic byla převzata
     z <http://www.in-pocasi.cz>. Na základě ukázkového
     XML souboru byl vytvořen soubor ve formátu MS Excel, který je ke stažení 

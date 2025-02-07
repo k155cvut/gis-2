@@ -29,6 +29,8 @@ Ve cvičení se naučíte
 
 </div>
 
+<hr class="level-1">
+
 ## Základní pojmy
 
 - [**slope**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/slope.htm)
