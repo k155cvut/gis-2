@@ -5,8 +5,30 @@ title: Cvičení 2
 
 # Tvorba digitálního modelu terénu
 
-## Cíl cvičení
-Představení tvorby digitálního modelu terénu pomocí GIS.
+Ve cvičení se naučíte
+{: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
+
+<style>
+    .smaller_padding li {padding:.4rem .8rem !important;}
+    .primary_color {color:var(--md-primary-fg-color);}
+</style>
+
+<div class="grid cards smaller_padding" markdown>
+
+-   :material-terrain:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+
+    vytvořit __digitální model terénu__ v GIS včetně úpravy __symbologie__
+    {.middle style="display:table-cell;line-height:normal;"}
+
+-   :material-elevation-rise:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+    
+    zpracovat __LiDARová data__{: .primary_colorx} a následně je vizualizovat nebo použít v analýzách
+    {.middle style="display:table-cell;line-height:normal;"}
+
+
+</div>
 
 ## Základní pojmy
 - **digitální model terénu (DMT)** – digitální reprezentace prostorových objektů (obecný pojem obsahující různé způsoby vyjádření terénního reiéfu nebo povrchu)
@@ -26,7 +48,7 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
 {: .button_array}
 
 <figure markdown>
-  ![Analýzy výškopisu](../assets/cviceni2/av_cuzk.png "Analýza pole viditelnosti ze zadaného bodu vypočteného nad DMR 5G"){ width="900"}
+  ![Analýzy výškopisu](../assets/cviceni2/av_cuzk.png){ width="900"}
   <figcaption>Analýza pole viditelnosti ze zadaného bodu vypočteného nad DMR 5G</figcaption>
 </figure>
 
@@ -64,7 +86,7 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
      TIN vzniká na základě Delaunayho triangulace. Ta rozdělí vstupní body do tzv. Thiessenových polygonů (také Voroniovy diagramy), pro které platí, že z každého místa polygonu je vzdálenost k danému bodu uvnitř polygonu menší než k jakémukoliv jinému bodu ze zadané množiny. Další krok spočívá v propojení bodů v sousedících polygonech.
 
 <figure markdown>
-  ![Tvorba triangulace](../assets/cviceni2/triang.png "Tvorba triangulace"){ width="900"}
+  ![Tvorba triangulace](../assets/cviceni2/triang.png){ width="900"}
   <figcaption>Postup tvorby Delaunayho triangulace (vpravo) na základě Thiessenových polygonů (vlevo)</figcaption>
 </figure>
 
@@ -80,14 +102,14 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
      Při vytváření TIN lze kombinovat několik vrstev, tudíž je možné na příklad použít vrstevnice, které budou zpřesněny bodovou vrstvnou výškových kót.
 
 <figure markdown>
-  ![Tvorba TIN](../assets/cviceni2/create_tin.png "Tvorba TIN")
+  ![Tvorba TIN](../assets/cviceni2/create_tin.png)
   <figcaption>Tvorba TIN z vrstevnic</figcaption>
 </figure>
 
 **5.** Podle rozsahu a detailu vstupních dat může výpočet trvat i několik minut. Výsledkem je terén ve formě TINu a případně vrstva vstupních vrstevnic, kterou lze skrýt.
 
 <figure markdown>
-  ![TIN KT okres](../assets/cviceni2/tin_kt.png "TIN Klatovský okres"){width="400"}
+  ![TIN KT okres](../assets/cviceni2/tin_kt.png){width="400"}
   <figcaption>Vypočtený TIN pro Klatovský okres</figcaption>
 </figure>
 
@@ -99,7 +121,7 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
 **2.** Ve funkci je potřeba opět určit parametry výpočtu. *Output Data Type* určuje datový typ rastru, tedy zda mohou mít jeho pixely hodnoty desetinných čísel *Floating Point* nebo se hodnoty zaokrouhlí na celá čísla *Integer*. Dále je potřeba určit metodu interpolace dat *Linear* nebo *Natural Neighbors*. Poslední parametr definuje velikost pixelu výstupního rastru.
 
 <figure markdown>
-  ![TIN to Raster](../assets/cviceni2/tin_tor.png "TIN to Raster")
+  ![TIN to Raster](../assets/cviceni2/tin_tor.png)
   <figcaption>Hodnoty funkce TIN to Raster</figcaption>
 </figure>
 
@@ -111,7 +133,7 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
      Ořez je možné provést již pro TIN použitím funkce *Edit TIN*.
 
 <figure markdown>
-  ![DMT KT](../assets/cviceni2/dmt_kt.png "DMT Klatovský okres"){width="400"}
+  ![DMT KT](../assets/cviceni2/dmt_kt.png){width="400"}
   <figcaption>Výsledný digitální model terénu Klatovského okresu s velikostí pixelu 100 m</figcaption>
 </figure>
 
@@ -128,7 +150,7 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
 **3.** Dále přidáme tři pomocné vrstvy (ty nemusejí být nutnou součástí funkce, slouží ke zpřesnění výsledku). První z nich budou tvořit vodní toky ze ZABAGED. Pro výpočet je zásadní, aby byla vrstva vodních toků správně orientovaná, tedy po proudu. Vizuální kontrolu lze provést změnou symbologie vrstvy, přičemž nahradíme obyčejnou linii za linii se šipkou na konci. Důležité je pro výpočet vyfiltrovat pouze nadzemní toky. Nastavíme typ *Stream*.
 
 <figure markdown>
-  ![Vodni toky](../assets/cviceni2/vt.png "Vodni toky"){width="900"}
+  ![Vodni toky](../assets/cviceni2/vt.png){width="900"}
   <figcaption>Ukázka správného směru vodních toků</figcaption>
 </figure>
 
@@ -139,7 +161,7 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
 **6.** Další parametry funkce ponecháme ve výchozím nastavení. Jedná se o pokročilé parametry, jejichž úprava souvisí s následným dalším využitím rastru. Pokud bychom je v budoucnu potřebovali, získáme více informací v dokumentaci.
 
 <figure markdown>
-  ![Topo To Raster](../assets/cviceni2/topotor.png "Hodnoty funkce Topo To Raster")
+  ![Topo To Raster](../assets/cviceni2/topotor.png)
   <figcaption>Hodnoty funkce Topo To Raster</figcaption>
 </figure>
 
@@ -151,16 +173,101 @@ Pro analýzu výškopisu ve webovém prostředí slouží mapová aplikace Anal�
      Díky těmto úpravám můžeme DMT používat jako podkladovou vrstvu pro řadu vizualizací.
 
 <figure markdown>
-  ![DMT symbologie](../assets/cviceni2/dmt_sym.png "DMT symbologie")
+  ![DMT symbologie](../assets/cviceni2/dmt_sym.png)
   <figcaption>Ukázky různých možností symbologie totožného rastru</figcaption>
 </figure>
 
-## Zdroje
-Úvod do GIS: Zpracování dat II [online]. In: JEDLIČKA, Karel. [cit. 2024-01-05]. Dostupné z: [https://gis.zcu.cz/studium/ugi/Prezentace/09-InterpolaceTvorbaDMRTopologickeCisteniDatGeneralizace.pdf](https://gis.zcu.cz/studium/ugi/Prezentace/09-InterpolaceTvorbaDMRTopologickeCisteniDatGeneralizace.pdf)
 
-Český úřad zeměměřický a katastrální [online]. [cit. 2024-01-05]. Dostupné z: [https://www.cuzk.cz/](https://www.cuzk.cz/)
+## Zpracování LAS
 
-Delaunayho triangulace [online]. ZÁPADOČESKÁ UNIVERZITA V PLZNI. [cit. 2024-01-05]. Dostupné z: [http://old.gis.zcu.cz/studium/ugi/cviceni/ch08s01.html](http://old.gis.zcu.cz/studium/ugi/cviceni/ch08s01.html)
+
+## Základní pojmy
+- **[LiDAR](https://www.geosken.cz/co-je-lidar-a-jak-funguje/)** – metoda dálkového měření vzdálenosti na základě výpočtu doby šíření pulsu laserového paprsku odraženého od snímaného objektu
+
+- **[LAS](https://pro.arcgis.com/en/pro-app/3.1/help/data/las-dataset/las-dataset-in-arcgis-pro.htm)** – datový formát mračna bodů (point cloud) získaných laserovým skenováním
+
+## Použité datové podklady
+- [DMR 5G](../../data/#dmr-5g)
+
+- [ortofoto ČÚZK](https://ags.cuzk.cz/arcgis1/rest/services/ORTOFOTO/MapServer)
+
+
+### Stažení dat z ČÚZK
+Z [Geoprohlížeče ČÚZK](https://ags.cuzk.cz/geoprohlizec/) lze stáhnout data laserového skenování (mračno bodů) pro Česko. Získání dat DMR 5G, DMR 4G či DMP 1G lze provést přes výběr daného podkladu v záložce *Produkty*. Dále po rozkliknutí ikony tří teček příslušné vrstvy v záložce *Seznam vrstev* je možné vybrat buď možnost   *Exportovat data* nebo *Stáhnout data (předpřipravené jednotky)*.
+
+???+ note "&nbsp;<span style="color:#448aff">Možnosti stažení laserových dat z ČÚZK</span>"
+     - **Exportovat data** – Touto možností lze data zaslat přímo na email. Zároveň je takto možné stáhnout více kladů dat najednou vlastním výběrem (nakreslením polygonu či nahráním vlastní vrstvy k výběru). Stažená data jsou ve formátu *LAS*.
+
+     - **Stáhnout data (předpřipravené jednotky)** – Takto lze data stáhnout postupně dle předpřipravených kladů. Stažená data jsou ve formátu *LAZ*.
+
+### Převod LAZ do LAS
+**1.** Jestliže získáme data ve formátu *ZLAS* nebo *LAZ*, je nutné mračno bodů v ArcGIS Pro konvertovat do formátu *LAS* pomocí funkce [*Convert LAS*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/convert-las.htm). Takto převedná data již dokáže ArcGIS načíst.
+
+**2.** Do parametru *Input LAS* vložíme z disku vstupní soubor, který chceme převést. Zvolíme adresář výstupních dat *Target Folder* a případně nastavíme parametry převodu.
+
+**3.** Ve druhé části funkce určíme souřadnicový systém mračna bodů. 
+
+<figure markdown>
+  ![Convert LAS](../assets/cviceni2/convert_las.png)
+  <figcaption>Hodnoty funkce Convert LAS</figcaption>
+</figure>
+
+### Vizualizace LAS
+**1.** LAS data je možné zobrazit 2D v mapě nebo 3D ve scéně (ideálně v lokální scéně). Novou scénu vytvoříme v záložce *Insert* – *New Map* – *New Local Scene*.
+
+<figure markdown>
+  ![Porovnání mapy a scény](../assets/cviceni2/map_sc.png){ width="900"}
+  <figcaption>Porovnání zobrazení LAS dat ve 2D mapě (vlevo) a ve 3D scéně (vpravo)</figcaption>
+</figure>
+
+**2.** Různé možnosti vizualizace LAS jsou dostupné po vybrání vrstvy mračna bodů v záložce *LAS Dataset Layer*. Pod ikonou *Symbology* 
+
+<figure markdown>
+  ![Symbologie LAS](../assets/cviceni2/las_s.png){ width="900"}
+  <figcaption>Symbologie LAS</figcaption>
+</figure>
+
+**3.** Výše zmíněné možnosti symbologie se dělí na tři typy: Vizualizace dle bodů, terénem či liniově. Bodové vizualizace nabízejí zobrazení barvy mračna bodů na základě jeho nadmořské výšky (*Elevation*) nebo klasifikace dat (*Class*). Mračno bodů je dále možné symbolizovat jako terén, přičemž barva může být určená nadmořskou výškou (*Elevation*), sklonem terénu (*Slope*) nebo sklonem ke světové straně (*Aspect*). Třetí možnost, vizualizace vrstvy pomocí linií, nabízí zobrazení vrstevnic (*Contour*) a hran (*Edges*).
+
+???+ note "&nbsp;<span style="color:#448aff">Zobrazení LAS Dataset Layer</span>"
+     V záložce *LAS Dataset Layer* (po vybrání příslušného mračna bodů v *Contents*) lze nejen nastavovat možnosti symbologie, ale také je možné určit hustotu zobrazovaných bodů (sekce *Point Thinning*) nebo filtrovat body (sekce *Filters*).
+
+### Texturovaný LAS
+**1.** V některých případech je výhodné mračno bodů obarvit (pokud již texturu neobsahuje v základním nastavení). Stažený LAS z ČÚZK lze otexturovat pomocí ortofota, které se stáhne podobně jako laserová data z [Geoprohlížeče ČÚZK](https://ags.cuzk.cz/geoprohlizec/). Důležité je stáhnout data se stejným kladem, což pro zmíněná data platí.
+
+**2.** Po stažení ortofota vyhledáme v *Geoprocessingu* funkci [*Colorize LAS*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/colorize-las.htm). Jako *Input Dataset* určímě mračno bodů. Do parametru *Input Image* vložíme vybrané ortofoto a zkontrolujeme přiřazení pásem snímku.
+
+**3.** Dále zvolíme výstupní adresář *Target Folder* a případně specifikujeme název výsledného mračna bodů či jeho kompresi.
+
+<figure markdown>
+  ![Colorize LAS](../assets/cviceni2/col_las.png)
+  <figcaption>Hodnoty funkce Colorize LAS</figcaption>
+</figure>
+
+**4.** Po provedení tohoto výpočtu se v nabídce *Symbology*, kterou jsme využívali při vizualizaci, zobrazí další možnost vizualizace mračna bodů – *RGB*. Po jejím zvolení se body obarví dle vstupního ortofota.
+
+<figure markdown>
+  ![Texturovaný LAS](../assets/cviceni2/text_las.png){ width="900"}
+  <figcaption>Texturovaný LAS</figcaption>
+</figure>
+
+### Vytvoření digitálního modelu terénu
+**1.** Data LiDARového skenování slouží jako podklad pro vytvoření digitálního modelu terénu. V ArcGISu Pro je možné převést LAS do rastru pomocí funkce [*LAS Dataset To Raster*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/las-dataset-to-raster.htm).
+
+**2.** Vstupními daty *Input LAS Dataset* jsou lasetová data ve formátu LAS. *Value Field* určuje hodnotu, na základě které se vypočte výstupní rastr. Jeho umístění určímě v parametru *Output Raster*. 
+
+**3.** Následně je nutné určit způsob interpolace (viz [cvičení 5](https://k155cvut.github.io/gis-2/cviceni/cviceni5/)). Důležitým parametrem je *Cell Size*, která určuje velikost pixelu (buňky) výstupního rastru. *Z factor* určuje hodnotu zploštění/zvýšení hodnot rastru. V základním nastavení jej ponecháme rovný 1.
+
+<figure markdown>
+  ![LAS Dataset To Raster](../assets/cviceni2/las_tr.png)
+  <figcaption>Hodnoty funkce LAS Dataset To Raster</figcaption>
+</figure>
+
+<figure markdown>
+  ![DMT z LAS](../assets/cviceni2/las_r.png){ width="900"}
+  <figcaption>Digitální model terénu vypočtený na základě laserových dat</figcaption>
+</figure>
+
 
 ## Úlohy k procvičení
 

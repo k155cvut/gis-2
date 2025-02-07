@@ -3,95 +3,131 @@ icon: material/numeric-3-box
 title: Cvičení 3
 ---
 
-# Zpracování LAS
+# Topografická analýza povrchu, reklasifikace rastrových dat
 
-## Cíl cvičení
-Zpracování LiDARových dat v prostředí ArcGIS Pro včetně představení možností jejich symbologie a následného využití v GIS analýzách.
+Ve cvičení se naučíte
+{: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
+
+<style>
+    .smaller_padding li {padding:.4rem .8rem !important;}
+    .primary_color {color:var(--md-primary-fg-color);}
+</style>
+
+<div class="grid cards smaller_padding" markdown>
+
+-   :material-terrain:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+
+    základy analýzy povrchu s využitím __topografických funkcí__
+    {.middle style="display:table-cell;line-height:normal;"}
+
+-   :material-grid:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+    
+    __reklasifikovat__ rastrová data
+    {.middle style="display:table-cell;line-height:normal;"}
+
+</div>
 
 ## Základní pojmy
-- **[LiDAR](https://www.geosken.cz/co-je-lidar-a-jak-funguje/)** – metoda dálkového měření vzdálenosti na základě výpočtu doby šíření pulsu laserového paprsku odraženého od snímaného objektu
 
-- **[LAS](https://pro.arcgis.com/en/pro-app/3.1/help/data/las-dataset/las-dataset-in-arcgis-pro.htm)** – datový formát mračna bodů (point cloud) získaných laserovým skenováním
+- [**slope**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/slope.htm)
+- [**aspect**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/aspect.htm)
+- [**hillshade**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/hillshade.htm)
+- [**viewshed**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/viewshed.htm)
+- [**raster surface toolset**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/an-overview-of-the-raster-surface-toolset.htm)
+- [**aspect-slope**](https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/aspect-slope-function.htm)
 
-## Použité datové podklady
-- [DMR 5G](../../data/#dmr-5g)
-
-- [ortofoto ČÚZK](https://ags.cuzk.cz/arcgis1/rest/services/ORTOFOTO/MapServer)
 
 ## Náplň cvičení
+Vaším úkolem bude na základě rastrových dat vybraného území analyzovat lavinové svahy mají. K vyhodnocení lavinového svahu potřebujete znát sklonitost a expozici svahu, nadmořskou výšku či krajinný pokryv. Podmínky pro vznik lavin lze (zjednodušeně) shrnout v následujících bodech:
 
-### Stažení dat z ČÚZK
-Z [Geoprohlížeče ČÚZK](https://ags.cuzk.cz/geoprohlizec/) lze stáhnout data laserového skenování (mračno bodů) pro Česko. Získání dat DMR 5G, DMR 4G či DMP 1G lze provést přes výběr daného podkladu v záložce *Produkty*. Dále po rozkliknutí ikony tří teček příslušné vrstvy v záložce *Seznam vrstev* je možné vybrat buď možnost   *Exportovat data* nebo *Stáhnout data (předpřipravené jednotky)*.
+1. Nadmořská výška
+Laviny se zpravidla vyskytují ve vyšších nadmořských výškách. Jako území vhodné pro vznik lavin volte lokality, které se nachází v nejvyšší třetině všech nadmořských výšek v rámci zájmového území.
 
-???+ note "&nbsp;<span style="color:#448aff">Možnosti stažení laserových dat z ČÚZK</span>"
-     - **Exportovat data** – Touto možností lze data zaslat přímo na email. Zároveň je takto možné stáhnout více kladů dat najednou vlastním výběrem (nakreslením polygonu či nahráním vlastní vrstvy k výběru). Stažená data jsou ve formátu *LAS*.
+2. Sklon svahu
+Základní předpoklad pro uvolnění laviny je sklon svahu, s jehož růstem se zvyšuje pravděpodobnost a riziko vzniku lavin. Laviny suchého sněhu vzácně vznikají na svazích již od 25° sklonu a se vzrůstajícím sklonem jejich četnost narůstá, zejména ve svazích nad 30° sklonu. Pro účely práce tedy zvolte mezní hodnotu v tomto intervalu.
 
-     - **Stáhnout data (předpřipravené jednotky)** – Takto lze data stáhnout postupně dle předpřipravených kladů. Stažená data jsou ve formátu *LAZ*.
+3. Expozice svahu
+Uprostřed zimy bývají kritické zejména stinné svahy v severní expozici. Uvažujme tedy svahy severovýchodní, severní a severozápadní orientace.
 
-### Převod LAZ do LAS
-**1.** Jestliže získáme data ve formátu *ZLAS* nebo *LAZ*, je nutné mračno bodů v ArcGIS Pro konvertovat do formátu *LAS* pomocí funkce [*Convert LAS*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/convert-las.htm). Takto převedná data již dokáže ArcGIS načíst.
+4. Krajinný pokryv
+Riziko vzniku lavin nastává na otevřených plochách bez většího vegetačního porostu. Hodnoty krajinného pokryvu jsou obsaženy ve sloupci *Code 18* (CLC 2018). Vyhovujícími hodnotami jsou 2.X.X a 3.X.X. (vyjma 3.1.1., 3.1.2 a 3.1.3.).
 
-**2.** Do parametru *Input LAS* vložíme z disku vstupní soubor, který chceme převést. Zvolíme adresář výstupních dat *Target Folder* a případně nastavíme parametry převodu.
+## Použité datové podklady
+- DMR 5G
+- CORINE Land Cover 2018
 
-**3.** Ve druhé části funkce určíme souřadnicový systém mračna bodů. 
+## Postup
+Řešení popisuje postupné použití jednotlivých nástrojů geoprocessingu, vaším úkolem je těmto funkcím porozumět a úlohu zpracovat v *Model Builderu*.
 
-<figure markdown>
-  ![Convert LAS](../assets/cviceni3/convert_las.png "Convert LAS")
-  <figcaption>Hodnoty funkce Convert LAS</figcaption>
-</figure>
+**1.** Po založení nového projektu v ArcGIS a nastavení Křovákova zobrazení, importujte potřebná data: DMR Krkonošského parku a vrstva *Velkoplošná chráněná území* z ArcGIS Online (poskytuje AOPK ČR).
 
-### Vizualizace LAS
-**1.** LAS data je možné zobrazit 2D v mapě nebo 3D ve scéně (ideálně v lokální scéně). Novou scénu vytvoříme v záložce *Insert* – *New Map* – *New Local Scene*.
+**2.** Na základě DMR je nejprve možné vyhodnotit nejvyšší třetinu zájmového území. Rozpětí výšek je možné zjistit ve vlastnostech rastru a stanovit mezní hodnotu nejvyšší třetiny. Pomocí nástroje *Reclassify* následně proběhne reklasifikace dat: hodnotám menším než mezní nastavíme novou hodnotu 0; hodnotám od mezní výše přiřadíme novou hodnotu 1.
 
-<figure markdown>
-  ![Porovnání mapy a scény](../assets/cviceni3/map_sc.png "Porovnání mapy a scény"){ width="900"}
-  <figcaption>Porovnání zobrazení LAS dat ve 2D mapě (vlevo) a ve 3D scéně (vpravo)</figcaption>
-</figure>
+**3.** Nyní pokročíme k rastrové analýze, která vždy zahrnuje použití jedné z topografických funkcí a následnou reklasifikaci. Těmito funkcemi budou postupně: *Slope* (podmínka č. 2) a *Aspect* (podmínka č. 3). Nastavení reklasifikace rastrových výstupů proběhne dle podmínek v zadání; vždy přiřaďte novou hodnotu 0 pro nevyhovující hodnoty (tzn. oblasti nesplňující kritéria lavinových svahů) a hodnotu 1 pro vyhovující.
 
-**2.** Různé možnosti vizualizace LAS jsou dostupné po vybrání vrstvy mračna bodů v záložce *LAS Dataset Layer*. Pod ikonou *Symbology* 
+Pro názornost následuje ukázka zpracování sklonitosti svahu (postup s výpočtem a reklasifikací expozice je analogický).
 
 <figure markdown>
-  ![Symbologie LAS](../assets/cviceni3/las_s.png "Symbologie LAS"){ width="900"}
-  <figcaption>Symbologie LAS</figcaption>
-</figure>
-
-**3.** Výše zmíněné možnosti symbologie se dělí na tři typy: Vizualizace dle bodů, terénem či liniově. Bodové vizualizace nabízejí zobrazení barvy mračna bodů na základě jeho nadmořské výšky (*Elevation*) nebo klasifikace dat (*Class*). Mračno bodů je dále možné symbolizovat jako terén, přičemž barva může být určená nadmořskou výškou (*Elevation*), sklonem terénu (*Slope*) nebo sklonem ke světové straně (*Aspect*). Třetí možnost, vizualizace vrstvy pomocí linií, nabízí zobrazení vrstevnic (*Contour*) a hran (*Edges*).
-
-???+ note "&nbsp;<span style="color:#448aff">Zobrazení LAS Dataset Layer</span>"
-     V záložce *LAS Dataset Layer* (po vybrání příslušného mračna bodů v *Contents*) lze nejen nastavovat možnosti symbologie, ale také je možné určit hustotu zobrazovaných bodů (sekce *Point Thinning*) nebo filtrovat body (sekce *Filters*).
-
-### Texturovaný LAS
-**1.** V některých případech je výhodné mračno bodů obarvit (pokud již texturu neobsahuje v základním nastavení). Stažený LAS z ČÚZK lze otexturovat pomocí ortofota, které se stáhne podobně jako laserová data z [Geoprohlížeče ČÚZK](https://ags.cuzk.cz/geoprohlizec/). Důležité je stáhnout data se stejným kladem, což pro zmíněná data platí.
-
-**2.** Po stažení ortofota vyhledáme v *Geoprocessingu* funkci [*Colorize LAS*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/colorize-las.htm). Jako *Input Dataset* určímě mračno bodů. Do parametru *Input Image* vložíme vybrané ortofoto a zkontrolujeme přiřazení pásem snímku.
-
-**3.** Dále zvolíme výstupní adresář *Target Folder* a případně specifikujeme název výsledného mračna bodů či jeho kompresi.
-
-<figure markdown>
-  ![Colorize LAS](../assets/cviceni3/col_las.png "Colorize LAS")
-  <figcaption>Hodnoty funkce Colorize LAS</figcaption>
-</figure>
-
-**4.** Po provedení tohoto výpočtu se v nabídce *Symbology*, kterou jsme využívali při vizualizaci, zobrazí další možnost vizualizace mračna bodů – *RGB*. Po jejím zvolení se body obarví dle vstupního ortofota.
-
-<figure markdown>
-  ![Texturovaný LAS](../assets/cviceni3/text_las.png "Texturovaný LAS"){ width="900"}
-  <figcaption>Texturovaný LAS</figcaption>
-</figure>
-
-### Vytvoření digitálního modelu terénu
-**1.** Data LiDARového skenování slouží jako podklad pro vytvoření digitálního modelu terénu. V ArcGISu Pro je možné převést LAS do rastru pomocí funkce [*LAS Dataset To Raster*](https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/las-dataset-to-raster.htm).
-
-**2.** Vstupními daty *Input LAS Dataset* jsou lasetová data ve formátu LAS. *Value Field* určuje hodnotu, na základě které se vypočte výstupní rastr. Jeho umístění určímě v parametru *Output Raster*. 
-
-**3.** Následně je nutné určit způsob interpolace (viz [cvičení 5](https://k155cvut.github.io/gis-2/cviceni/cviceni5/)). Důležitým parametrem je *Cell Size*, která určuje velikost pixelu (buňky) výstupního rastru. *Z factor* určuje hodnotu zploštění/zvýšení hodnot rastru. V základním nastavení jej ponecháme rovný 1.
-
-<figure markdown>
-  ![LAS Dataset To Raster](../assets/cviceni3/las_tr.png "LAS Dataset To Raster")
-  <figcaption>Hodnoty funkce LAS Dataset To Raster</figcaption>
+  ![Slope](../assets/cviceni3/slope.png)
+  <figcaption>Výstupní rastr po použití topografické funkce Slope (na vstupu DMR)</figcaption>
 </figure>
 
 <figure markdown>
-  ![DMT z LAS](../assets/cviceni3/las_r.png "DMT z LAS"){ width="900"}
-  <figcaption>Digitální model terénu vypočtený na základě laserových dat</figcaption>
+  ![Reclassify](../assets/cviceni3/reclassify.png)
+  <figcaption>Parametry reklasifikace rastru sklonitosti terénu</figcaption>
 </figure>
+
+<figure markdown>
+  ![Reclassify](../assets/cviceni3/reclass_output.png)
+  <figcaption>Reklasifikovaný rastr sklonitosti terénu indikující hodnoty nad a pod mezní hodnotou</figcaption>
+</figure>
+
+**4.** Jakmile proběhne analýza DMR, přistoupíme ke zpracování CLC 2018. Jedná se o další reklasifikaci, která byla provedena již v předchozích fázích, avšak na vstupu je CLC 2018 a pravidla pro nastavení reklasifikace jsou obsáhlejší (viz zadání).
+
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+      V současné podobě nabízí produkt CORINE Land Cover (CLC) celoevropská data půdního pokryvu a využití půdy se 44 tematickými třídami, od rozsáhlých lesních ploch až po jednotlivé vinice. Produkt je každých šest let aktualizován o nové vrstvy stavu a změn - poslední aktualizace byla provedena v roce 2018. CLC slouží mnoha uživatelům a má téměř neomezené potenciální i reálné využití, včetně monitorování životního prostředí, územního plánování, hodnocení klimatických změn a krizového řízení (land.copernicus.eu).
+
+**5.** Na závěr přichází stěžejní část celé úlohy: vyhodnotit lavinové svahy. Nyní tedy využijeme dílčí výsledky (reklasifikované vrstvy obsahující pouze hodnoty 0 a 1). Cílem je zkombinovat podmínky a brát v potaz pouze taková místa, kde nastávají právě všechny čtyři. K tomuto účelu lze elegantně využít rastrovou kalkulačku *Raster Calculator* a sestavit správný algebraický výraz. Matice všech reklasifikovaných rastrů mezi sebou vynásobíme, čímž získáme nový rastr obsahující hodnoty 1 v místech, kde je splněna každá podmínka zadání, a hodnoty 0, kde není splněna žádná podmínka či pouze jedna, dvě nebo tři libovolné (aby byl výsledek roven 0, postačí jediná 0 mezi činiteli). Výstupní rastr tedy indikuje oblasti lavinového nebezpečí dle zadaných podmínek. Nakonec je vhodné nastavit vhodnou barvu pro jednotlivé hodnoty buněk.
+
+**6.** Alternativní přístup by mohl být reprezentován symbolizací různých úrovní lavinového rizika, kterých lze dosáhnout změnou výrazu v rastrové kalkulačce. Místo násobení hodnot čtyř rastrových vrstev je můžete jednoduše sečíst. Výstup bude tvořit 5 různých hodnot: 0, 1, 2, 3 nebo 4. Následně změňte symbologii rastru tak, abyste podle těchto hodnot označili rostoucí lavinové riziko.
+
+## Úlohy k procvičení
+
+!!! task-fg-color "Úlohy"
+
+    K řešení následujích úloh použijte datovou sadu [ArcČR
+    500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
+    popisem dat ve formátu PDF.
+
+    1. Vytvořte DMT omezené na Ústecký kraj. Jaká je výměra území v ha s nadmořskou výškou větší než 700m?
+
+    2. Jaká je výměra území v ha se sklonem svahu větším než 15 stupňů?
+
+    3. Jaká je výměra území v ha s orientací svahu na sever a zároveň se sklonem větším než 15 stupňů?
+
+    4. Jaká je výměra území v ha s orientací svahu na sever anebo se sklonem větším než 15 stupňů?
+
+    5. Jaká je výměra území v ha, které je viditelné z vrcholu Milešovky
+       [S-JTSK: 986668, 770118] a zároveň má orientaci svahu na sever?
+
+    6. Jaká je výměra území v ha, kde jsou splněny alespoň 2 z
+       následujících podmínek - nadmořská výška nad 700 m, sklon větší než
+       15 stupňů, orientace na sever?
+
+    7. Jaká je výměra území v ha, které je do 500 m od nejbližší silnice a
+       zároveň má sklon větší než 15 stupňů?
+
+    8. Jak dlouhý úsek silnice E55 v km je vidět z vrcholu Milešovky [S-JTSK: 986668, 770118]?
+
+    9. Jaká ve výměra území v ha, kde nadmořská výška je menší než výraz "10 krát sklon svahu ve stupních"?
+
+    10. Jaká je nadmořská výška vrcholu Milešovky [S-JTSK: 986668, 770118] odvozená z DMT (správně je 836,5 m)?
+
+    11. Jaký je rozdíl celkové délky v metrech silnic 1.třídy měřeného po povrhu a jeho průmětu do roviny?
+
+    12. Jaká je skutečná délka (v km, na jedno des. místo) silnice číslo
+        '112' po povrchu DMT? Uveďte minimální a maximální výšku u této
+        komunikace?

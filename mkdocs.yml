@@ -4,12 +4,12 @@ nav:
   - Cvičení:
       - ModelBuilder, Batch processing: cviceni/cviceni1.md
       - Tvorba digitálního modelu terénu: cviceni/cviceni2.md
-      - Zpracování LAS: cviceni/cviceni3.md
-      - Topografická analýza povrchu, reklasifikace rastrových dat: cviceni/cviceni4.md
-      - Interpolace rastrových dat: cviceni/cviceni5.md
-      - Mapová algebra: cviceni/cviceni6.md
-      - Vzdálenostní analýzy: cviceni/cviceni7.md
-      - Síťové analýzy: cviceni/cviceni8.md
+      - Topografická analýza povrchu, reklasifikace rastrových dat: cviceni/cviceni3.md
+      - Interpolace rastrových dat: cviceni/cviceni4.md
+      - Mapová algebra: cviceni/cviceni5.md
+      - Vzdálenostní analýzy: cviceni/cviceni6.md
+      - Síťové analýzy: cviceni/cviceni7.md
+      - Síťové analýzy pokračování: cviceni/cviceni8.md
       - Výpočetní nástroje QGIS: cviceni/cviceni9.md
       - ArcPy: cviceni/cviceni10.md
       - Skriptování v ArcGIS Pro: cviceni/cviceni11.md

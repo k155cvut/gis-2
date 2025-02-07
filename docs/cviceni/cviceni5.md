@@ -3,150 +3,204 @@ icon: material/numeric-5-box
 title: Cvičení 5
 ---
 
-# Interpolace rastrových dat
+# Mapová algebra
 
 ## Cíl cvičení
-Představení typů interpolace rastrových dat.
+
+Použití mapové algebry v rámci rastrového kalkulátoru pro výpočet relativního elevačního modelu řeky.
 
 ## Základní pojmy
-- **Interpolace** – Nalezení neznámé hodnoty určitého jevu na základě známých okolních hodnot.
-- **Extrapolace** – Funguje obdobným způsobem jako interpolace, ale dopočítává nové hodnoty za hranicemi vstupních známých hodnot.
-- **Lineární interpolace** – Metoda interpolace počítající rovinu ze tří známých bodů. Jednotlivé středy buňěk se počítají z rovnic
-rovin polohově překrývajících trojúhelníků. Používá se pro interpolaci vrstevnic na základě známých bodů.
-- [**IDW**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/idw.htm)
-- [**Spline**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/spline.htm)
-- [**Natural Neighbor**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/natural-neighbor.htm)
-- [**Trend**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/trend.htm)
-- [**Kriging**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/kriging.htm)
 
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     **Interpolace** nemusí procházet zadanými body.
+- **Mapová algebra** – překryvné operace rastrů
+- **Rastrová kalkulačka** – nástroj spouštějící výrazy Mapové algebry
+- **DMT (digitální model terénu)** – digitální reprezentace prostorových objektů (obecný pojem obsahující různé způsoby vyjádření terénního reiéfu nebo povrchu)
+- **DMR (digitální model reliéfu)** – digitální reprezentace zemského povrchu (NEbsahuje vegetaci, lidské stavby)
+- **DMP (digitální model povrchu)** – digitální reprezentace zemského povrchu (obsahuje vegetaci, lidské stavby, které jsou pevně spojené s reliéfem)
+- **REM (relativní výškový model)** – DMT relativní k vodní hladině toku.
 
-     **Aporoximace** musí procházet zadanými body.
+### REM
+<figure markdown>
+  ![IDW](../assets/cviceni5/prehled.png)
+  <figcaption>Rastrová mozaika</figcaption>
+</figure>
+
+Digitální relativní modely nám pomáhají lépe porozumět terénu. Při jejich vytváření se používá tzv. detrendovaný DMR bez vlivu nerovností. Tento detrendovaný DEM je následně odečten od DMR, což je digitální model povrchu. REM je užitešný pro vizualizaci říčních tvarů, které mohou být obtížně rozeznatelné pouze z leteckých snímků či DMR. Identifikace těchto tvarů má velkou vypovídací hodnotu při studiu migrace koryt a povodní, stejně jako při dalších úkonech spojených se stavebními pracemi či výskytu živočichů.
+
+Z REM lze identifikovat následující prvky:
+- Stržová eroze,
+- meandr s přiléhajícími hřbety a koryty ve tvaru půlměsíce
+- slepá ramena
+- izolovaná povodeň,
+- hráz.
+
+<figure markdown>
+  ![IDW](../assets/cviceni5/shapes.png){ width="600" }
+  <figcaption>Říční tvary</figcaption>
+</figure>
+
+
+[REM Story mapa](https://storymaps.arcgis.com/stories/19b6bfe0c3aa454c853bd6d9b7228adf){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+{: .button_array}
+
 
 ## Použité datové podklady
-- VyskoveKoty ([ArcČR 500](../../data/#arccr-500))
 
-## Náplň cvičení
-Pomocí interpolačních algoritmů nad zadanými daty vytvořte digitální model terénu. Jednotlivé algority vzájemně porovnejte a následně posuďte výhody a nevýhody každého z nich. Výstupy algoritmů je možné oříznout např. polygonem ČR funkcí *Extract by Mask*
+- [DMR 5G](../../data/#dmr-5g)
 
 ## Postup
-Do mapového okna načteme zadaná data a prohlédneme si jejich strukturu v atributové tabulce. Následně vypočteme jednotlivé interpolace.
-
-### IDW
-???+ note "&nbsp;<span style="color:#448aff">IDW (Inverse Distance Weighted)</span>"
-     Metoda IDW (Inverse Distance Weighted) je založena na vážené inverzní vzdálenosti bodů. Hodnoty v buňkách se vypočítají na základě vzdálenosti okolních bodů. Čím dále je konkrétní bod od určované buňky, tím menší má vliv na výpočet její hodnoty.
-
-     Nedochází k extrapolaci, tzn. nejsou vypočteny hodnoty vyšší nebo nižší než hodnoty vstupní.
-
-     Výsledný povrch neprochází vstupními hodnotami. Dochází ke sploštění výsledku.
-
-     Nejlepších výsledků je dosaženo při dostatečné hustotě vstupních bodů.
-
-     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm). 
-
-**1.** V záložce *Geoprocessing* vyhledáme variantu funkce *IDW*, která je obsažena v balíčku *3D Analyst*. 
-
-**2.** Do *Input Point Features* vložíme vstupní bodovu vrstvu. *Z value field* jsou hodnoty, ze kterých budeme chtít rastr vypočítat – v našem případě tedy sloupec *Nadmořská výška*. Dále vyplníme název a umístění výstupní rastru do kolonky *Output raster*. 
-
-**3.** Ve druhé části funkce lze nastavit parametry vstupující do výpočtu interpolace. Důležitá je volba *Output cell size*, která určije velikost pixelu výsledného rastru (jednotky jsou určeny na základě zvoleného kartografického zobrazení mapy), a tedy jeho přesnost. Při prvním spuštění lze ponechat východí hodnotu, kterou je případně dále možné modifikovat, pokud by bylo potřeba. Hodnota *Power* určuje váhu okolních bodů vstupujících do výpočtu na základě vzájemné vzdálenosti.
+**1.** __Stažení dat__
+Z Geoportálu Zeměměřického Úřadu si stáhněte dlažice DMR5G na části Vámi vybrané řeky. Zazipované soubory *.laz rozbalte a připojte do ArcGIS Pro.
 
 <figure markdown>
-  ![IDW](../assets/cviceni5/idw.png "Hodnoty funkce IDW")
-  <figcaption>Hodnoty funkce IDW</figcaption>
-</figure>
+  ![](../assets/cviceni5/DMR5G-stazeni.png){ width="600" }
+
+  ![](../assets/cviceni5/DMR5G-laz.png){ width="100"}
+  <figcaption>Stažení dat z Geoportálu ZÚ</figcaption>
+</figure
+
+
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+     Je vhodné vybrat oblast, kde má řeka možnost měnit svůj tvar v čase. Ideální jsou tedy zájmová území s rovinatým charakterem, kde se tvoří meandry, slepá ramena, či záplavy. Protékající řeka údolím nemá pro změny toku dostatek prostoru a tvorba relativního výškového modelu nemá pro následující analýzy smysl.
+
+**2.** __Založení projektu v ArcGIS Pro__
+
+Po založení je nutné nastavit souřadnicový systém mapy na __S-JTSK Krovak EastNorth__ (EPSG:5514)
+
+**3.** __Konverze LAZ souborů__
 
 <figure markdown>
-  ![Výstup IDW](../assets/cviceni5/idw_vystup.png "Výstup IDW"){ width="900"}
-  <figcaption>Výstup funkce IDW</figcaption>
-</figure>
-
-### Spline
-???+ note "&nbsp;<span style="color:#448aff">Spline</span>"
-     Metoda Spline (metoda minimální křivosti) spojuje dvojice zadaných bodů segmenty kubické křivky. 
-     
-     Generuje povrch s minimální křivostí, který prchází zadanými body. Počítány jsou pouze neznámé hodnoty.
-
-     Není vhodná v případě, že vstupní body jsou blízko u sebe a sousedící body mají velmi rozdílné hodnoty. Metodu tedy nelze použít na dramaticky probíhající povrchy.
-
-
-     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-spline-works.htm). 
-
-**1.** Opět zvolíme funkci z balíčku *3D Analyst*. Vstupní bodovou vrstvu vložíme do *Input point features*, *Z value field* přiřadíme sloupec *Nadmořská výška*, pojmenujeme výstupní vrstvu a zvolíme *Output cell size* (obdobně jako v předchozím případě).
-
-**2.** Nastavení algoritmu tentokrát spočívá v typu křivky (*Spline type*) a počtu bodů, které vstupují do výpočtu (*Number of points*). 
-
-- Regularized (výchozí) tvoří elastičtější povrch.
- 
-- Tension tvoří plošší povrch.
-
-<figure markdown>
-  ![Spline](../assets/cviceni5/spline.png "Hodnoty funkce Spline")
-  <figcaption>Hodnoty funkce Spline</figcaption>
-</figure>
-
-<figure markdown>
-  ![Výstup Spline](../assets/cviceni5/splineR_vystup.png "Výstup Spline Regularized"){ width="900"}
-  <figcaption>Výstup funkce Spline s nastavením Regularized</figcaption>
-</figure>
-
-<figure markdown>
-  ![Výstup Spline](../assets/cviceni5/splineT_vystup.png "Výstup Spline Tension"){ width="900"}
-  <figcaption>Výstup funkce Spline s nastavením Tension</figcaption>
-</figure>
-
-### Natural Neighbor
-???+ note "&nbsp;<span style="color:#448aff">Natural Neighbor</span>"
-     Metoda Natural Neighbor (přirozený soused) je založena na vybudování Thiessenových polygonů z bodové vrstvy tak, že do každého polygonu spadá jen jeden bod a z každého bodu polygonu je právě k tomuto bodu blíže než k bodům jiných polygonů.
-
-     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-natural-neighbor-works.htm). 
-
-**1.** Funkce Natural Neighbor má velmi omezené nastavení parametrů. Vedle těch již známých nenabízí žádnou další modifikaci. Rozdíl tedy spočívá v nastavení velikosti pixelu výstupního rastru *Output cell size*.
-
-<figure markdown>
-  ![Natural Neighbor](../assets/cviceni5/nn.png "Hodnoty funkce Natural Neighbor")
-  <figcaption>Hodnoty funkce Natural Neighbor</figcaption>
-</figure>
-
-<figure markdown>
-  ![Výstup Natural Neighbor](../assets/cviceni5/nn_vystup.png "Výstup Natural Neighbor"){ width="900"}
-  <figcaption>Výstup funkce Natural Neighbor</figcaption>
+  ![](../assets/cviceni5/batch-convert-las.png){ width="300" }
+  <figcaption>Převod *.laz souborů na *.las</figcaption>
 </figure>
 
 
-### Trend
-???+ note "&nbsp;<span style="color:#448aff">Trend</span>"
-     Metoda trendu využívá polynomické regrese k proložení metody nejmenších čtverců celým povrchem.
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+     - Nástroj lze spustit buď pro každý soubor zvlášť nebo spustit dávkově (viz cv. 1: [Batch Processing](../cviceni1/#batch-geoprocessing))
+     - Po aktualizaci připojené složky s daty se nám v záložce katalogu zobrazí konvertované las soubory mračna bodů
 
-     Vyhledává trendy, čímž vytváří hladší povrch než IDW.
+**4.** __Tvorba DMR__
 
-     Využití pro hladké povrchy. Pro běžné analýzy se nevyužívá.
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+     - postup vysvětlen ve cv. 3: [Vytvoření digitálního modelu terénu](../cviceni3/#vytvoreni-digitalniho-modelu-terenu)
+     - Velikost buňky volte dle s ohledem na přesnost dat
+     - Vzhledem k prostorovému rozlišení produktu DMR5G zde vhodné nastavit hodnotu 2 metry (opravit v nové verzi)
 
-     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-trend-works.htm). 
-
-
-### Kriging
-???+ note "&nbsp;<span style="color:#448aff">Kriging</span>"
-     Kriging interpoluje hodnoty na základě apriorních kovariancí. Podobnost s metodou IDW, avšak váhy závisí kromě vzdálenosti i na prostorovém uspořádání vstupních bodů (výpočet pomocí prostorové závislosti – autokorelace).
-
-     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-kriging-works.htm). 
-
-**1.** První část parametrů funkce *Kriging* v nadstavbě *3D Analyst* vyplníme opět obdobně jako v předchozích případech.
-
-**2.** Druhá část parametrů nabízí konkrétní upřesnění výpočtu Krigingu. Zvolit lze dvě metody – *Ordinary* a *Universal*, přičemž dále je možné volit i model semivariogramu. Pro většinu dat je nejvhodnější *Ordinary Kriging*, který zachovává sumu vah rovnou jedné a do výpočtu vstupuje průměr z okolních bodů.
-
-**3.** V poslední části funkce je možné nastavit parametry hledání bodů – *Variable* hledá zadaný počet bodů a *Fixed* hledá body v zadané vzdálenosti.
+**5.** __Tvorba rastrové mozaiky__ 
+Ze vniklých dlaždic je nutné vytvořit jediný výškový rastr pomocí funkce __Mosaic To New Raster__.
 
 
 <figure markdown>
-  ![Kriging](../assets/cviceni5/kriging.png "Hodnoty funkce Kriging")
-  <figcaption>Hodnoty funkce Kriging</figcaption>
+  ![](../assets/cviceni5/mozaika.png){ width="300" }
+  <figcaption>Rastrová mozaika</figcaption>
 </figure>
 
+**6.** __Odečtení extrémních hodnot__
+
+Pomocí nástroje Explore na záložce Map zjistíme minimální a maximální nadmořskou výšku toku.
+
 <figure markdown>
-  ![Výstup Kriging](../assets/cviceni5/kriging_vystup.png "Výstup Kriging"){ width="900"}
-  <figcaption>Výstup funkce Kriging</figcaption>
+  ![](../assets/cviceni5/explore-max.png)
+  ![](../assets/cviceni5/explore-min.png)
+  {: .process_container}
+
+  <figcaption>Odečtení maximální a minimální nadmořské výšky řeky z mozaiky</figcaption>
 </figure>
+
+**7.** __Změna symbologie DMR__
+
+Nově vytvořené mozaice DMR nastavíme vlastní symbologii podle zaznamenaných extrémních hodnot.
+ - je možné upravit dle požadovaného výsledku
+
+<figure markdown>
+  ![](../assets/cviceni5/dmr-symbologie.png){ width="500" }
+  <figcaption>Úprava symbologie DMR</figcaption>
+</figure>
+
+
+
+
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+    Extrémní hodnoty lze přizpůsobit, aby byla dobře vidět kostra řeky i s přítoky.
+
+**8.** __Tvorba kopie DMR__
+
+**9.** __Středová čára řeky__
+Abychom mohli vypošítat výškový model vstažený k povrchu řeky, je nutné vytvořit bodovou vrstvu s informacemi o nadmořské výšce a následně z nich vytvořit interpolovaný rastr. Nejdříve je nutné založit novou třídu prvků a nakreslit středovou čáru řeky, podle které následně vygenerujeme body. 
+
+![](../assets/cviceni5/centerline.png)
+![](../assets/cviceni5/centerline-done.png)
+{: .process_container}
+
+<figcaption>Tvorba středové čárky řeky</figcaption>
+
+**10.** __Body podél středové čáry__
+Body vytvoříme pomocí nástroje __Generate Points Along Lines__. Vzdálenost mezi nimi nastavíme na šířku řeky. 
+
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+    Šířku řeky můžeme zjistit pomocí nástroje __Measure__ (měření) na záložce __Map__.
+
+    <figure markdown>
+      ![](../assets/cviceni5/measure.png){ width="500" }
+      <figcaption>Nástroj měření</figcaption>
+    </figure>
+
+
+**11.** __Informace o nadmořské výšce__
+
+Pomocí funkce __Extract Values to Points__ lze bodům přiřadit hodnoty pixelu, na jehož místě se bod nachází.
+
+
+<figure markdown>
+  ![](../assets/cviceni5/points-z.png){ width="600" }
+  <figcaption>Přiřazení výšky bodům</figcaption>
+</figure>
+
+**12.** __interpolace IDW__
+
+Nyní můžeme z výškových bodů vytvořit interpolovaný výškový rastr vztažený k hladině řeky. Použijeme metodu vážené inverzní vzdálenost (IDW).
+
+![](../assets/cviceni5/idw1.png)
+![](../assets/cviceni5/idw2.png)
+{: .process_container}
+
+<figcaption>Interpolace</figcaption>
+
+???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
+    V geoprocessingovém nástroji __IDW__ je na záložce Enviroments nastavit rozsah, na kterém se interpolace provede. Výchozí nastavení je na rozsah interpolované vrstvy tj. naše bodová vrstva. My však chceme interpolovat na rozsah původního DMR vytvořeného z mozaiky. 
+
+**13.** __Převzorkování__
+
+Interpolovaný rastr je nutné převzorkovat, aby velikost pixelu odpovídala původnímu DMR. K převzorkování využijeme nástroj __Project Raster__
+  - nutné pro práci s rastrovou kalkulačkou
+
+![](../assets/cviceni5/project.png)
+![](../assets/cviceni5/project2.png)
+{: .process_container}
+
+<figcaption>Převzorkování rastru a kontrola velikosti pixelu</figcaption>
+
+**14.** __Výpočet REM__
+
+DRM vypočteme pomocí nástroje __Raster Calculator__ odečtením původní DMR od interpolovaného rastru vztaženého k hladině řeky.
+
+<figure markdown>
+  ![](../assets/cviceni5/raster-calculator.png){ width="300" }
+  <figcaption>Rastrová kalkulačka</figcaption>
+</figure>
+
+
+**15.** __Změna symbologie výsledného REM__
+Nyní už je je na nás, jak výsledný výsledný REM vizualizujeme. Vhodné je rastr vizualizovat metodou Stretch pomocí spojité barevné stupnice.
+
+<figure markdown>
+  ![](../assets/cviceni5/final-symbology.png){ width="500" }
+  <figcaption>Vizualizace výsledku</figcaption>
+</figure>
+
+## Zdroje
+Relative Elevation Models [online]. MONTANA STATE LIBRARY [cit. 2024-01-25]. Dostupné z: [https://storymaps.arcgis.com/stories/19b6bfe0c3aa454c853bd6d9b7228adf](https://storymaps.arcgis.com/stories/19b6bfe0c3aa454c853bd6d9b7228adf)
+
+Relative Elevation Model in ArcGIS Pro [online]. esri video [cit. 2024-01-25]. Dostupné z: [https://mediaspace.esri.com/media/t/1_pn5ltf54](https://mediaspace.esri.com/media/t/1_pn5ltf54)
 
 ## Úlohy k procvičení
 
@@ -154,41 +208,20 @@ Do mapového okna načteme zadaná data a prohlédneme si jejich strukturu v at
 
     K řešení následujích úloh použijte datovou sadu [ArcČR
     500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
-    ``K155\Public\data\GIS\ArcCR500 3.3``. Data meteorologických stanic byla převzata
-    z <http://www.in-pocasi.cz>. Na základě ukázkového
-    XML souboru byl vytvořen soubor ve formátu MS Excel, který je ke stažení 
-    jako [zip archiv](https://geo.fsv.cvut.cz/vyuka/155gis2/geodata/gis2-cviceni05.zip).
+    ``K155\Public\data\GIS\ArcCR500 3.3``.
+    
+    1. Jaká je plocha území v ha s nadmořskou výškou mezi 500 a 700m?
 
-    1. Na základě naměřené teploty odvoďte rastr metodou IDW (výchozí
-       hodnoty). Jaká je průměrná teplota na území ČR?
+    2. Jaká je výměra území v ha pro kterou platí, že leží v nadmořské
+       výšce nad 700m a má sklon svahu větší než 25 gonů?
 
-    2. Jaká je průměrná teplota v nadmořské výšce větší než 700 m při
-       použití rastru vypočteného metodou Kriging (výchozí hodnoty)?
+    3. Jaký průměrný sklon mají svahy, které jsou vzdáleny do 10km od
+       státní hranice. Jak velký rozdíl to je oproti průměrné hodnotě
+       počítané pro celé území státu?
 
-    3. Jaká je průměrná teplota v nadmořské výšce větší než 700 m při
-       použití rastru vypočteného metodou Spline (výchozí hodnoty)?
+    4. Jaká je plocha území v ha, kde se sklon limitně blíží k nule?
 
-    4. Jaká je plocha území v ha, kde je teplota nižší než 3°C (využijte
-       interpolační metodu Natural Neighbor, prostorové rozlišení 100m) a
-       je současně orientováno na jih. Kolik procent tohoto uzemí leží v
-       nadmořské výšce větší než 1000m?
-
-    5. Jaká je interpolovaná hodnota teploty v reprezentačním bodě obce
-       Peruc? (Použijte maximální hodnotu z interpolací Spline, IWD a
-       Kriging, prostorové rozlišení 1000m, na 2 des. místa)?
-
-    6. Vypočítejte pro reprezentační body obcí jejich teplotu. Rastr, ze
-       kterého budete teplotu určovat vypočítejte jako průměr z metod IDW,
-       Kriging a Spline (prostorové rozlišení 1km). Dále určete z takto
-       vypočítaných hodnot průměrné teploty pro kraje. Který z krajů má
-       nejnižší průměrnou teplotu a kolik to je?
-
-    7. Vytvořte dva rastry teplot, které budou obsahovat pro každý pixel
-       minimální, resp. maximální hodnotu z interpolací IDW, Kriging,
-       Spline (výchozí nastavení, prostorové rozlišení 1km). Jaký je
-       rozdíl takto odvozených teplot pro reprezentační bod obce Peruc?
-
-    8. Vytvořte rastr teplot, který vznikne z interpolace IDW (výchozí
-       nastavení, prostorové rozlišní 1km) a následně fokální funkcí jako
-       průměrná hodnota (Focal Mean) z oblasti 5x5 pixelů. Jakou teplotu
-       má oblast odpovídající reprezentačnímu bodu obce Peruc?
+    5. Vytvořte pomocí Raster Calculatoru rastr, který obsahuje hodnotu 1
+       pro území, kde je nadmořská výška nad 700m a sklon menší než 5°;
+       hodnotu 2, kde je platí, že je nadmořská výška nad 700m a sklon je
+       větší než 5°. Jaká je výměra takto určeného území v ha?

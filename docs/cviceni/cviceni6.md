@@ -3,194 +3,372 @@ icon: material/numeric-6-box
 title: Cvičení 6
 ---
 
-# Mapová algebra
+# Vzdálenostní analýzy
 
-## Cíl cvičení
+Ve cvičení se naučíte
+{: align=center style="font-size: 1.25rem; font-weight: bold; margin-bottom: 10px;"}
 
-Použití mapové algebry v rámci rastrového kalkulátoru pro výpočet relativního elevačního modelu řeky.
+<style>
+    .smaller_padding li {padding:.4rem .8rem !important;}
+    .primary_color {color:var(--md-primary-fg-color);}
+</style>
 
-## Základní pojmy
+<div class="grid cards smaller_padding" markdown>
 
-- **Mapová algebra** – překryvné operace rastrů
-- **Rastrová kalkulačka** – nástroj spouštějící výrazy Mapové algebry
-- **DMT (digitální model terénu)** – digitální reprezentace prostorových objektů (obecný pojem obsahující různé způsoby vyjádření terénního reiéfu nebo povrchu)
-- **DMR (digitální model reliéfu)** – digitální reprezentace zemského povrchu (NEbsahuje vegetaci, lidské stavby)
-- **DMP (digitální model povrchu)** – digitální reprezentace zemského povrchu (obsahuje vegetaci, lidské stavby, které jsou pevně spojené s reliéfem)
-- **REM (relativní výškový model)** – DMT relativní k vodní hladině toku.
+-   :material-map-marker-distance:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
+    
+    že "__jak daleko od sebe__{: .primary_colorx}" znamená mnohem více než počet kilometrů mezi místy na mapě
+    {.middle style="display:table-cell;line-height:normal;"}
 
-### REM
-<figure markdown>
-  ![IDW](../assets/cviceni6/prehled.png "Rastrová mozaika")
-  <figcaption>Rastrová mozaika</figcaption>
-</figure>
+-   :material-graph-outline:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
 
-Digitální relativní modely nám pomáhají lépe porozumět terénu. Při jejich vytváření se používá tzv. detrendovaný DMR bez vlivu nerovností. Tento detrendovaný DEM je následně odečten od DMR, což je digitální model povrchu. REM je užitešný pro vizualizaci říčních tvarů, které mohou být obtížně rozeznatelné pouze z leteckých snímků či DMR. Identifikace těchto tvarů má velkou vypovídací hodnotu při studiu migrace koryt a povodní, stejně jako při dalších úkonech spojených se stavebními pracemi či výskytu živočichů.
+    jak lze analýzou vzdáleností vytvořit sofistikovanější __modely blízkých a vzdálených míst__{: .primary_colorx}
+    {.middle style="display:table-cell;line-height:normal;"}
 
-Z REM lze identifikovat následující prvky:
-- Stržová eroze,
-- meandr s přiléhajícími hřbety a koryty ve tvaru půlměsíce
-- slepá ramena
-- izolovaná povodeň,
-- hráz.
+-   :material-nature-people-outline:{ .xxxl .middle }
+    {.middle style="display:table-cell;min-width:40px;padding-right:.8rem;"}
 
-<figure markdown>
-  ![IDW](../assets/cviceni6/shapes.png "Říční tvary"){ width="800" }
-  <figcaption>Říční tvary</figcaption>
-</figure>
+    jak aplikovat koncepty analýzy vzdáleností k zodpovězení __reálných otázek__ týkajících se pohybu v krajině
+    {.middle style="display:table-cell;line-height:normal;"}
+
+</div>
+
+<hr class="level-1">
+
+## Náplň cvičení
+
+Vzdálenostní analýza pomáhá zodpovědět základní otázku týkající se geografických dat: __Jak daleko jsou od sebe různá místa?__
+
+__"Jak daleko"__ ovšem může znamenat víc než jen vzdálenost (počet kilometrů mezi body). Analýza může také zohlednit ujetou __povrchovou vzdálenost__, nutnost __obejít překážky__ nebo __náročnost terénu__.
+
+Jedná se o __analýzu rastrovou__, proto je vhodná pro modelování __pohybu po povrchu__ (po krajině). Druhým (vektorovým) typem vzdálenostích analýz jsou pak tzv. analýzy síťové (součástí [budoucího cvičení](../cviceni/cviceni8.md "cvičení 8"){ style="color:unset;border-bottom:.05rem dotted var(--md-default-fg-color--light)" }).
 
 
-[REM Story mapa](https://storymaps.arcgis.com/stories/19b6bfe0c3aa454c853bd6d9b7228adf){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+
+
+
+<style>
+  .no_dec { font-weight: unset; /* in case of using __content__ (double underscore) */
+            font-style: unset;  /* in case of using  _content_  (single underscore) */ }
+</style>
+
+---
+
+### Faktory ovlivňující analýzu (vstupní data)
+
+<div class="grid cards" markdown>
+
+-   :material-source-commit-end:{ .lg .middle } __Pozice zdroje__ (1 a více)
+
+    <hr class="regular_margin">
+
+    Body (pixely), z jejichž pozic probíhá výpočet  
+    &nbsp;
+
+    ![](../assets/cviceni6/source-final.svg){ width=160px .off-glb .no-filter }
+    {: align=center}
+        
+-   :fontawesome-solid-road-barrier:{ .lg .middle } __Překážky__ (Barriers)
+
+    <hr class="regular_margin">
+
+    Struktury blokující cestu, neumožňují průchod
+
+    _:material-lightning-bolt:například_{.primary_color .no_dec} zdi, řeky, dálnice, státní hranice apod.
+
+    ![](../assets/cviceni6/barrier-final.svg){ width=160px .off-glb .no-filter }
+    {: align=center }
+
+    [Account for barriers in distance calculations](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/account-for-barriers-in-distance-calculations.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+    {: .button_array}
+
+-   :material-map-marker-distance:{ .lg .middle } __Povrchová vzdálenost__ (Surface Distance)
+
+    <hr class="regular_margin">
+
+    Započítává nerovnosti povrchu Země (reliéf), trasa pak lépe odpovídá skutečné uražené vzdálenosti. Použití se hodí, pokud nás zajímá kromě tvaru trasy __i její skutečná délka__.
+
+    ![](../assets/cviceni6/hiker-final.svg){ width=160px .off-glb .no-filter }
+    {: align=center}
+
+    [Account for surface in distance calculations](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/account-for-surface-in-distance-calculations.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+    {: .button_array}
+
+-   :fontawesome-solid-hand-holding-dollar:{ .lg .middle } __Náklady__ (Cost, Friction)
+
+    <hr class="regular_margin">
+
+    Rozlišuje prostupnost rastru ve smyslu nákladů, hodnota pixelu znamená obtížnost (náklady) jeho překročení
+
+    _:material-lightning-bolt:například_{.primary_color .no_dec} __Land Cover__{.abbrev .no_dec .nowrap title="les/louka/bažina/cesta"}, __sklonitost terénu__{.abbrev .no_dec .nowrap title="strmější = náročnější pohyb"} nebo __nadm. výška__{.abbrev .no_dec .nowrap title="vyšší polohy = náročnější pohyb"}, ale i __cena výkupu pozemků__{.abbrev .no_dec .nowrap title="pro stavbu cest"}, __cena za překročení hranice__{.abbrev .no_dec .nowrap title="vstupné a jiné poplatky"}.
+
+    <!-- ![](../assets/cviceni6/cost-final2.svg){ width=160px .off-glb .no-filter } -->![](../assets/cviceni6/landscape-final.svg){ width=260px .off-glb .no-filter }
+    {: align=center}
+
+    [Cost Raster Definition](https://support.esri.com/en-us/gis-dictionary/cost-raster){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+    {: .button_array}
+
+</div>
+
+Dalšími vstupními činiteli mohou být tzv. __horizontální__ nebo __vertikální faktor__. Tyto parametry mění náklady trasy v závislosti na směru pohybu, konkrétně:
+
+<div class="grid cards" markdown>
+
+-   :material-arrow-all:{ .lg .middle } __Horizontální faktor__ (Horizontal Factor):
+
+    <hr class="regular_margin">
+
+    Mění náklady __v závislosti na azimutu__ směřujícímu k dalšímu pixelu. Ideální k __započítání směru větru__ do výpočtu obtížnosti (nákladů) trasy.
+
+    [Adjust the encountered distance using a horizontal factor](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/adjust-the-encountered-distance-using-a-horizontal-factor.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+    {: .button_array}
+
+-   :material-arrow-up-down:{ .lg .middle } __Vertikální faktor__ (Vertical Factor):
+
+    <hr class="regular_margin">
+
+    Mění náklady __v závislosti na úhlu sklonu terénu__, řídí se funkcí (lineární, trigonometrickou apod.) nebo tabulkou hodnot. Ideální k __rozlišení nákladů do kopce a z kopce__.
+
+    [Adjust the encountered distance using a vertical factor](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/adjust-the-encountered-distance-using-a-vertical-factor.htm){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank"}
+    {: .button_array}
+
+</div>
+
+!!! note-grey "Poznámka"
+
+    Při použití těchto dvou faktorů už __analýzy závisí na směru trasy (tam ≠ zpět)__ a je proto vhodné dát pozor na nastavení parametru __Travel direction__{.outlined .no_dec} – __Travel from source__ × __Travel to source__ (od zdroje × ke zdroji)
+
+
+[Distance Analysis: Using Distance Accumulation and Distance Allocation](https://www.esri.com/training/catalog/61a64df6a992c72fed4bb5db/distance-analysis-using-distance-accumulation-and-distance-allocation/){ .md-button .md-button--primary .button_smaller .external_link_icon target="_blank" title="e-learningový kurz s použitím Horizontal a Vertical Factor"}
 {: .button_array}
 
+__Doplňkové parametry:__
 
-## Použité datové podklady
+- __Initial accumulation__{.outlined .no_dec} nastaví zdrojovému bodu __počáteční hodnotu nákladů__, se kterou cesta z něj začíná
+- __Maximum accumulation__{.outlined .no_dec} __maximální hodnota kumulovaných nákladů__, místa s vyššími náklady (pro daný zdrojový bod) budou mít hodnotu `Null`
+- __Multiplier to apply to costs__{.outlined .no_dec} hodnota, kterou se __vynásobí náklady každého pixelu__, lze použít _:material-lightning-bolt:např._{.primary_color .no_dec} k rozlišení různých druhů dopravy
 
-- [DMR 5G](../../data/#dmr-5g)
+!!! note-grey "Poznámka"
 
-## Postup
-**1.** __Stažení dat__
-Z Geoportálu Zeměměřického Úřadu si stáhněte dlažice DMR5G na části Vámi vybrané řeky. Zazipované soubory *.laz rozbalte a připojte do ArcGIS Pro.
+    Při výběru konkrétních nákladů je vždy nutné __správně vyhodnotit jednotlivé parametry__. Vliv jednotlivých faktorů se může případ od případu výrazně lišit.
 
-![](../assets/cviceni6/DMR5G-stazeni.png)
-![](../assets/cviceni6/DMR5G-laz.png)
-{: .process_container}
+    _:material-lightning-bolt:například:_{.primary_color .no_dec}
 
-<figcaption>Stažení dat z Geoportálu ZÚ</figcaption>
+    - Bariéra pro člověka nemusí znamenat bariéru pro zvíře
+    - Les pohyb člověka zpomaluje, ale zvířata ho mohou naopak preferovat
+    - Povrchová vzdálenost se nemusí vztahovat na ptáky nebo letadla
 
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     Je vhodné vybrat oblast, kde má řeka možnost měnit svůj tvar v čase. Ideální jsou tedy zájmová území s rovinatým charakterem, kde se tvoří meandry, slepá ramena, či záplavy. Protékající řeka údolím nemá pro změny toku dostatek prostoru a tvorba relativního výškového modelu nemá pro následující analýzy smysl.
+    Jednotlivé faktory mohou mít v analýze také __odlišnou váhu__, viz níže.
 
-**2.** __Založení projektu v ArcGIS Pro__
+---
 
-Po založení je nutné nastavit souřadnicový systém mapy na __S-JTSK Krovak EastNorth__ (EPSG:5514)
+### Analýzy
 
-**3.** __Konverze LAZ souborů__
+Pro analýzy vzdálenosti lze použít __tři základní metody__{: .primary_color}:
 
-![](../assets/cviceni6/batch-convert-las.png)
-{: .process_container}
+<style>
+    .nt-cards.center_align {text-align: center; }
+    .nt-card {border-radius: .1rem;}
+</style>
 
-<figcaption>Převod *.laz souborů na *.las</figcaption>
+<!-- https://www.neoteroi.dev/mkdocs-plugins/cards/ -->
+::cards:: cols=3 class_name="center_align"
 
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     - Nástroj lze spustit buď pro každý soubor zvlášť nebo spustit dávkově (viz cv. 1: [Batch Processing](../cviceni1/#batch-geoprocessing))
-     - Po aktualizaci připojené složky s daty se nám v záložce katalogu zobrazí konvertované las soubory mračna bodů
+- title: Distance Accumulation
+  content: Každému pixelu přiřazuje __hodnotu obtížnosti __(součet nákladů)__ dosažení __(jednoho)__ zdrojového bodu__.<br><br><em class="primary_color no_dec"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8Z"></path></svg></span> například</em>
+   oblast potenciální polohy ztraceného člověka v čase od poslední známé polohy
+  image: ../assets/cviceni6/01.svg
 
-**4.** __Tvorba DMR__
+- title: Distance Allocation
+  content: Každému pixelu __přiřazuje zdrojový bod__, ke kterému vede __nejsnadnější cesta__ (dle součtu nákladů).<br><br><em class="primary_color no_dec"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8Z"></path></svg></span> například</em>
+   přiřazení nejbližšího záchranného zařízení, nebo mapování zvířecích teritorií
+  image: ../assets/cviceni6/02.svg
 
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-     - postup vysvětlen ve cv. 3: [Vytvoření digitálního modelu terénu](../cviceni3/#vytvoreni-digitalniho-modelu-terenu)
-     - Velikost buňky volte dle s ohledem na přesnost dat
-     - Vzhledem k prostorovému rozlišení produktu DMR5G zde vhodné nastavit hodnotu 2 metry (opravit v nové verzi)
+- title: Path Generation
+  content: Generuje __cestu s nejnižšími náklady__ mezi dvěma (a více) body.<br><br><br><em class="primary_color no_dec"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8Z"></path></svg></span> například</em>
+   pohyb zvířat mezi zdroji potravy, nebo stavba cesty v krajině
+  image: ../assets/cviceni6/03.svg
 
-**5.** __Tvorba rastrové mozaiky__ 
-Ze vniklých dlaždic je nutné vytvořit jediný výškový rastr pomocí funkce __Mosaic To New Raster__.
-
-![](../assets/cviceni6/mozaika.png)
-{: .process_container}
-
-<figcaption>Rastrová mozaika</figcaption>
-
-**6.** __Odečtení extrémních hodnot__
-
-Pomocí nástroje Explore na záložce Map zjistíme minimální a maximální nadmořskou výšku toku.
-
-![](../assets/cviceni6/explore-max.png)
-![](../assets/cviceni6/explore-min.png)
-{: .process_container}
-
-<figcaption>Odečtení maximální a minimální nadmořské výšky řeky z mozaiky</figcaption>
-
-**7.** __Změna symbologie DMR__
-
-Nově vytvořené mozaice DMR nastavíme vlastní symbologii podle zaznamenaných extrémních hodnot.
- - je možné upravit dle požadovaného výsledku
-
-![](../assets/cviceni6/dmr-symbologie.png)
-{: .process_container}
-
-<figcaption>Úprava symbologie DMR</figcaption>
-
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-    Extrémní hodnoty lze přizpůsobit, aby byla dobře vidět kostra řeky i s přítoky.
-
-**8.** __Tvorba kopie DMR__
-
-**9.** __Středová čára řeky__
-Abychom mohli vypošítat výškový model vstažený k povrchu řeky, je nutné vytvořit bodovou vrstvu s informacemi o nadmořské výšce a následně z nich vytvořit interpolovaný rastr. Nejdříve je nutné založit novou třídu prvků a nakreslit středovou čáru řeky, podle které následně vygenerujeme body. 
-
-![](../assets/cviceni6/centerline.png)
-![](../assets/cviceni6/centerline-done.png)
-{: .process_container}
-
-<figcaption>Tvorba středové čárky řeky</figcaption>
-
-**10.** __Body podél středové čáry__
-Body vytvoříme pomocí nástroje __Generate Points Along Lines__. Vzdálenost mezi nimi nastavíme na šířku řeky. 
-
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-    Šířku řeky můžeme zjistit pomocí nástroje __Measure__ (měření) na záložce __Map__.
-
-    ![](../assets/cviceni6/measure.png)
-    {: .process_container}
-    
-    <figcaption>Nástroj měření</figcaption>
+::/cards::
 
 
-**11.** __Informace o nadmořské výšce__
+---
 
-Pomocí funkce __Extract Values to Points__ lze bodům přiřadit hodnoty pixelu, na jehož místě se bod nachází.
+<style>
+    .abbrev {border-bottom:.05rem dotted var(--md-default-fg-color--light)}
+    .nowrap {white-space: nowrap;}
+</style>
 
-![](../assets/cviceni6/points-z.png)
-{: .process_container}
+### Metoda _Distance Accumulation_{.outlined}
 
-<figcaption>Přiřazení výšky bodům</figcaption>
+Pro každý pixel vypočítá __kumulovanou vzdálenost__ (součet nákladů) __k nejbližšímu zdroji__. Distance Accumulation je základním nástrojem pro vzdálenostní analýzy a jeho výstupy bývají nutným vstupním parametrem některých navazujících nástrojů.
+
+!!! note-grey "Poznámka"
+
+    Do analýzy je možné započítat všechny výše zmíněné faktory.
 
 
-**12.** __interpolace IDW__
+![](../assets/cviceni6/101_accumulation01.png "pozice zdroje (1) + překážky"){width="300px"}
+![](../assets/cviceni6/102_accumulation01.png "pozice zdroje (více) + překážky"){width="300px"}
+![](../assets/cviceni6/103_accumulation01.png "pozice zdroje (více) + překážky + parametr Maximum accumulation"){width="300px"}
+{align="center"}
 
-Nyní můžeme z výškových bodů vytvořit interpolovaný výškový rastr vztažený k hladině řeky. Použijeme metodu vážené inverzní vzdálenost (IDW).
+__:material-lightning-bolt:příklady použití:__{.primary_color .no_dec} identifikace odlehlých oblastí (daleko od stanic záchranné služby)
 
-![](../assets/cviceni6/idw1.png)
-![](../assets/cviceni6/idw2.png)
-{: .process_container}
+[<span>pro.arcgis.com</span><br>How distance accumulation works](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-distance-accumulation-works.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+[<span>pro.arcgis.com</span><br>Distance accumulation algorithm](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/distance-accumulation-algorithm.htm){ .md-button .md-button--primary .server_name .external_link_icon_small target="_blank"}
+{: .button_array}
 
-<figcaption>Interpolace</figcaption>
+---
 
-???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-    V geoprocessingovém nástroji __IDW__ je na záložce Enviroments nastavit rozsah, na kterém se interpolace provede. Výchozí nastavení je na rozsah interpolované vrstvy tj. naše bodová vrstva. My však chceme interpolovat na rozsah původního DMR vytvořeného z mozaiky. 
+Předchozí metoda každému pixelu přiřadila náklady na cestu k nejbližšímu zdroji, ale neřekne nám, který zdroj je tím nejbližším. To dokáže metoda druhá:
 
-**13.** __Převzorkování__
+### Metoda _Distance Allocation_{.outlined}
 
-Interpolovaný rastr je nutné převzorkovat, aby velikost pixelu odpovídala původnímu DMR. K převzorkování využijeme nástroj __Project Raster__
-  - nutné pro práci s rastrovou kalkulačkou
+Každému pixelu __přiřadí hodnotu zdroje, ke kterému vede nejméně nákladná cesta__. V případě, že zadáme pouze nutné vstupní parametry (zdrojové body), bude se nástroj řídit pouze 2D vzdáleností a vytvoří tzv. [Thiessenovy polygony](https://support.esri.com/en-us/gis-dictionary/thiessen-polygon) (také [Voronoiovy diagramy](https://support.esri.com/en-us/gis-dictionary/voronoi-diagram)).
 
-![](../assets/cviceni6/project.png)
-![](../assets/cviceni6/project2.png)
-{: .process_container}
+![](../assets/cviceni6/201_allocation.png "pozice zdroje"){width="250px"}
+![](../assets/cviceni6/202_allocation.png "pozice zdroje + překážky"){width="250px"}
+![](../assets/cviceni6/204_allocation.png "pozice zdroje + náklady"){width="250px"}
+![](../assets/cviceni6/203_allocation.png "pozice zdroje + překážky + náklady"){width="250px"}
+{align="center"}
 
-<figcaption>Převzorkování rastru a kontrola velikosti pixelu</figcaption>
+__:material-lightning-bolt:příklady použití:__{.primary_color .no_dec} určení záchranného týmu nejblíže nouzové události
 
-**14.** __Výpočet REM__
+<!-- pak přidat výstupy s postupným přidáváním faktorů a zkusit najít zajímavé místo, kde v tom bude evidentní rozdíl a evidentní důvod (např. že to vybízí k přechodu jezera (kvůli nulovému sklonu), dokud mu to nezakážu bariérou nebo NODATA na vodě) -->
 
-DRM vypočteme pomocí nástroje __Raster Calculator__ odečtením původní DMR od interpolovaného rastru vztaženého k hladině řeky.
 
-![](../assets/cviceni6/raster-calculator.png)
-{: .process_container}
+---
 
-<figcaption>Rastrová kalkulačka</figcaption>
+### Metoda _Path Generation_{.outlined}
 
-**15.** __Změna symbologie výsledného REM__
-Nyní už je je na nás, jak výsledný výsledný REM vizualizujeme. Vhodné je rastr vizualizovat metodou Stretch pomocí spojité barevné stupnice.
+Nalezne __spojnice bodů s nejnižsím součtem nákladů__. Nutným vstupem jsou dva rastry vzniklé nástrojem Distance Accumulation (&nbsp;__Output distance accumulation raster__{.outlined} a __Out back direction raster__{.outlined}&nbsp;)
 
-![](../assets/cviceni6/final-symbology.png)
-{: .process_container}
+__Příklady nejkratších tras:__
 
-<figcaption>Vizualizace výsledku</figcaption>
+<div class="centered_tab_labels" markdown>
+
+=== "1. pouze počátek a konec trasy"
+
+    ![](../assets/cviceni6/path01_nothing.png){width=50%}
+    { align="center" }
+
+=== "2. rastr překážek"
+
+    ![](../assets/cviceni6/path02_only_barriers.png){width=50%}
+    { align="center" }
+
+=== "3. rastr nákladů"
+
+    ![](../assets/cviceni6/path04_only_cost.png){width=50%}
+    { align="center" }
+
+=== "4. rastr překážek + rastr nákladů"
+
+    ![](../assets/cviceni6/path03_cost_barriers.png){width=50%}
+    { align="center" }
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- tady určitě příklad jako je v prvním esri training kurzu v části 2 - různé obrázky
+
+pak přidat výstupy s postupným přidáváním faktorů a zkusit najít zajímavé místo, kde v tom bude evidentní rozdíl a evidentní důvod (např. že to vybízí k přechodu jezera (kvůli nulovému sklonu), dokud mu to nezakážu bariérou nebo NODATA na vodě)
+
+dvě místa a mezi nimi jezero sevřené horami
+
+1. input, output (mělo by udělat rovnou čáru) <-- asi zbytečné, rovnou použít surface
+2. input, output, surface (mělo by obejít horu, ale jít skrz jezero)
+3. input, output, surface, cost (cost by byla vážená kombinace Land Cover+Trails v jednom a pak třeba Slope k tomu)
+4. input, output, surface, cost, barriers (bariéra musí být tam, kde to ukázalo minulou cestu, aby se to od minula lišilo NEBO kolem jezer a řek kromě mostů)
+5. input, output, surface, cost, barriers, vertical factor (mrknout na Training, tam mají nějaký texťák, nebo použít jednu z variant funkcí)
+
+tohle samé asi i pro ty zbylé případy!!!
+
+---
+
+
+## Zadání domácího úkolu k semestrální práci
+
+
 
 ## Zdroje
-Relative Elevation Models [online]. MONTANA STATE LIBRARY [cit. 2024-01-25]. Dostupné z: [https://storymaps.arcgis.com/stories/19b6bfe0c3aa454c853bd6d9b7228adf](https://storymaps.arcgis.com/stories/19b6bfe0c3aa454c853bd6d9b7228adf)
 
-Relative Elevation Model in ArcGIS Pro [online]. esri video [cit. 2024-01-25]. Dostupné z: [https://mediaspace.esri.com/media/t/1_pn5ltf54](https://mediaspace.esri.com/media/t/1_pn5ltf54)
+https://www.esri.com/training/catalog/61d4dddd118ffc20ea87afa5/distance-analysis-essentials/
+
+Network Datasety:
+
+https://www.esri.com/training/catalog/64c94671e9b24307fd5db5ca/configure-a-network-dataset-in-arcgis-pro/
+
+https://www.esri.com/training/catalog/57672875eeae7ade2869a2f1/finding-the-best-paths/
+
+
+
+https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/account-for-surface-in-distance-calculations.htm
+
+https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/distance-analysis.htm
+
+https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/creating-a-cost-surface-raster.htm
+
+https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/understanding-cost-distance-analysis.htm
+
+:custom-vc-numeric-11-box:
+
+:material-numeric-7-box:
+
+:mountain:{ .xxxl}
+
+
+možnosti úloh:
+
+- stojím na náhodném místě v NP a chci spát -> ke které útulně to mám nejblíže? (distance allocation)
+- a jak to k ní mám daleko? (distance accumulation s tou jednou konkrétní útulnou)
+- a kudy k ní vede cesta? (path generation)
+- -> ke kterému vodnímu zdroji to mám nejblíže? jak daleko? kudy vede cesta? (stejná úloha, akorát vodní zdroje jsou plochy a linie - jde to vůbec? zjistit! nelze použít land cover, protože nevidí potoky)
+
+asi využít i bariéry nějak - daly by se vložit řeky jako bariéry s dírami v místech mostů
+
+
+- člověk se ztratil v NP Krkonoše (známe bod poslední známé polohy a času) -> kam mohl za určitou dobu dojít? (buffery vzdáleností třeba po hodinách)
+- jak přejít Krkonoše, abych nespal v NP, ale jen v ochranném pásmu? dá se to vůbec stihnout za jeden den mezi oblastmi, kde se to smí? (smí se to vlastně? v ochranném pásmu spát?)
+- které oblasti nemají v dochozí vzdálenosti (třeba tří hodin) žádnou útulnu? (distance allocation to není! je to distance accumulation (NE dávkově) na všechny útulny, pak symbologií omezit extrémní místa NEBO distance accumulation na všechny útulny s maximem tří hodin a pak raster calculatorem NODATA->data a naopak data->NODATA (udělat inverzi data/NODATA))
+
+bacha pokud by se u toho hikování používal ten vertical/horizontal factor, tak je tam pak důležitý ten Travel Direction (viz training 3, část 3 exercise)
+
+---
+
+- utíkám přes hranice (stačí mi cesta k hranicím, dál totiž nejsou data...), mám s sebou hodně věcí, takže mám malý výkon, útěk musím stihnout za jednu noc (za světla by mě chytili) – mám tedy omezený čas (pro accumulation), musím se vyhnout blízkosti stanovišť pohraničníků (bariéry, buffery kolem stanovišť převedené na linie by měly fungovat, případně použít polygony pokud to půjde) <-- bacha jak na to s výchozím místem, to jsem ještě nedomyslel, musí jich být diskrétní počet
+
+cesty musí mít vysoký náklad, protože mě na nich někdo může vidět - vysokým nákladem se nezakáže přechod cesty, ale algoritmus se jim bude vyhýbat
+
+- a pak OPAČNÝ PŘÍPAD – jsem komunista a chci zabránit útěkům přes hranice, mám peníze na dvě nová stanoviště pohraničníků, chci je postavit na dvou místech, která jsou nejdál od všech existujících stanovišť (a proto tam asi lidi teď utíkají)
+
+---
+
+- který vlk má největší teritorium a je tedy nejmenší šance, že na něj při přechodu krajiny narazím?
+
+---
+
+- zranil se turista -> který zácharnný tým to má ze stanice k němu nejblíž? (distance allocation)
+- a pozor! záchranáři ho našli, ale potřebuje převoz vrtulníkem, který nemůže přistát v lese -> najdi nejbližsí místo mimo les (podle Land Cover) a cestu k tomu místu
+
+---
+
+- jak se dostat na kole do školy, abych jel jenom zkopce? (vyžadovalo by to ten)
+
+
+doplňková informace - Corridor analysis, jen pro zajímavost, obrázky, co to je atd. je to v traning 4 část 3 -->
 
 ## Úlohy k procvičení
 
@@ -199,19 +377,43 @@ Relative Elevation Model in ArcGIS Pro [online]. esri video [cit. 2024-01-25]. D
     K řešení následujích úloh použijte datovou sadu [ArcČR
     500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
     ``K155\Public\data\GIS\ArcCR500 3.3``.
-    
-    1. Jaká je plocha území v ha s nadmořskou výškou mezi 500 a 700m?
 
-    2. Jaká je výměra území v ha pro kterou platí, že leží v nadmořské
-       výšce nad 700m a má sklon svahu větší než 25 gonů?
+    1. Ve které obci Ústeckého kraje je největší plocha území v okolí
+       komunikací 1.tříd, kde hrozí možnost sesuvů (poměr
+       sklon_v_procentech / vzdálenost_od_komunikace je větší než 0.3
+       jednotek) okolního terénu do anebo od komunikace. Jaká je výměra
+       tohoto území?
 
-    3. Jaký průměrný sklon mají svahy, které jsou vzdáleny do 10km od
-       státní hranice. Jak velký rozdíl to je oproti průměrné hodnotě
-       počítané pro celé území státu?
+    2. Najděte optimální trasu pro přesun dřeva lesem z místa těžby
+       (výšková kóta OBJECTID 765 - Hradišťany) na odvozová místa u cest
+       (obec Lukov a Želkovice v Ústeckém kraji). Jaké jsou časové
+       vzdálenosti pro nejkratší nalezené cesty? 
 
-    4. Jaká je plocha území v ha, kde se sklon limitně blíží k nule?
+           Podmínky:
 
-    5. Vytvořte pomocí Raster Calculatoru rastr, který obsahuje hodnotu 1
-       pro území, kde je nadmořská výška nad 700m a sklon menší než 5°;
-       hodnotu 2, kde je platí, že je nadmořská výška nad 700m a sklon je
-       větší než 5°. Jaká je výměra takto určeného území v ha?
+           - trasa nesmí vést po svahu o sklonu větším jak 15 stupňů
+           - přesun po území se sklonem 0-5 stupňů zabere 1 časovou jednotku
+           - přesun po území se sklonem 5-10 stupňů zabere 4 časové jednotky
+           - přesun po území se sklonem 10-15 stupňů zabere 16 časových jednotek
+
+
+    3. Jaká je délka nalazených tras po terénu v metrech mezi místem těžby
+       a dvěma odvozovými místy vypočítaných v předchozím příkladě?
+
+    4. Kolik procent území v okolí do vzdálenosti 10km od chemického
+       závodu Lovochemie (GPS: 50.5098247N, 14.0741761E) by bylo zasaženo
+       znečištěním větším než 30 jednotek za předpokladu, že se toto
+       znečištění šíří podle vzorce <math>1000/\sqrt{d}</math> (d je
+       vzdálenost v metrech od zdroje, prostorové rozlišení 10m). Zasahuje
+       takto znečištěné území vodní plochy?
+
+    5. Jaká je nejkratší časová vzdálenost mezi výškovou kótou 'Varhošť'
+       (ID 725) a 'Sklářský vrch' (ID 476)? Na území, kde je sklon svahu
+       do 0,5° je rychlost pohybu 6 km/h, kde je sklon 0,5-1° je rychlost
+       4 km/h, kde je sklon 1-5° je rychlost 1 km/h, kde je sklon nad 5°
+       není možné se pohybovat. Vertikální parametry neuvažujte. Výsledek
+       uveďte v minutách?
+
+    6. Jaká je průměrná hodnota hluku (na 3 des. místa) od silnic pro
+       území Moravskoslezského kraje? Hluk se šíří od všech silnic podle
+       vzorce (100/d), kde d je přímá vzdálenost od nejbližší silnice?

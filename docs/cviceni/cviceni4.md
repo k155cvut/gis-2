@@ -3,74 +3,151 @@ icon: material/numeric-4-box
 title: Cvičení 4
 ---
 
-# Topografická analýza povrchu, reklasifikace rastrových dat
+
+# Interpolace rastrových dat
 
 ## Cíl cvičení
-Seznámit se s topografickými funkcemi a reklasifikací rastrových dat.
+Představení typů interpolace rastrových dat.
 
 ## Základní pojmy
-
-- [**slope**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/slope.htm)
-- [**aspect**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/aspect.htm)
-- [**hillshade**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/hillshade.htm)
-- [**viewshed**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/viewshed.htm)
-- [**raster surface toolset**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/an-overview-of-the-raster-surface-toolset.htm)
-- [**aspect-slope**](https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/aspect-slope-function.htm)
-
-
-## Náplň cvičení
-Vaším úkolem bude na základě rastrových dat vybraného území analyzovat lavinové svahy mají. K vyhodnocení lavinového svahu potřebujete znát sklonitost a expozici svahu, nadmořskou výšku či krajinný pokryv. Podmínky pro vznik lavin lze (zjednodušeně) shrnout v následujících bodech:
-
-1. Nadmořská výška
-Laviny se zpravidla vyskytují ve vyšších nadmořských výškách. Jako území vhodné pro vznik lavin volte lokality, které se nachází v nejvyšší třetině všech nadmořských výšek v rámci zájmového území.
-
-2. Sklon svahu
-Základní předpoklad pro uvolnění laviny je sklon svahu, s jehož růstem se zvyšuje pravděpodobnost a riziko vzniku lavin. Laviny suchého sněhu vzácně vznikají na svazích již od 25° sklonu a se vzrůstajícím sklonem jejich četnost narůstá, zejména ve svazích nad 30° sklonu. Pro účely práce tedy zvolte mezní hodnotu v tomto intervalu.
-
-3. Expozice svahu
-Uprostřed zimy bývají kritické zejména stinné svahy v severní expozici. Uvažujme tedy svahy severovýchodní, severní a severozápadní orientace.
-
-4. Krajinný pokryv
-Riziko vzniku lavin nastává na otevřených plochách bez většího vegetačního porostu. Hodnoty krajinného pokryvu jsou obsaženy ve sloupci *Code 18* (CLC 2018). Vyhovujícími hodnotami jsou 2.X.X a 3.X.X. (vyjma 3.1.1., 3.1.2 a 3.1.3.).
-
-## Použité datové podklady
-- DMR 5G
-- CORINE Land Cover 2018
-
-## Postup
-Řešení popisuje postupné použití jednotlivých nástrojů geoprocessingu, vaším úkolem je těmto funkcím porozumět a úlohu zpracovat v *Model Builderu*.
-
-**1.** Po založení nového projektu v ArcGIS a nastavení Křovákova zobrazení, importujte potřebná data: DMR Krkonošského parku a vrstva *Velkoplošná chráněná území* z ArcGIS Online (poskytuje AOPK ČR).
-
-**2.** Na základě DMR je nejprve možné vyhodnotit nejvyšší třetinu zájmového území. Rozpětí výšek je možné zjistit ve vlastnostech rastru a stanovit mezní hodnotu nejvyšší třetiny. Pomocí nástroje *Reclassify* následně proběhne reklasifikace dat: hodnotám menším než mezní nastavíme novou hodnotu 0; hodnotám od mezní výše přiřadíme novou hodnotu 1.
-
-**3.** Nyní pokročíme k rastrové analýze, která vždy zahrnuje použití jedné z topografických funkcí a následnou reklasifikaci. Těmito funkcemi budou postupně: *Slope* (podmínka č. 2) a *Aspect* (podmínka č. 3). Nastavení reklasifikace rastrových výstupů proběhne dle podmínek v zadání; vždy přiřaďte novou hodnotu 0 pro nevyhovující hodnoty (tzn. oblasti nesplňující kritéria lavinových svahů) a hodnotu 1 pro vyhovující.
-
-Pro názornost následuje ukázka zpracování sklonitosti svahu (postup s výpočtem a reklasifikací expozice je analogický).
-
-<figure markdown>
-  ![Slope](../assets/cviceni4/slope.png "Slope")
-  <figcaption>Výstupní rastr po použití topografické funkce Slope (na vstupu DMR)</figcaption>
-</figure>
-
-<figure markdown>
-  ![Reclassify](../assets/cviceni4/reclassify.png "Reclassify")
-  <figcaption>Parametry reklasifikace rastru sklonitosti terénu</figcaption>
-</figure>
-
-<figure markdown>
-  ![Reclassify](../assets/cviceni4/reclass_output.png "Reclassified output")
-  <figcaption>Reklasifikovaný rastr sklonitosti terénu indikující hodnoty nad a pod mezní hodnotou</figcaption>
-</figure>
-
-**4.** Jakmile proběhne analýza DMR, přistoupíme ke zpracování CLC 2018. Jedná se o další reklasifikaci, která byla provedena již v předchozích fázích, avšak na vstupu je CLC 2018 a pravidla pro nastavení reklasifikace jsou obsáhlejší (viz zadání).
+- **Interpolace** – Nalezení neznámé hodnoty určitého jevu na základě známých okolních hodnot.
+- **Extrapolace** – Funguje obdobným způsobem jako interpolace, ale dopočítává nové hodnoty za hranicemi vstupních známých hodnot.
+- **Lineární interpolace** – Metoda interpolace počítající rovinu ze tří známých bodů. Jednotlivé středy buňěk se počítají z rovnic
+rovin polohově překrývajících trojúhelníků. Používá se pro interpolaci vrstevnic na základě známých bodů.
+- [**IDW**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/idw.htm)
+- [**Spline**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/spline.htm)
+- [**Natural Neighbor**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/natural-neighbor.htm)
+- [**Trend**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/trend.htm)
+- [**Kriging**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/kriging.htm)
 
 ???+ note "&nbsp;<span style="color:#448aff">Pozn.</span>"
-      V současné podobě nabízí produkt CORINE Land Cover (CLC) celoevropská data půdního pokryvu a využití půdy se 44 tematickými třídami, od rozsáhlých lesních ploch až po jednotlivé vinice. Produkt je každých šest let aktualizován o nové vrstvy stavu a změn - poslední aktualizace byla provedena v roce 2018. CLC slouží mnoha uživatelům a má téměř neomezené potenciální i reálné využití, včetně monitorování životního prostředí, územního plánování, hodnocení klimatických změn a krizového řízení (land.copernicus.eu).
+     **Interpolace** nemusí procházet zadanými body.
 
-**5.** Na závěr přichází stěžejní část celé úlohy: vyhodnotit lavinové svahy. Nyní tedy využijeme dílčí výsledky (reklasifikované vrstvy obsahující pouze hodnoty 0 a 1). Cílem je zkombinovat podmínky a brát v potaz pouze taková místa, kde nastávají právě všechny čtyři. K tomuto účelu lze elegantně využít rastrovou kalkulačku *Raster Calculator* a sestavit správný algebraický výraz. Matice všech reklasifikovaných rastrů mezi sebou vynásobíme, čímž získáme nový rastr obsahující hodnoty 1 v místech, kde je splněna každá podmínka zadání, a hodnoty 0, kde není splněna žádná podmínka či pouze jedna, dvě nebo tři libovolné (aby byl výsledek roven 0, postačí jediná 0 mezi činiteli). Výstupní rastr tedy indikuje oblasti lavinového nebezpečí dle zadaných podmínek. Nakonec je vhodné nastavit vhodnou barvu pro jednotlivé hodnoty buněk.
+     **Aporoximace** musí procházet zadanými body.
 
-**6.** Alternativní přístup by mohl být reprezentován symbolizací různých úrovní lavinového rizika, kterých lze dosáhnout změnou výrazu v rastrové kalkulačce. Místo násobení hodnot čtyř rastrových vrstev je můžete jednoduše sečíst. Výstup bude tvořit 5 různých hodnot: 0, 1, 2, 3 nebo 4. Následně změňte symbologii rastru tak, abyste podle těchto hodnot označili rostoucí lavinové riziko.
+## Použité datové podklady
+- VyskoveKoty ([ArcČR 500](../../data/#arccr-500))
+
+## Náplň cvičení
+Pomocí interpolačních algoritmů nad zadanými daty vytvořte digitální model terénu. Jednotlivé algority vzájemně porovnejte a následně posuďte výhody a nevýhody každého z nich. Výstupy algoritmů je možné oříznout např. polygonem ČR funkcí *Extract by Mask*
+
+## Postup
+Do mapového okna načteme zadaná data a prohlédneme si jejich strukturu v atributové tabulce. Následně vypočteme jednotlivé interpolace.
+
+### IDW
+???+ note "&nbsp;<span style="color:#448aff">IDW (Inverse Distance Weighted)</span>"
+     Metoda IDW (Inverse Distance Weighted) je založena na vážené inverzní vzdálenosti bodů. Hodnoty v buňkách se vypočítají na základě vzdálenosti okolních bodů. Čím dále je konkrétní bod od určované buňky, tím menší má vliv na výpočet její hodnoty.
+
+     Nedochází k extrapolaci, tzn. nejsou vypočteny hodnoty vyšší nebo nižší než hodnoty vstupní.
+
+     Výsledný povrch neprochází vstupními hodnotami. Dochází ke sploštění výsledku.
+
+     Nejlepších výsledků je dosaženo při dostatečné hustotě vstupních bodů.
+
+     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-idw-works.htm). 
+
+**1.** V záložce *Geoprocessing* vyhledáme variantu funkce *IDW*, která je obsažena v balíčku *3D Analyst*. 
+
+**2.** Do *Input Point Features* vložíme vstupní bodovu vrstvu. *Z value field* jsou hodnoty, ze kterých budeme chtít rastr vypočítat – v našem případě tedy sloupec *Nadmořská výška*. Dále vyplníme název a umístění výstupní rastru do kolonky *Output raster*. 
+
+**3.** Ve druhé části funkce lze nastavit parametry vstupující do výpočtu interpolace. Důležitá je volba *Output cell size*, která určije velikost pixelu výsledného rastru (jednotky jsou určeny na základě zvoleného kartografického zobrazení mapy), a tedy jeho přesnost. Při prvním spuštění lze ponechat východí hodnotu, kterou je případně dále možné modifikovat, pokud by bylo potřeba. Hodnota *Power* určuje váhu okolních bodů vstupujících do výpočtu na základě vzájemné vzdálenosti.
+
+<figure markdown>
+  ![IDW](../assets/cviceni4/idw.png)
+  <figcaption>Hodnoty funkce IDW</figcaption>
+</figure>
+
+<figure markdown>
+  ![Výstup IDW](../assets/cviceni4/idw_vystup.png){ width="900"}
+  <figcaption>Výstup funkce IDW</figcaption>
+</figure>
+
+### Spline
+???+ note "&nbsp;<span style="color:#448aff">Spline</span>"
+     Metoda Spline (metoda minimální křivosti) spojuje dvojice zadaných bodů segmenty kubické křivky. 
+     
+     Generuje povrch s minimální křivostí, který prchází zadanými body. Počítány jsou pouze neznámé hodnoty.
+
+     Není vhodná v případě, že vstupní body jsou blízko u sebe a sousedící body mají velmi rozdílné hodnoty. Metodu tedy nelze použít na dramaticky probíhající povrchy.
+
+
+     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-spline-works.htm). 
+
+**1.** Opět zvolíme funkci z balíčku *3D Analyst*. Vstupní bodovou vrstvu vložíme do *Input point features*, *Z value field* přiřadíme sloupec *Nadmořská výška*, pojmenujeme výstupní vrstvu a zvolíme *Output cell size* (obdobně jako v předchozím případě).
+
+**2.** Nastavení algoritmu tentokrát spočívá v typu křivky (*Spline type*) a počtu bodů, které vstupují do výpočtu (*Number of points*). 
+
+- Regularized (výchozí) tvoří elastičtější povrch.
+ 
+- Tension tvoří plošší povrch.
+
+<figure markdown>
+  ![Spline](../assets/cviceni4/spline.png)
+  <figcaption>Hodnoty funkce Spline</figcaption>
+</figure>
+
+<figure markdown>
+  ![Výstup Spline](../assets/cviceni4/splineR_vystup.png){ width="900"}
+  <figcaption>Výstup funkce Spline s nastavením Regularized</figcaption>
+</figure>
+
+<figure markdown>
+  ![Výstup Spline](../assets/cviceni4/splineT_vystup.png){ width="900"}
+  <figcaption>Výstup funkce Spline s nastavením Tension</figcaption>
+</figure>
+
+### Natural Neighbor
+???+ note "&nbsp;<span style="color:#448aff">Natural Neighbor</span>"
+     Metoda Natural Neighbor (přirozený soused) je založena na vybudování Thiessenových polygonů z bodové vrstvy tak, že do každého polygonu spadá jen jeden bod a z každého bodu polygonu je právě k tomuto bodu blíže než k bodům jiných polygonů.
+
+     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-natural-neighbor-works.htm). 
+
+**1.** Funkce Natural Neighbor má velmi omezené nastavení parametrů. Vedle těch již známých nenabízí žádnou další modifikaci. Rozdíl tedy spočívá v nastavení velikosti pixelu výstupního rastru *Output cell size*.
+
+<figure markdown>
+  ![Natural Neighbor](../assets/cviceni4/nn.png)
+  <figcaption>Hodnoty funkce Natural Neighbor</figcaption>
+</figure>
+
+<figure markdown>
+  ![Výstup Natural Neighbor](../assets/cviceni4/nn_vystup.png){ width="900"}
+  <figcaption>Výstup funkce Natural Neighbor</figcaption>
+</figure>
+
+
+### Trend
+???+ note "&nbsp;<span style="color:#448aff">Trend</span>"
+     Metoda trendu využívá polynomické regrese k proložení metody nejmenších čtverců celým povrchem.
+
+     Vyhledává trendy, čímž vytváří hladší povrch než IDW.
+
+     Využití pro hladké povrchy. Pro běžné analýzy se nevyužívá.
+
+     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-trend-works.htm). 
+
+
+### Kriging
+???+ note "&nbsp;<span style="color:#448aff">Kriging</span>"
+     Kriging interpoluje hodnoty na základě apriorních kovariancí. Podobnost s metodou IDW, avšak váhy závisí kromě vzdálenosti i na prostorovém uspořádání vstupních bodů (výpočet pomocí prostorové závislosti – autokorelace).
+
+     Více o metodě [**ZDE**](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-kriging-works.htm). 
+
+**1.** První část parametrů funkce *Kriging* v nadstavbě *3D Analyst* vyplníme opět obdobně jako v předchozích případech.
+
+**2.** Druhá část parametrů nabízí konkrétní upřesnění výpočtu Krigingu. Zvolit lze dvě metody – *Ordinary* a *Universal*, přičemž dále je možné volit i model semivariogramu. Pro většinu dat je nejvhodnější *Ordinary Kriging*, který zachovává sumu vah rovnou jedné a do výpočtu vstupuje průměr z okolních bodů.
+
+**3.** V poslední části funkce je možné nastavit parametry hledání bodů – *Variable* hledá zadaný počet bodů a *Fixed* hledá body v zadané vzdálenosti.
+
+
+<figure markdown>
+  ![Kriging](../assets/cviceni4/kriging.png)
+  <figcaption>Hodnoty funkce Kriging</figcaption>
+</figure>
+
+<figure markdown>
+  ![Výstup Kriging](../assets/cviceni4/kriging_vystup.png){ width="900"}
+  <figcaption>Výstup funkce Kriging</figcaption>
+</figure>
 
 ## Úlohy k procvičení
 
@@ -78,35 +155,41 @@ Pro názornost následuje ukázka zpracování sklonitosti svahu (postup s výpo
 
     K řešení následujích úloh použijte datovou sadu [ArcČR
     500](../../data/#arccr-500) verzi 3.3 dostupnou na disku *S* ve složče
-    ``K155\Public\data\GIS\ArcCR500 3.3``. Zde také najdete souboru s
-    popisem dat ve formátu PDF.
+    ``K155\Public\data\GIS\ArcCR500 3.3``. Data meteorologických stanic byla převzata
+    z <http://www.in-pocasi.cz>. Na základě ukázkového
+    XML souboru byl vytvořen soubor ve formátu MS Excel, který je ke stažení 
+    jako [zip archiv](https://geo.fsv.cvut.cz/vyuka/155gis2/geodata/gis2-cviceni05.zip).
 
-    1. Vytvořte DMT omezené na Ústecký kraj. Jaká je výměra území v ha s nadmořskou výškou větší než 700m?
+    1. Na základě naměřené teploty odvoďte rastr metodou IDW (výchozí
+       hodnoty). Jaká je průměrná teplota na území ČR?
 
-    2. Jaká je výměra území v ha se sklonem svahu větším než 15 stupňů?
+    2. Jaká je průměrná teplota v nadmořské výšce větší než 700 m při
+       použití rastru vypočteného metodou Kriging (výchozí hodnoty)?
 
-    3. Jaká je výměra území v ha s orientací svahu na sever a zároveň se sklonem větším než 15 stupňů?
+    3. Jaká je průměrná teplota v nadmořské výšce větší než 700 m při
+       použití rastru vypočteného metodou Spline (výchozí hodnoty)?
 
-    4. Jaká je výměra území v ha s orientací svahu na sever anebo se sklonem větším než 15 stupňů?
+    4. Jaká je plocha území v ha, kde je teplota nižší než 3°C (využijte
+       interpolační metodu Natural Neighbor, prostorové rozlišení 100m) a
+       je současně orientováno na jih. Kolik procent tohoto uzemí leží v
+       nadmořské výšce větší než 1000m?
 
-    5. Jaká je výměra území v ha, které je viditelné z vrcholu Milešovky
-       [S-JTSK: 986668, 770118] a zároveň má orientaci svahu na sever?
+    5. Jaká je interpolovaná hodnota teploty v reprezentačním bodě obce
+       Peruc? (Použijte maximální hodnotu z interpolací Spline, IWD a
+       Kriging, prostorové rozlišení 1000m, na 2 des. místa)?
 
-    6. Jaká je výměra území v ha, kde jsou splněny alespoň 2 z
-       následujících podmínek - nadmořská výška nad 700 m, sklon větší než
-       15 stupňů, orientace na sever?
+    6. Vypočítejte pro reprezentační body obcí jejich teplotu. Rastr, ze
+       kterého budete teplotu určovat vypočítejte jako průměr z metod IDW,
+       Kriging a Spline (prostorové rozlišení 1km). Dále určete z takto
+       vypočítaných hodnot průměrné teploty pro kraje. Který z krajů má
+       nejnižší průměrnou teplotu a kolik to je?
 
-    7. Jaká je výměra území v ha, které je do 500 m od nejbližší silnice a
-       zároveň má sklon větší než 15 stupňů?
+    7. Vytvořte dva rastry teplot, které budou obsahovat pro každý pixel
+       minimální, resp. maximální hodnotu z interpolací IDW, Kriging,
+       Spline (výchozí nastavení, prostorové rozlišení 1km). Jaký je
+       rozdíl takto odvozených teplot pro reprezentační bod obce Peruc?
 
-    8. Jak dlouhý úsek silnice E55 v km je vidět z vrcholu Milešovky [S-JTSK: 986668, 770118]?
-
-    9. Jaká ve výměra území v ha, kde nadmořská výška je menší než výraz "10 krát sklon svahu ve stupních"?
-
-    10. Jaká je nadmořská výška vrcholu Milešovky [S-JTSK: 986668, 770118] odvozená z DMT (správně je 836,5 m)?
-
-    11. Jaký je rozdíl celkové délky v metrech silnic 1.třídy měřeného po povrhu a jeho průmětu do roviny?
-
-    12. Jaká je skutečná délka (v km, na jedno des. místo) silnice číslo
-        '112' po povrchu DMT? Uveďte minimální a maximální výšku u této
-        komunikace?
+    8. Vytvořte rastr teplot, který vznikne z interpolace IDW (výchozí
+       nastavení, prostorové rozlišní 1km) a následně fokální funkcí jako
+       průměrná hodnota (Focal Mean) z oblasti 5x5 pixelů. Jakou teplotu
+       má oblast odpovídající reprezentačnímu bodu obce Peruc?
