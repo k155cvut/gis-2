@@ -242,7 +242,7 @@ __:material-lightning-bolt:příklady použití:__{.primary_color .no_dec} urče
 
 ---
 
-### Metoda _Path Generation_{.outlined}
+### Metoda _Optimal Path As Line_{.outlined}
 
 Nalezne __spojnice bodů s nejnižsím součtem nákladů__. Nutným vstupem jsou dva rastry vzniklé nástrojem Distance Accumulation (&nbsp;__Output distance accumulation raster__{.outlined} a __Out back direction raster__{.outlined}&nbsp;)
 
