@@ -34,7 +34,7 @@ Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe``
 
 ## Náplň cvičení
 
-### Práce s rastrovými daty pomocí Numpy
+### Práce s rastrovými daty pomocí NumPy
 
 ```py
 dmt =  r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\ArcCR500_v33.gdb\DigitalniModelReliefu"
@@ -42,7 +42,9 @@ dmt =  r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\ArcCR500_v33.gdb\DigitalniModel
 # otestovat nacteni dat
 data = arcpy.Describe(dmt)
 data.dataType
+```
 
+```py
 # nacteni metadat rastru
 raster = arcpy.Raster(dmt)
 raster.width, raster.height
@@ -56,21 +58,29 @@ array.shape, array.dtype
 
 # zjisteni minimalni, maximalni hodnoty
 array.min(), array.max()
+```
 
+```py
 # nastaveni no-data hodnoty
 array = arcpy.RasterToNumPyArray(raster, nodata_to_value=-1)
 array.min(), array.max()
+```
 
+```py
 # cetnost hodnot
 unique, counts = numpy.unique(array, return_counts=True)
 idx = numpy.where(unique == 200)
 counts[idx]
+```
 
+```py
 # ukazka mapove algebry
 array[(array>=0) & (array<=200)] = 0
 array[(array>200)] = 1
 numpy.unique(array, return_counts=True)
+```
 
+```py
 # zapis numpy pole do rastru
 arcpy.env.outputCoordinateSystem = dmt
 lowerLeft = arcpy.Point(data.extent.XMin, data.extent.YMin)
@@ -136,7 +146,7 @@ Dokumentace:
 
     Vyzkoušejte balíček `arcgis` na JupyterHubu: <http://gislab.fsv.cvut.cz:8000>.
 -->
-#### Inicializujeme mapového okno
+* Inicializujeme mapového okno
 
 ```py
 import arcgis
@@ -146,7 +156,7 @@ map1 = gis.map()
 map1
 ```
 
-#### Vykreslíme výchozí podkladové mapy v novém mapovém okně
+* Vykreslíme výchozí podkladové mapy v novém mapovém okně
 
 ```py
 map2 = gis.map(location='Prague, Czech Republic')
@@ -154,7 +164,7 @@ map2.zoom = 12 # or zoomlevel
 map2
 ```
 
-#### Vyhledáme online vrstvy podle klíčového slova
+* Vyhledáme online vrstvy podle klíčového slova
 
 ```py
 from IPython.display import display
@@ -165,7 +175,7 @@ for item in items[:3]:
     display(item)
 ```
 
-#### Přídáme vybrané onlive vrstvy do mapového okna
+* Přídáme vybrané onlive vrstvy do mapového okna
 
 ```py
 layer = items[0].layers[0]
@@ -173,7 +183,7 @@ map2.content.add(layer) # or add_layer()
 map2.zoom_to_layer(layer)
 ```
 
-#### Na závěr vyzkoušíme integraci s knihovnou Pandas:
+* Na závěr vyzkoušíme integraci s knihovnou Pandas:
 
 ```py
 import pandas
