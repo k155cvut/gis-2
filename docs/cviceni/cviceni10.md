@@ -114,7 +114,7 @@ for row in rows:
 
 ### Vypište souřadnice lomových bodů uzemí obce 'Lhota'
 
-```py hl_lines="10"
+```py hl_lines="11"
 arcpy.env.workspace = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb"
 
 obce = "ObcePolygony"
@@ -123,8 +123,10 @@ rows = arcpy.SearchCursor(obce, "NAZ_OBEC = 'Lhota'")
 for row in rows:
     print("Prvek {}: ".format(row.NAZ_OBEC))
     for geom in row.SHAPE:
+        print(len(geom))
         for bod in geom:
             print("{} {}".format(bod.X, bod.Y))
+            break
 ```
 
 ## Další úlohy k procvičení
