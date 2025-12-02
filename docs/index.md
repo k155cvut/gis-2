@@ -94,11 +94,11 @@ __prof. Ing. Lena Halounová, CSc.__
 11. Průzkumová analýza bodových dat - EDA, Q-Q graf, outliers
 12. Statistický popis prostorových liniových a plošných dat
 13. Úvod do teorie grafů, aplikace grafů v síťové analýze, optimalizační úlohy
-
+<!--
 ## Harmonogram {: style="margin-bottom:0;"}
 
 [![](./assets/index/schedule_light.svg#only-light){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1552GIS/semester/B241){target="_blank"}
 [![](./assets/index/schedule_dark.svg#only-dark){.off-glb .no-filter}](https://kos.cvut.cz/schedule/course/1552GIS/semester/B241){target="_blank"}
 
 <br><br><br>
-
+-->
