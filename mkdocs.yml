@@ -74,7 +74,7 @@ extra:
       link: https://www.facebook.com/geomatics.ctu
     - icon: fontawesome/brands/instagram
       link: https://www.instagram.com/geomatics.ctu
-copyright: <a href="https://geomatics.fsv.cvut.cz" target="_blank">Katedra geomatiky</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;2024
+copyright: <a href="https://geomatics.fsv.cvut.cz" target="_blank">Katedra geomatiky</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;2024-2025
 extra_css:
   - stylesheets/extra.css
   - stylesheets/css-v1.0.4.css
