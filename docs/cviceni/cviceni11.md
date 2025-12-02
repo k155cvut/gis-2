@@ -149,7 +149,8 @@ map1
 #### Vykreslíme výchozí podkladové mapy v novém mapovém okně
 
 ```py
-map2 = gis.map(location='Prague, Czech Republic', zoomlevel = 12)
+map2 = gis.map(location='Prague, Czech Republic')
+map2.zoom = 12 # or zoomlevel
 map2
 ```
 
@@ -168,7 +169,7 @@ for item in items[:3]:
 
 ```py
 layer = items[0].layers[0]
-map2.add_layer(layer)
+map2.content.add(layer) # or add_layer()
 map2.zoom_to_layer(layer)
 ```
 
