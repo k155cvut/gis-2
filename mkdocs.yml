@@ -17,7 +17,7 @@ nav:
   - Data: data.md
 #  - Hodnocení: hodnoceni.md
 #  - Výuková videa: videa.md
-  - Kvíz: quiz.md
+#  - Kvíz: quiz.md
 plugins:
   - search
   - glightbox:
