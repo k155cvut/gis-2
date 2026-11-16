@@ -45,14 +45,26 @@ začátečníky](https://gismentors.github.io/qgis-zacatecnik) a [QGIS pro pokro
 ### Opakování základního ovládání a práce v QGIS
 
  
-V panelu "Prohlížeč" si najdeme pracovní adresář se staženými daty. Dataset lze načít například "přetažením" datasetu  do mapového okna nebo do panelu vrstev. Načtená data je dobré zkontrolovat, zda se používá správný [souřadnicový systém](https://gismentors.github.io/qgis-zacatecnik/intro/import_export.html#vyber-souradnicoveho-systemu).
+V panelu `Prohlížeč/Browser` si najdeme pracovní adresář se staženými
+daty. Dataset lze načít například "přetažením" datasetu do mapového
+okna nebo do panelu vrstev. Načtená data je dobré zkontrolovat, zda se
+používá správný [souřadnicový
+systém](https://gismentors.github.io/qgis-zacatecnik/intro/import_export.html#vyber-souradnicoveho-systemu).
 
 ![](../assets/cviceni8/nacteni_dat.png "Načtení dat")
 
 Vrstvě nastavíme kategorizovanou symbologii podle atributu "KAT".
-![](../assets/cviceni8/kategorizovana_symbologie.png "Kategorizovaná symbologie")
 
-Základní nástroje jako například obalová zóna jsou k dipozici v horním textovém menu v položce "Vektor", konkrétně obalová zóna je zařazena "Vektor"->"Nástroje geoprocessingu"->"Obalová zóna...". Pracovně si  vygenerujeme obalovou zónu o velikosti 1000m sloučenou pro všechny prvky - "rozpuštěnou".
+![](../assets/cviceni8/kategorizovana_symbologie.png "Kategorizovaná
+symbologie")
+
+Základní nástroje jako například obalová zóna jsou k dipozici v horním
+textovém menu v položce `Vektor/Vector`, konkrétně obalová zóna je
+zařazena `Vektor->Nástroje geoprocessingu->Obalová
+zóna/Vector->Geoprocessing Tools->Buffer`. Můžeme si vyzkoušet
+vygenerovat obalovou zónu o velikosti 1000m sloučenou pro všechny
+prvky - `rozpuštěnou/dissolve`. 
+
 ![](../assets/cviceni8/buffer1.png "Zadání obalové zóny")
 ![](../assets/cviceni8/buffer2.png "Výsledek obalové zóny")
 
