@@ -1,5 +1,5 @@
 ---
-icon: custom/vc-numeric-10-box
+icon: material/numeric-10-box
 title: Cvičení 10
 ---
 
