@@ -7,23 +7,34 @@ title: Cvičení 8
 
 ## Cíl cvičení
 
-Prohloubení znalostí platformy QGIS a jeho výpočetních nástrojů.
+Prohloubení znalostí práce s geografickým informačním systémem QGIS s
+přímou návazností na praktické úlohy realizované v rámci 9. cvičení
+předmětu GIS 1 ([Volně dostupné GIS nástroje –
+QGIS](https://k155cvut.github.io/gis-1/cviceni/cviceni9/)). Důraz bude
+kladen na praktické řešení komplexnějších prostorových úloh a
+efektivní využití výpočetních funkcí QGIS.
 
 ## Základní pojmy
 
-- [**QGIS**](https://qgis.org) – svobodný a multiplatformní geografický informační systém (GIS)
+- [**QGIS**](https://qgis.org) – svobodný multiplatformní geografický informační systém (GIS)
     - [**Nástroje zpracování**](https://gismentors.github.io/qgis-pokrocily/geoprocessing/index.html)
     - [**Grafický modelář**](https://gismentors.github.io/qgis-pokrocily/modeler/index.html)
 
 ## Použité datové podklady
 
-Cílem je používat data přímo od jejich poskytovatelů. Pro okrajové případy a případ technických problémů je ale připraven balíček již připravených dat ([data.zip](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/9/data.zip)).
-
 Přehled dat, které budeme používat:
 
-- [Velkoplošná zvláště chráněná území](https://data.nature.cz/ds/3)  plošné vymezení chráněných oblastí. Data lze načítat přímo ze "ZIP", ale pro další zpracování se doporučuje data rozbalit do pracovního adresáře.
+- [velkoplošná zvláště chráněná území](https://data.nature.cz/ds/3) poskytována AOPK.
 - rastrová data DMT 100x100m generalizovaná za účelem ukázky
 - výsek z [DMR5G](https://ags.cuzk.cz/geoprohlizec/?atom=dmr5g) pro území obce Zdiby. Data byla stažena přímo od poskytovatele a oříznuta pro rychlejší zpracování území.
+
+!!! warning
+
+    Data lze načítat přímo ze "ZIP", ale pro další zpracování se doporučuje data rozbalit do pracovního adresáře.
+
+!!! note
+
+    Cílem je používat data přímo od jejich poskytovatelů. Pro okrajové případy technických problémů je ale připraven balíček již připravených dat ([data.zip](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/9/data.zip)).
 
 ## Náplň cvičení
 
