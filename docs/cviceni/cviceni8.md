@@ -34,7 +34,7 @@ Přehled dat, které budeme používat:
 
 !!! note
 
-    Cílem je používat data přímo od jejich poskytovatelů. Pro okrajové případy technických problémů je ale připraven balíček již připravených dat ([data.zip](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/9/data.zip)).
+    Cílem je používat data přímo od jejich poskytovatelů. Pro okrajové případy technických problémů je ale připraven balíček již připravených dat ([data.zip](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/8/data.zip)).
 
 ## Náplň cvičení
 
@@ -74,30 +74,56 @@ Podklady:
 
 - [Nástroje zpracování](https://gismentors.github.io/qgis-pokrocily/geoprocessing/index.html)
 
-Menu "Nástroje zpracování" obsahuje širokou nabídku jak základních nástrojů, tak i mnoho dalších možností. Například možnost generování obalové zóny v mnohých variantách. Nástroj "Obalová zóna vektorové vrstvy" ze skupiny GDAL nám umožní rozpustit obalové zóny podle atributu.
+Menu `Nástroje zpracování/Processing` obsahuje širokou nabídku jak
+základních nástrojů, tak i mnoho dalších možností. Například možnost
+generování obalové zóny v různých variantách. Nástroj `Obalová zóna
+vektorové vrstvy/Buffer vectors` ze skupiny GDAL nám umožní rozpustit
+obalové zóny podle atributu.
 
-Vygenerujeme obalovou zónu vrstvy VZCHU o velikosti 1000 m a parametr pro rozpuštění dle atributu nastavíme na atribut "KAT".
+Vygenerujeme obalovou zónu vrstvy VZCHU o velikosti 1000 m a parametr
+pro rozpuštění dle atributu nastavíme na atribut "KAT".
+
 ![](../assets/cviceni8/buffer3.png "Zadání obalové zóny s parametrem")
 
-V symbologii nastavíme částečně průhlednou barvu. Díky překryvu původní kategorizované symbologie a pokročilé obalové zóny si umíme jednoduše zkontrolovat správnost funkcionality.
+V symbologii nastavíme částečně průhlednou barvu. Díky překryvu
+původní kategorizované symbologie a pokročilé obalové zóny si umíme
+jednoduše zkontrolovat správnost funkcionality.
+
 ![](../assets/cviceni8/buffer4.png "Vizuální kontrola zpracování")
 
-Načteme vrstvu DMT, ořežeme podle velkoplošných chráněných území - nástroj "Rastr"->"Extrakce"->"Oříznout rastr podle vrstvy masky". Zároveň použijeme nástroj pro iteraci, který nám vytvoří samostatný výstup pro každý prvek chráněného území.
+Načteme vrstvu DMT a ořežeme ji podle velkoplošných chráněných území -
+nástroj `Rastr->Extrakce->Oříznout rastr podle vrstvy
+masky/Raster->Extraction->Clip Raster By Mask Layer`. Zároveň
+použijeme nástroj pro iteraci, který nám vytvoří samostatný výstup pro
+každý prvek chráněného území.
+
 ![](../assets/cviceni8/dmt_orez.png "Ořezání rastru s iterací")
 
 !!! task-fg-color "Otázka"
 
     Jaký postup by bylo nutné zvolit, aby správce každého území dostal ořezaný rastr svého území spolu s ochranným pásmem?
 
-Další možností je používat nástroje v módu "Dávkové zpracování". Otevřeme nástroj "Obalová zóna vektorové vrstvy" ze skupiny GDAL a pomocí tlačítka "Spustit jako dávkový proces..." se otevře nastavení pro nastavení v řádkovém zápisu. Nastavíme velikost bufferu na 3km a rozpuštění podle atributu "KAT". 
-Přidáme další 2 řádky, které vyplníme pouze s rozdílem velikosti obalové zóny na 6km a 10km.
-V posledním sloupečku se nastavuje způsob výstupu. Přes tlačítko lze zvolit výstupní soubor, kam zadáme název výstupního GPKG. Následně se dialog zeptá na automatickou výplň, kde zvolíme "Vyplnit hodnotami parametru" a vybereme "Vzdálenost obalové zóny". Doporučujeme manuálně upravit na hodnotu bez desetinného místa. 
-Nevýhodou je, že nelze jednoduše uložit do jednoho GPKG jako vícero vrstev.
-Zaškrtneme "Načíst vrstvy po dokončení".
+Další možností je používat nástroje v módu `Dávkové zpracování/Run as
+Batch Process`. Otevřeme nástroj `Obalová zóna vektorové vrstvy/Buffer
+vectors` ze skupiny GDAL a pomocí tlačítka `Spustit jako dávkový
+proces...` se otevře nastavení pro nastavení v řádkovém
+zápisu. Nastavíme velikost bufferu na 3km a rozpuštění podle atributu
+"KAT".  Přidáme další 2 řádky (tlačítko `plus/Add row`), které
+vyplníme pouze s rozdílem velikosti obalové zóny na 6km a 10km.  V
+posledním sloupečku se nastavuje způsob výstupu. Přes tlačítko lze
+zvolit výstupní soubor (`Select File/Folder`), kam zadáme název
+výstupního GPKG. Následně se dialog zeptá na automatickou výplň, kde
+zvolíme `Vyplnit hodnotami parametru/Fill with parameter values` a
+vybereme `Vzdálenost obalové zóny/Buffer distance`. Doporučujeme
+manuálně upravit na hodnotu bez desetinného místa.  Nevýhodou je, že
+nelze jednoduše uložit do jednoho GPKG jako vícero vrstev.  Zaškrtneme
+`Načíst vrstvy po dokončení/Load layers on completion`.
 
 ![](../assets/cviceni8/batch_processing.png "Dávkové zpracování")
 
-Veškeré nastavení je v processingovém menu možné upravit. Rovněž je k dispozici historie procesů, odkud lze jednotlivý proces opakovaně spustit se všemi parametry.
+!!! tip
+
+    Veškeré nastavení je v processingovém menu možné upravit. Rovněž je k dispozici historie procesů, odkud lze jednotlivý proces opakovaně spustit se všemi parametry.
 
 ### Grafický modelář
 
@@ -105,22 +131,28 @@ Podklady:
 
 - [Grafický modelář](https://gismentors.github.io/qgis-pokrocily/modeler/index.html)
 
-V tomto prostředí je možné sestavit řetězec algoritmů, které zpracovávají data a ten pak spouštět jako samostatný proces. Jako ukázku si zkusíme sestavit jednoduchý model.
+V tomto prostředí je možné sestavit řetězec algoritmů, které
+zpracovávají data a ten pak spouštět jako samostatný proces. Jako
+ukázku si zkusíme sestavit jednoduchý model.
 
-1. Vytvoříme nový model
+1. Vytvoříme nový model (`Processing->Model Designer`)
 2. Nastavíme vlastnosti modelu (název, skupina), model uložíme do souboru.
 
     ![](../assets/cviceni8/model_zalozeni.png "Základní nastavení modelu")
 
-3. Přidáme vstupní parametr typu číslo s popisem "počet bodů", vstup bude celočíselný.
+3. Přidáme vstupní parametr typu číslo (`Number`) s popisem "počet bodů", vstup bude celočíselný.
 
     ![](../assets/cviceni8/vstup_pocet_bodu.png "Vstupní parametr počet bodů")
 
-4. Přidáme vstupní parametr typu Rozsah. Díky překladu jsou tam 2 stejné hodnoty, použijeme druhý parametr s popisem "rozsah". Jedná se o parametr typu "Extent".
+4. Přidáme vstupní parametr typu `Rozsah/Extent`. Díky překladu jsou
+   tam 2 stejné hodnoty, použijeme druhý parametr s popisem "rozsah".
 
     ![](../assets/cviceni8/vstup_rozsah.png "Vstupní parametr rozsah")
 
-5. Přidáme algoritmy (náhodné body v rozsahu). Počet bodů a rozsah provážeme se vstupními parametry z bodu 3. a 4. Nastavíme výstup pro kontrolu.
+5. Přidáme algoritmy (záložka `Toolbox`) - `náhodné body v
+   rozsahu/random points in extent`. Počet bodů a rozsah provážeme se
+   vstupními parametry z bodu 3. a 4. (`Model input`). Nastavíme
+   výstup pro kontrolu.
 
     ![](../assets/cviceni8/nahodne_body.png "Generování náhodných bodů")
 
@@ -129,11 +161,16 @@ V tomto prostředí je možné sestavit řetězec algoritmů, které zpracováva
     ![](../assets/cviceni8/model1.png "Stav modelu před prvním spuštěním")
     ![](../assets/cviceni8/model1_vystup.png "Výsledek běhu modelu")
 
-7. Model upravíme - přidáme vstupní parametr typu číslo pro zadání velikosti obalové zóny. Popis nastavíme jako "velikost obalové zóny" a nastavíme číslo jako desetinné. Výchozí hodnotu nastavíme jako 1000 (metrů).
+7. Model upravíme - přidáme vstupní parametr typu číslo pro zadání
+   velikosti obalové zóny. Popis nastavíme jako "velikost obalové
+   zóny" a nastavíme číslo jako desetinné. Výchozí hodnotu nastavíme
+   jako 1000 (metrů).
 
     ![](../assets/cviceni8/vstup_velikost_buffer.png "Vstupní parametr velikost obalové zóny")
 
-8. Model upravíme - přidáme algoritmus pro obalovou zónu, která vygeneruje obalovou zónu dle zadané velikosti z vygenerovaných bodů.
+8. Model upravíme - přidáme algoritmus pro obalovou zónu, která
+   vygeneruje obalovou zónu dle zadané velikosti kolem vygenerovaných
+   bodů (`Algorithm Output`).
 
     ![](../assets/cviceni8/vypocet_buffer.png "Generování obalové zóny")
 
@@ -141,9 +178,12 @@ V tomto prostředí je možné sestavit řetězec algoritmů, které zpracováva
 
     ![](../assets/cviceni8/model2.png "Stav modelu po úpravě")
 
-10. Upravíme nápovědu modelu
-11. Model exportujeme do skriptu
+10. Upravíme nápovědu modelu (`Model->Edit Model Help`)
 12. Vyzkoušíme spustit model z panelu nástrojů zpracování
+
+!!! tip
+
+    Vyzkoušejte si model exportovat do skriptu.
 
 ## Simulace výběru pozemků pro výstavbu dle sklonitosti
 
