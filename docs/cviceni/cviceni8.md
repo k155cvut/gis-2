@@ -133,8 +133,17 @@ Podklady:
 - [Grafický modelář](https://gismentors.github.io/qgis-pokrocily/modeler/index.html)
 
 V tomto prostředí je možné sestavit řetězec algoritmů, které
-zpracovávají data a ten pak spouštět jako samostatný proces. Jako
-ukázku si zkusíme sestavit jednoduchý model.
+zpracovávají data a ten pak spouštět jako samostatný proces.
+
+!!! task-fg-color "Úloha"
+
+    Vytvořte znovupoužitelný model, který v zadaném rozsahu vygeneruje
+    uživatelem zvolený počet náhodných bodů a kolem každého bodu vytvoří
+    obalovou zónu zadané velikosti. Rozsah, počet bodů i velikost obalové
+    zóny nastavte jako vstupní parametry modelu. Výstupem budou body a
+    obalové zóny.
+
+Jako ukázku si zkusíme sestavit jednoduchý model.
 
 1. Vytvoříme nový model (`Processing->Model Designer`)
 2. Nastavíme vlastnosti modelu (název, skupina), model uložíme do souboru.
