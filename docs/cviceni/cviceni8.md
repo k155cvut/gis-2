@@ -187,8 +187,10 @@ ukázku si zkusíme sestavit jednoduchý model.
 
 ## Simulace výběru pozemků pro výstavbu dle sklonitosti
 
-Zjednodušeně si vyzkoušíme malou část takovéhoto postupu.
-Prvním krokem je stažení a práce s daty DMR5G. Druhá je pak interakce výběr parcel podle požadované sklonitosti.
+Zjednodušeně si vyzkoušíme malou část takovéhoto postupu:
+
+- Prvním krokem je stažení a práce s daty DMR5G.
+- Druhá je pak výběr parcel podle požadované sklonitosti.
 
 ### DMR5G
 
@@ -197,34 +199,58 @@ Podklady:
 - [Práce s 3D daty](https://gismentors.github.io/qgis-pokrocily/3d/index.html)
 - [Terénní analýzy](https://gismentors.github.io/qgis-zacatecnik/rastrova_data/rastr_terenni_analyzy.html)
 
-Prvním krokem je výpočet výškového rastru z dat DMR5G. V nástrojích zpracování vyhledáme nástroj "TIN interpolace". Jedinou vstupní vrstvou jsou body z DMR5G, u kterých používáme jejich Z souřadnici. 
-Požadovaným výstupem bude rastr s velikostí pixelu 2x2m v rozsahu totožném jako je vstupní vrstva. 
+Prvním krokem je výpočet výškového rastru z dat DMR5G. V nástrojích
+zpracování vyhledáme nástroj `TIN interpolace/TIN
+interpolation`. Vstupní vrstvou jsou body z DMR5G, u kterých používáme
+jejich Z souřadnici. Požadovaným výstupem bude rastr s velikostí
+pixelu 2x2m v rozsahu totožném jako je vstupní vrstva.
 
 ![](../assets/cviceni8/tin.png "Generování TIN")
 
-Následuje pak výpočet sklonitosti, který najdeme v menu "Rastr"->"Analýza"->"Sklon...". Vstupní vrstva je výstupní výškový rastr z předešlého korku. Další dodatečné nastavení v tomto případě nejsou zapotřebí.
+Následuje pak výpočet sklonitosti, který najdeme v menu
+`Rastr->Analýza->Sklon/Raster->Analysis/Slope`. Vstupní vrstva je
+výstupní výškový rastr z předešlého kroku. Další dodatečné nastavení v
+tomto případě nejsou zapotřebí.
 
 ![](../assets/cviceni8/sklon.png "Výpočet sklonu")
 
-Pro další práci nás zajímají pouze plochy s sklonem menším než 2°. Použijeme nástroj "Reklasifikovat podle tabulky". V pravidlech nastavím reklasifikační hodnotu pro interval 0-2° ->1 a hodnoty mimo rozsah  budou zařazena jako NO_DATA. Výstupné vrstvě změníme symbologii na "Paleta/jedinečné hodnoty" pro možnost vizuální kontroly výstupu.
+Pro další práci nás zajímají pouze plochy s sklonem menším než
+2°. Použijeme nástroj `Reklasifikovat podle tabulky/Reclassify by
+table`. V pravidlech nastavím reklasifikační hodnotu pro interval
+`0-2° -> 1` a hodnoty mimo rozsah budou zařazena jako
+NO_DATA. Výstupné vrstvě změníme symbologii na `Paleta/jedinečné
+hodnoty / Paletted / Unique values` pro možnost vizuální kontroly
+výstupu.
 
 ![](../assets/cviceni8/reklasifikace.png "Reklasifikace")
 
-V dalším kroku je výhodné převézt vybrané plochy na polygonovou vrstvu. Použijeme nástroj "Převézt na polygony (rastr na vektor)".
+V dalším kroku je výhodné převézt vybrané plochy na polygonovou
+vrstvu. Použijeme nástroj `Převézt na polygony (rastr na
+vektor)/Polygonize (raster to vector)`.
 
 ![](../assets/cviceni8/raster_to_polygon.png "Převod rastru na polygony")
 
-Plochy, které jsou menší než 40 000 m2 nejsou pro vybraný účel výstavby vhodné, proto potřebujeme vybrat pouze parcely s plochou větší než uvedená mezní hodnota. Toto nám umožní atributový dotaz s podmínkou "$area  >=  40000". Vybrané parcely uložíme do samostatné vrstvy.
+Plochy, které jsou menší než 40 000 m2 nejsou pro vybraný účel
+výstavby vhodné, proto potřebujeme vybrat pouze parcely s plochou
+větší než uvedená mezní hodnota. Toto nám umožní atributový dotaz s
+podmínkou `$area >= 40000`. Vybrané parcely uložíme do samostatné
+vrstvy.
 
 ![](../assets/cviceni8/vyber_dle_plochy.png "Výběr ploch dle parametru")
 
-Pro výběr parcel je vhodné použít data z RÚIANu - stažení dat dle cvičení [GIS1](https://k155cvut.github.io/gis-1/cviceni/cviceni9/).
+### Výběr parcel podle požadované sklonitosti
 
-Následně potřebujeme ořezat parcely plochami s vhodnou svažitostí. Pro tento krok použijeme funkci "CLIP".
+Pro výběr parcel je vhodné použít data z RÚIANu - stažení dat dle
+cvičení
+[GIS1](https://k155cvut.github.io/gis-1/cviceni/cviceni9/). Stáhneme
+obec "Zdiby".
+
+Následně potřebujeme ořezat parcely plochami s vhodnou svažitostí. Pro
+tento krok použijeme funkci `CLIP`.
 
 ![](../assets/cviceni8/clip_parcel.png "Ořez parcel vybranými polygony")
 ![](../assets/cviceni8/orezane_parcely.png "Výsledné parcely splňující parametry sklonitosti")
 
 ## Další úlohy k procvičení
-
+ 
 Vytvořte model pro poslední část cvičení (Výběr parcel dle sklonitosti).
