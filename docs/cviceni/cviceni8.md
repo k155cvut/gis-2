@@ -258,6 +258,6 @@ tento krok použijeme funkci `CLIP`.
 
 ## Další úlohy k procvičení
  
-1. Vytvořte model pro poslední část cvičení (Výběr parcel dle sklonitosti).
+1. Vytvořte model pro simulaci výběru pozemků pro výstavbu dle sklonitosti
 2. Vytvořte digitální model terénu z originálních dat (LAZ) stažených
    z [ČÚZK](https://ags.cuzk.cz/geoprohlizec/?atom=dmr5g)
