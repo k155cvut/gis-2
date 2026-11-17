@@ -28,13 +28,14 @@ Přehled dat, které budeme používat:
 - rastrová data DMT 100x100m generalizovaná za účelem ukázky
 - výsek z [DMR5G](https://ags.cuzk.cz/geoprohlizec/?atom=dmr5g) pro území obce Zdiby. Data byla stažena přímo od poskytovatele a oříznuta pro rychlejší zpracování území.
 
+Cílem je používat data přímo od jejich poskytovatelů. Pro zjednodušení
+je ale připraven balíček již připravených dat
+([data.zip](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/8/data.zip)).
+
 !!! warning
 
     Data lze načítat přímo ze "ZIP", ale pro další zpracování se doporučuje data rozbalit do pracovního adresáře.
 
-!!! note
-
-    Cílem je používat data přímo od jejich poskytovatelů. Pro okrajové případy technických problémů je ale připraven balíček již připravených dat ([data.zip](https://geo.fsv.cvut.cz/vyuka/155gis2/cviceni/8/data.zip)).
 
 ## Náplň cvičení
 
@@ -202,8 +203,9 @@ Podklady:
 - [Práce s 3D daty](https://gismentors.github.io/qgis-pokrocily/3d/index.html)
 - [Terénní analýzy](https://gismentors.github.io/qgis-zacatecnik/rastrova_data/rastr_terenni_analyzy.html)
 
-Prvním krokem je výpočet výškového rastru z dat DMR5G. V nástrojích
-zpracování vyhledáme nástroj `TIN interpolace/TIN
+Prvním krokem je výpočet výškového rastru z dat DMR5G (pro
+zjednodušení použijeme předzpracovaná data "zdiby_dmr5g.gpkg"). V
+nástrojích zpracování vyhledáme nástroj `TIN interpolace/TIN
 interpolation`. Vstupní vrstvou jsou body z DMR5G, u kterých používáme
 jejich Z souřadnici. Požadovaným výstupem bude rastr s velikostí
 pixelu 2x2m v rozsahu totožném jako je vstupní vrstva.
@@ -256,4 +258,6 @@ tento krok použijeme funkci `CLIP`.
 
 ## Další úlohy k procvičení
  
-Vytvořte model pro poslední část cvičení (Výběr parcel dle sklonitosti).
+1. Vytvořte model pro poslední část cvičení (Výběr parcel dle sklonitosti).
+2. Vytvořte digitální model terénu z originálních dat (LAZ) stažených
+   z [ČÚZK](https://ags.cuzk.cz/geoprohlizec/?atom=dmr5g)
