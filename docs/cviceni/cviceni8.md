@@ -197,8 +197,10 @@ Jako ukázku si zkusíme sestavit jednoduchý model.
 
 ## Simulace výběru pozemků pro výstavbu dle sklonitosti
 
-Vyberte v obci Zdiby parcely vhodné pro výstavbu: plochy se sklonem do
-2° a výměrou alespoň 40 000 m².
+!!! task-fg-color "Úloha"
+
+    Vyberte v obci Zdiby parcely vhodné pro výstavbu: plochy se sklonem do
+    2° a výměrou alespoň 40 000 m².
 
 Zjednodušeně si vyzkoušíme malou část takovéhoto postupu:
 
