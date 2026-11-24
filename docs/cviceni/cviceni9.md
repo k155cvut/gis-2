@@ -33,14 +33,12 @@ Užitečné odkazy:
 
 ### Úvod
 
-Otevřte Python Window a vyzkoušejte úryvek kódu níže.
+Otevřte `Python Window` a vyzkoušejte úryvek kódu níže.
 
 ```py
 arcpy.env.workspace = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb"
 obce = arcpy.Describe("ObcePolygony")
 len(obce.fields)
-pocet = arcpy.GetCount_management("ObcePolygony")
-pocet.getOutput(0)
 ```
 
 Dokumentace:
@@ -132,5 +130,77 @@ for row in rows:
 ## Další úlohy k procvičení
 
 1. Pro jednotlivé kraje vytvořte třídy prvků ve formátu FileGDB
+
+   **Řešení:**
+
+   ```py
+   import os
+
+   kraje = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\KrajePolygony"
+   vystupni_slozka = r"C:\Users\landamar\Documents\u04"
+   os.makedirs(vystupni_slozka, exist_ok=True)
+   vystupni_gdb = os.path.join(vystupni_slozka, "kraje.gdb")
+
+   if not arcpy.Exists(vystupni_gdb):
+       arcpy.management.CreateFileGDB(vystupni_slozka, "kraje.gdb")
+
+   arcpy.env.overwriteOutput = True
+   radky = arcpy.da.SearchCursor(kraje, ["KOD_CZNUTS3"])
+   for (kod,) in radky:
+       vystup = os.path.join(vystupni_gdb, "Kraj_{}".format(kod))
+       podminka = "KOD_CZNUTS3 = '{}'".format(kod)
+       arcpy.analysis.Select(kraje, vystup, podminka)
+   del radky
+   ```
+
 1. Zjistěte, jaká obec v ČR má nejdelší hranici.
+
+   **Řešení:**
+
+   ```py
+   obce = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
+   nejdelsi_obec = None
+   nejdelsi_delka = -1
+
+   radky = arcpy.da.SearchCursor(obce, ["NAZ_OBEC", "SHAPE@"])
+   for nazev, geometrie in radky:
+       if geometrie is None:
+           continue
+       delka = geometrie.getLength("GEODESIC", "METERS")
+       if delka > nejdelsi_delka:
+           nejdelsi_obec = nazev
+           nejdelsi_delka = delka
+   del radky
+
+   print("{}: {:.0f} m".format(nejdelsi_obec, nejdelsi_delka))
+   ```
+
 1. Vytvořte funkci, která vrátí počet obcí s menším počet obyvatel než zadaná obec (jako parametr funkce).
+
+   **Řešení:**
+
+   ```py
+   obce = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
+
+   def pocet_obci_s_mensi_populaci(nazev_obce):
+       nazev_sql = nazev_obce.replace("'", "''")
+       podminka = "NAZ_OBEC = '{}'".format(nazev_sql)
+
+       radky = arcpy.da.SearchCursor(obce, ["POCET_OBYV"], podminka)
+       pocty = [pocet for (pocet,) in radky]
+       del radky
+
+       if len(pocty) != 1 or pocty[0] is None:
+           raise ValueError("Název musí označovat právě jednu obec s vyplněným počtem obyvatel.")
+
+       hranice = pocty[0]
+       radky = arcpy.da.SearchCursor(obce, ["POCET_OBYV"])
+       pocet_obci = sum(
+           1 for (pocet,) in radky
+           if pocet is not None and pocet < hranice
+       )
+       del radky
+       return pocet_obci
+
+   print(pocet_obci_s_mensi_populaci("Liberec"))
+   ```
