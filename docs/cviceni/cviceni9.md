@@ -129,33 +129,7 @@ for row in rows:
 
 ## Další úlohy k procvičení
 
-1. Pro jednotlivé kraje vytvořte třídy prvků ve formátu FileGDB
-
-   **Řešení:**
-
-   ```py
-   import os
-
-   kraje = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\KrajePolygony"
-   vystupni_slozka = r"C:\Users\landamar\Documents\u04"
-   os.makedirs(vystupni_slozka, exist_ok=True)
-   vystupni_gdb = os.path.join(vystupni_slozka, "kraje.gdb")
-
-   if not arcpy.Exists(vystupni_gdb):
-       arcpy.management.CreateFileGDB(vystupni_slozka, "kraje.gdb")
-
-   arcpy.env.overwriteOutput = True
-   radky = arcpy.da.SearchCursor(kraje, ["KOD_CZNUTS3"])
-   for (kod,) in radky:
-       vystup = os.path.join(vystupni_gdb, "Kraj_{}".format(kod))
-       podminka = "KOD_CZNUTS3 = '{}'".format(kod)
-       arcpy.analysis.Select(kraje, vystup, podminka)
-   del radky
-   ```
-
 1. Zjistěte, jaká obec v ČR má nejdelší hranici.
-
-   **Řešení:**
 
    ```py
    obce = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
@@ -176,8 +150,6 @@ for row in rows:
    ```
 
 1. Vytvořte funkci, která vrátí počet obcí s menším počet obyvatel než zadaná obec (jako parametr funkce).
-
-   **Řešení:**
 
    ```py
    obce = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
