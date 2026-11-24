@@ -16,12 +16,12 @@ Seznámení s Python balíčkem ArcPy.
 
 Užitečné odkazy:
 
-* [Python in ArcGIS Pro](https://pro.arcgis.com/en/pro-app/arcpy/get-started/installing-python-for-arcgis-pro.htm)
-* [A quick tour of creating tools with Python](https://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/a-quick-tour-of-creating-tools-in-python.htm)
-* [What is ArcPy?](https://pro.arcgis.com/en/pro-app/arcpy/get-started/what-is-arcpy-.htm)
-* [ArcGIS API for Python](https://pro.arcgis.com/en/pro-app/arcpy/get-started/arcgis-api-for-python.htm)
+* [Python in ArcGIS Pro](https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/installing-python-for-arcgis-pro.html)
+* [Quick tour of creating tools with Python](https://doc.esri.com/en/arcgis-pro/latest/arcpy/geoprocessing_and_python/a-quick-tour-of-creating-tools-in-python.html)
+* [Introduction to ArcPy](https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/what-is-arcpy-.html)
+* [ArcGIS API for Python](https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/arcgis-api-for-python.html)
 * [Overview of the ArcGIS API for Python](https://developers.arcgis.com/python/guide/overview-of-the-arcgis-api-for-python/)
-* [ArcPy API Reference](https://pro.arcgis.com/en/pro-app/arcpy/main/arcgis-pro-arcpy-reference.htm)
+* [ArcGIS Pro Python reference](https://doc.esri.com/en/arcgis-pro/latest/arcpy/main/arcgis-pro-arcpy-reference.html)
 * [Use ArcPy in a notebook](https://doc.arcgis.com/en/arcgis-online/reference/use-arcpy-in-your-notebook.htm)
 * [ArcGIS API for Python: ArcGIS in a Notebook](https://www.youtube.com/watch?v=FtuHFZUrrMc) (video)
 
@@ -45,9 +45,9 @@ pocet.getOutput(0)
 
 Dokumentace:
 
-- [Describe](https://pro.arcgis.com/en/pro-app/arcpy/data-access/describe.htm)
-  - [FeatureClass properties](https://pro.arcgis.com/en/pro-app/arcpy/functions/featureclass-properties.htm)
-  - [Table properties](https://pro.arcgis.com/en/pro-app/arcpy/functions/table-properties.htm)
+- [Describe](https://doc.esri.com/en/arcgis-pro/latest/arcpy/data-access/describe.html)
+  - [FeatureClass properties](https://doc.esri.com/en/arcgis-pro/latest/arcpy/functions/featureclass-properties.html)
+  - [Table properties](https://doc.esri.com/en/arcgis-pro/latest/arcpy/functions/table-properties.html)
 
 <figure markdown>
 ![CO](../assets/cviceni9/python_window.png "Python Window"){ width="500" }
