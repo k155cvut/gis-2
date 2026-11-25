@@ -138,11 +138,13 @@ for row in rows:
     Výhodné je v tomto případě používat konstrukci `with`:
     
     ```py
-    with arcpy.SearchCursor(obce, "NAZ_OBEC = 'Lhota'") as rows:
-        for row in rows:
-            print("Prvek {}: ".format(row.NAZ_OBEC))
-            # ...
+    with arcpy.da.SearchCursor(obce, ["NAZ_OBEC"], "NAZ_OBEC = 'Lhota'") as rows:
+    for row in rows:
+        print("Prvek {}: ".format(row[0]))
+        # ...
     ```
+    
+    V tomto případě ale musíme použít modernější `arcpy.da.SearchCursor` namísto `arcpy.SearchCursor`.
     
 ## Další úlohy k procvičení
 
@@ -179,17 +181,19 @@ for row in rows:
    obce = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
 
    def pocet_obci_s_mensi_populaci(nazev_obce):
-       with arcpy.SearchCursor("ObcePolygony", "NAZ_OBEC = '{}'".format(nazev_obce)) as rows:
-          for row in rows:
-             pocet = row.POCET_OBYV
-             break
+       rows = arcpy.SearchCursor("ObcePolygony", "NAZ_OBEC = '{}'".format(nazev_obce))
+       for row in rows:
+          pocet_obyv = row.POCET_OBYV
+          break
+       del rows
     
        pocet = 0
-       with arcpy.SearchCursor("ObcePolygony") as rows:
-           for row in rows:
-              if row.POCET_OBYV is not None and row.POCET_OBYV < pocet:
-                  pocet += 1
-                  
+       rows = arcpy.SearchCursor("ObcePolygony")
+       for row in rows:
+          if row.POCET_OBYV is not None and row.POCET_OBYV < pocet_obyv:
+              pocet += 1
+       del rows
+       
        return pocet
 
    print(pocet_obci_s_mensi_populaci("Liberec"))
