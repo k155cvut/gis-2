@@ -16,12 +16,12 @@ Seznámení s Python balíčkem ArcPy.
 
 Užitečné odkazy:
 
-* [Python in ArcGIS Pro](https://pro.arcgis.com/en/pro-app/arcpy/get-started/installing-python-for-arcgis-pro.htm)
-* [A quick tour of creating tools with Python](https://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/a-quick-tour-of-creating-tools-in-python.htm)
-* [What is ArcPy?](https://pro.arcgis.com/en/pro-app/arcpy/get-started/what-is-arcpy-.htm)
-* [ArcGIS API for Python](https://pro.arcgis.com/en/pro-app/arcpy/get-started/arcgis-api-for-python.htm)
+* [Python in ArcGIS Pro](https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/installing-python-for-arcgis-pro.html)
+* [Quick tour of creating tools with Python](https://doc.esri.com/en/arcgis-pro/latest/arcpy/geoprocessing_and_python/a-quick-tour-of-creating-tools-in-python.html)
+* [Introduction to ArcPy](https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/what-is-arcpy-.html)
+* [ArcGIS API for Python](https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/arcgis-api-for-python.html)
 * [Overview of the ArcGIS API for Python](https://developers.arcgis.com/python/guide/overview-of-the-arcgis-api-for-python/)
-* [ArcPy API Reference](https://pro.arcgis.com/en/pro-app/arcpy/main/arcgis-pro-arcpy-reference.htm)
+* [ArcGIS Pro Python reference](https://doc.esri.com/en/arcgis-pro/latest/arcpy/main/arcgis-pro-arcpy-reference.html)
 * [Use ArcPy in a notebook](https://doc.arcgis.com/en/arcgis-online/reference/use-arcpy-in-your-notebook.htm)
 * [ArcGIS API for Python: ArcGIS in a Notebook](https://www.youtube.com/watch?v=FtuHFZUrrMc) (video)
 
@@ -33,21 +33,19 @@ Užitečné odkazy:
 
 ### Úvod
 
-Otevřte Python Window a vyzkoušejte úryvek kódu níže.
+Otevřte `Python Window` a vyzkoušejte úryvek kódu níže.
 
 ```py
 arcpy.env.workspace = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb"
 obce = arcpy.Describe("ObcePolygony")
 len(obce.fields)
-pocet = arcpy.GetCount_management("ObcePolygony")
-pocet.getOutput(0)
 ```
 
 Dokumentace:
 
-- [Describe](https://pro.arcgis.com/en/pro-app/arcpy/data-access/describe.htm)
-  - [FeatureClass properties](https://pro.arcgis.com/en/pro-app/arcpy/functions/featureclass-properties.htm)
-  - [Table properties](https://pro.arcgis.com/en/pro-app/arcpy/functions/table-properties.htm)
+- [Describe](https://doc.esri.com/en/arcgis-pro/latest/arcpy/data-access/describe.html)
+  - [FeatureClass properties](https://doc.esri.com/en/arcgis-pro/latest/arcpy/functions/featureclass-properties.html)
+  - [Table properties](https://doc.esri.com/en/arcgis-pro/latest/arcpy/functions/table-properties.html)
 
 <figure markdown>
 ![CO](../assets/cviceni9/python_window.png "Python Window"){ width="500" }
@@ -129,8 +127,70 @@ for row in rows:
             break
 ```
 
+!!! tip
+
+    Správně bychom měli po alokaci databázového kurzoru na konci paměť uvolnit:
+    
+    ```py
+    del rows
+    ```
+    
+    Výhodné je v tomto případě používat konstrukci `with`:
+    
+    ```py
+    with arcpy.SearchCursor(obce, "NAZ_OBEC = 'Lhota'") as rows:
+        for row in rows:
+            print("Prvek {}: ".format(row.NAZ_OBEC))
+            # ...
+    ```
+    
 ## Další úlohy k procvičení
 
-1. Pro jednotlivé kraje vytvořte třídy prvků ve formátu FileGDB
-1. Zjistěte, jaká obec v ČR má nejdelší hranici.
-1. Vytvořte funkci, která vrátí počet obcí s menším počet obyvatel než zadaná obec (jako parametr funkce).
+!!! task-fg-color "Úloha"
+
+    Zjistěte, jaká obec v ČR má nejdelší hranici.
+
+   ```py
+   obce = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
+   nejdelsi_obec = None
+   nejdelsi_delka = -1
+
+   # "SHAPE@" je speciální token vracející objekt geometrie (Polygon, Polyline, Point)
+   with arcpy.da.SearchCursor(obce, ["NAZ_OBEC", "SHAPE@"]) as radky:
+       for nazev, geometrie in radky:
+           if geometrie is None:
+               continue
+           # GEODETIC - měření po zemském povrchu (vhodné pro větší vzdálenosti a geografické souřadnice)
+           delka = geometrie.getLength("GEODESIC", "METERS")
+           if delka > nejdelsi_delka:
+               nejdelsi_obec = nazev
+               nejdelsi_delka = delka
+
+   print("{}: {:.0f} m".format(nejdelsi_obec, nejdelsi_delka))
+   ```
+
+!!! task-fg-color "Úloha"
+
+    Vytvořte funkci, která vrátí počet obcí s menším počet obyvatel než zadaná obec (jako parametr funkce).
+
+    Jde o variaci na úlohu "Vypiště obce, které mají počet obyvatel vyšší než Liberec".
+    
+   ```py
+   obce = r"S:\K155\Public\data\ArcGIS\ArcCR500 3.3\AdministrativniCleneni_v13.gdb\ObcePolygony"
+
+   def pocet_obci_s_mensi_populaci(nazev_obce):
+       with arcpy.SearchCursor("ObcePolygony", "NAZ_OBEC = '{}'".format(nazev_obce)) as rows:
+          for row in rows:
+             pocet = row.POCET_OBYV
+             break
+    
+       pocet = 0
+       with arcpy.SearchCursor("ObcePolygony") as rows:
+           for row in rows:
+              if row.POCET_OBYV is not None and row.POCET_OBYV < pocet:
+                  pocet += 1
+                  
+       return pocet
+
+   print(pocet_obci_s_mensi_populaci("Liberec"))
+   ```
